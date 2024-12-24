@@ -11,3 +11,15 @@ The platform focuses on improving recruitment efficiency with features such as:
 Built with scalability and user experience in mind, **RoundZer0** ensures a seamless journey for both recruiters and job seekers, empowering organizations to identify and connect with the right talent effectively.
 
 Explore the repository, share your feedback, or contribute to make **RoundZer0** even better!
+
+## Table of Contents
+
+- [Credits](#credits)
+
+
+
+
+## Credits
+
+- **Django Channels Documentation**
+    - [Django Channels](https://channels.readthedocs.io) Used for WebSockets.

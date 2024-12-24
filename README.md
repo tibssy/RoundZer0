@@ -22,4 +22,6 @@ Explore the repository, share your feedback, or contribute to make **RoundZer0**
 ## Credits
 
 - **Django Channels Documentation**
-    - [Django Channels](https://channels.readthedocs.io) Used for WebSockets.
+  - [Django Channels](https://channels.readthedocs.io) Used for WebSockets.
+- **Openai Documentation**
+  - [OpenAI](https://platform.openai.com/docs/overview) Used for Speech To Text

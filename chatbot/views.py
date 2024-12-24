@@ -3,4 +3,4 @@ from django.shortcuts import render
 
 # Create your views here.
 def chatbot_view(request):
-    return render(request, 'chatbot/chatbot.html')
+    return render(request, 'chatbot/index.html')

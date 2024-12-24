@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Voice Stream</title>
+</head>
+<body>
+    <h1>Voice Streaming Demo</h1>
+    <button id="start">Start Streaming</button>
+    <button id="stop" disabled>Stop Streaming</button>
+    <script>
+        const ws = new WebSocket('ws://' + window.location.host + '/ws/voice/');
+        let mediaRecorder;
+
+        document.getElementById('start').addEventListener('click', async () => {
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            mediaRecorder = new MediaRecorder(stream);
+            mediaRecorder.start();
+
+            mediaRecorder.ondataavailable = (event) => {
+                if (ws.readyState === WebSocket.OPEN) {
+                    ws.send(event.data);
+                }
+            };
+
+            document.getElementById('start').disabled = true;
+            document.getElementById('stop').disabled = false;
+        });
+
+        document.getElementById('stop').addEventListener('click', () => {
+            mediaRecorder.stop();
+            document.getElementById('start').disabled = false;
+            document.getElementById('stop').disabled = true;
+        });
+    </script>
+</body>
+</html>

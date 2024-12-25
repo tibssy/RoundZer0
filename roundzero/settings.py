@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ["127.0.0.1", ".herokuapp.com"]
 
 INSTALLED_APPS = [
     "daphne",
+    "channels",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -86,7 +87,8 @@ DATABASES = {
 }
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://roundzero-2ed378b75104.herokuapp.com",
+    "https://*.codeinstitute-ide.net/",
+    "https://*.herokuapp.com"
 ]
 
 

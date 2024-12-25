@@ -38,6 +38,4 @@ class VoiceConsumer(AsyncWebsocketConsumer):
             language=LANGUAGE,
             file=audio_file
         )
-
-        print(transcription)
         return transcription.text

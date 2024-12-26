@@ -32,7 +32,7 @@ class VoiceConsumer(AsyncWebsocketConsumer):
             text = self.assistant.speech_to_text(audio_buffer)
             print(f"Received voice data: {len(bytes_data)} bytes.\n\nText: {text}")
 
-            self.assistant.openai_chat(text)
+            text_stream = self.assistant.openai_chat(text)
 
         await self.send(text_data=json.dumps({"message": "Data received"}))
 
@@ -65,6 +65,5 @@ class Assistant:
                 stream=True
         ):
             if (text_chunk := chunk.choices[0].delta.content) is not None:
-                print(text_chunk, end='', flush=True)
                 self.chat_history[-1]['content'] += text_chunk
-                # yield text_chunk
+                yield text_chunk

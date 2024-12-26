@@ -1,5 +1,6 @@
 from channels.generic.websocket import AsyncWebsocketConsumer
 from openai import OpenAI
+import edge_tts
 import re
 import json
 import os
@@ -37,6 +38,9 @@ class VoiceConsumer(AsyncWebsocketConsumer):
             sentences = self.assistant.stream_to_sentences(text_stream)
             for sentence in sentences:
                 print(sentence)
+                audio_data = await self.assistant.text_to_speech(sentence)
+                if audio_data:
+                    await self.send(bytes_data=audio_data)
 
         await self.send(text_data=json.dumps({"message": "Data received"}))
 
@@ -71,6 +75,17 @@ class Assistant:
             if (text_chunk := chunk.choices[0].delta.content) is not None:
                 self.chat_history[-1]['content'] += text_chunk
                 yield text_chunk
+
+    async def text_to_speech(self, text: str):
+        # communicate = edge_tts.Communicate(text, VOICE)
+        communicate = edge_tts.Communicate(text)
+        audios = []
+        async for chunk in communicate.stream():
+            if chunk['type'] == 'audio':
+                audios.append(chunk['data'])
+        audio_data = b''.join(audios)
+        return audio_data
+
 
     def stream_to_sentences(self, stream):
         buffer = ""

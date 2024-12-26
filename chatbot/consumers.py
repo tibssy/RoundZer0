@@ -1,5 +1,6 @@
 from channels.generic.websocket import AsyncWebsocketConsumer
 from openai import OpenAI
+import re
 import json
 import os
 import io
@@ -33,6 +34,9 @@ class VoiceConsumer(AsyncWebsocketConsumer):
             print(f"Received voice data: {len(bytes_data)} bytes.\n\nText: {text}")
 
             text_stream = self.assistant.openai_chat(text)
+            sentences = self.assistant.stream_to_sentences(text_stream)
+            for sentence in sentences:
+                print(sentence)
 
         await self.send(text_data=json.dumps({"message": "Data received"}))
 
@@ -67,3 +71,22 @@ class Assistant:
             if (text_chunk := chunk.choices[0].delta.content) is not None:
                 self.chat_history[-1]['content'] += text_chunk
                 yield text_chunk
+
+    def stream_to_sentences(self, stream):
+        buffer = ""
+        sentence_endings = re.compile(r"[.!?]")
+
+        for chunk in stream:
+            buffer += chunk
+            while True:
+                match = sentence_endings.search(buffer)
+                if not match:
+                    break
+                sentence_end = match.end()
+                sentence = buffer[:sentence_end].strip()
+                buffer = buffer[sentence_end:]
+                if sentence:
+                    yield sentence
+
+        if buffer.strip():
+            yield buffer.strip()

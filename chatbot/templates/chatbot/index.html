@@ -3,16 +3,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Voice Stream</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Chatbot{% endblock %}</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    {% block head %}
+    <link rel="stylesheet" href="{% static 'css/chatbot.css' %}">
+    {% endblock %}
 </head>
 <body>
-    <h1>Voice Streaming Demo</h1>
-    <button id="start">Start Streaming</button>
-    <button id="stop" disabled>Stop Streaming</button>
-    <div id="messages"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+
+    </nav>
+    <div class="container">
+        <main class="mt-5">
+            <h1 class="text-center mb-4">Voice Streaming Demo</h1>
+            <div class="d-flex justify-content-center mb-4">
+                <button id="start" class="btn btn-primary me-2">Start Streaming</button>
+                <button id="stop" class="btn btn-danger" disabled>Stop Streaming</button>
+            </div>
+            <div id="messages" class="border p-3"></div>
+        </main>
+    </div>
+
 
     {% block scripts %}
     <script src="{% static 'js/chatbot.js' %}"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
     {% endblock %}
 </body>
 </html>

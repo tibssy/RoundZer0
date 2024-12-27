@@ -2,6 +2,7 @@ import os
 import io
 import json
 import re
+from datetime import datetime, timedelta
 from channels.generic.websocket import AsyncWebsocketConsumer
 from openai import OpenAI
 import edge_tts
@@ -14,7 +15,7 @@ if os.path.isfile('env.py'):
 class VoiceConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         """Initialize an Assistant instance for this WebSocket connection."""
-        self.assistant = Assistant(ai_provider='groq')
+        self.assistant = Assistant(ai_provider='groq', interview_duration=10)
         await self.accept()
 
     async def disconnect(self, close_code):
@@ -45,22 +46,31 @@ class VoiceConsumer(AsyncWebsocketConsumer):
 
 
 class Assistant:
-    def __init__(self, ai_provider='groq', language='en'):
+    def __init__(self, ai_provider='groq', language='en', interview_duration=30):
         """Initialize the Assistant with API key and language settings."""
         self.stt_model = None
         self.chat_model = None
+        self.initial_timestamp = datetime.now()
         self.language = language
+        self.interview_duration = interview_duration
         self.client = OpenAI()
         self.initialize_provider(ai_provider)
         self.system_message = (
-            "You are a professional interview assistant. Your name is Sarah. Guide "
-            "the conversation through a structured interview progression, starting "
-            "with an introduction, followed by technical questions, behavioral "
-            "questions, and concluding remarks. You can hear and respond in voice, "
-            "mimicking natural human interaction. Ensure all questions and answers "
-            "are phrased clearly and professionally, without slang, informal "
-            "phrases, or unprofessional language. Your responses must be concise "
-            "and conversational. Avoid using markdown or formatting in your replies."
+            f"You are a professional interview assistant. Your name is Sarah. Guide "
+            f"the conversation through a structured interview progression, starting "
+            f"with an introduction, followed by technical questions, behavioral "
+            f"questions, and concluding remarks. You can hear and respond in voice, "
+            f"mimicking natural human interaction. Ensure all questions and answers "
+            f"are phrased clearly and professionally, without slang, informal "
+            f"phrases, or unprofessional language. Your responses must be concise "
+            f"and conversational. Avoid using markdown or formatting in your replies. "
+            f"The interview started at {self.initial_timestamp.strftime('%Y-%m-%d %H:%M:%S')}. "
+            f"Use the timestamps in the user's messages to manage the interview flow "
+            f"and ensure it is completed within {self.interview_duration} minutes. "
+            f"In your initial response, mention the duration of the interview and "
+            f"set expectations for the flow. Afterward, do not mention the remaining time "
+            f"in every response unless it is necessary to guide the pace or alert the user "
+            f"to a time constraint for the current section."
         )
         self.chat_history = [{'role': 'system', 'content': self.system_message}]
 
@@ -75,6 +85,17 @@ class Assistant:
             self.client.api_key = os.environ.get('OPENAI_API_KEY')
             self.stt_model = 'whisper-1'
             self.chat_model = 'gpt-4o-mini'
+
+
+    def get_remaining_time(self):
+        current_timestamp = datetime.now()
+        elapsed_time = current_timestamp - self.initial_timestamp
+        time_left = timedelta(minutes=self.interview_duration) - elapsed_time
+        time_left_minutes = max(time_left.total_seconds() // 60, 0)
+        return {
+            'current_timestamp': current_timestamp.strftime("%Y-%m-%d %H:%M:%S"),
+            'time_left': int(time_left_minutes)
+        }
 
     def speech_to_text(self, audio_file):
         """Convert speech to text using OpenAI's Whisper model."""
@@ -91,7 +112,14 @@ class Assistant:
 
     def openai_chat(self, text: str):
         """Generate chat responses using OpenAI's GPT model."""
-        self.chat_history.append({'role': 'user', 'content': text})
+        time_data = self.get_remaining_time()
+        current_time = time_data.get('current_timestamp')
+        remaining_time = time_data.get('time_left')
+
+        self.chat_history.append({
+            'role': 'user',
+            'content': f'{text} | timestamp: {current_time}, remaining: {remaining_time} minutes.'}
+        )
         self.chat_history.append({'role': 'assistant', 'content': ''})
 
         try:

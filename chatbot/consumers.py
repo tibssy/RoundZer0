@@ -13,7 +13,7 @@ if os.path.isfile('env.py'):
 # Constants
 LANGUAGE = 'en'
 OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
-SYSTEM_MESSAGE = "You are a professional interview assistant. Respond with clear and professional questions and answers"
+SYSTEM_MESSAGE = 'You are a professional interview assistant. Respond with clear and professional questions and answers'
 
 
 class VoiceConsumer(AsyncWebsocketConsumer):
@@ -31,7 +31,7 @@ class VoiceConsumer(AsyncWebsocketConsumer):
         if bytes_data:
             await self.process_voice_data(bytes_data)
 
-        await self.send(text_data=json.dumps({"message": "Data received"}))
+        await self.send(text_data=json.dumps({'message': 'Data received'}))
 
     async def process_voice_data(self, bytes_data):
         """Process the voice data received from WebRTC."""
@@ -51,50 +51,63 @@ class VoiceConsumer(AsyncWebsocketConsumer):
 
 
 class Assistant:
-    def __init__(self, api_key, base_url = None, language='en'):
+    def __init__(self, api_key, base_url=None, language='en'):
+        """Initialize the Assistant with API key and language settings."""
         self.api_key = api_key
         self.language = language
         self.client = OpenAI(api_key=self.api_key)
         if base_url:
             self.client.base_url = base_url
 
-        self.chat_history = [{"role": "system", "content": SYSTEM_MESSAGE}]
+        self.chat_history = [{'role': 'system', 'content': SYSTEM_MESSAGE}]
 
     def speech_to_text(self, audio_file):
-        transcription = self.client.audio.transcriptions.create(
-            model="whisper-1",
-            language=self.language,
-            file=audio_file
-        )
-        return transcription.text
+        """Convert speech to text using OpenAI's Whisper model."""
+        try:
+            transcription = self.client.audio.transcriptions.create(
+                model='whisper-1',
+                language=self.language,
+                file=audio_file
+            )
+            return transcription.text
+        except Exception as e:
+            print(f'Error in speech_to_text: {e}')
+            return ''
 
     def openai_chat(self, text: str):
+        """Generate chat responses using OpenAI's GPT model."""
         self.chat_history.append({'role': 'user', 'content': text})
         self.chat_history.append({'role': 'assistant', 'content': ''})
 
-        for chunk in self.client.chat.completions.create(
-                model='gpt-4o-mini',
-                messages=self.chat_history,
-                stream=True
-        ):
-            if (text_chunk := chunk.choices[0].delta.content) is not None:
-                self.chat_history[-1]['content'] += text_chunk
-                yield text_chunk
+        try:
+            for chunk in self.client.chat.completions.create(
+                    model='gpt-4o-mini',
+                    messages=self.chat_history,
+                    stream=True
+            ):
+                if (text_chunk := chunk.choices[0].delta.content) is not None:
+                    self.chat_history[-1]['content'] += text_chunk
+                    yield text_chunk
+        except Exception as e:
+            print(f'Error in openai_chat: {e}')
 
     async def text_to_speech(self, text: str):
-        # communicate = edge_tts.Communicate(text, VOICE)
-        communicate = edge_tts.Communicate(text)
-        audios = []
-        async for chunk in communicate.stream():
-            if chunk['type'] == 'audio':
-                audios.append(chunk['data'])
-        audio_data = b''.join(audios)
-        return audio_data
-
+        """Convert text to speech using Edge TTS."""
+        try:
+            communicate = edge_tts.Communicate(text)
+            audios = []
+            async for chunk in communicate.stream():
+                if chunk['type'] == 'audio':
+                    audios.append(chunk['data'])
+            return b''.join(audios)
+        except Exception as e:
+            print(f'Error in text_to_speech: {e}')
+            return None
 
     def stream_to_sentences(self, stream):
-        buffer = ""
-        sentence_endings = re.compile(r"[.!?]")
+        """Split a stream of text into sentences."""
+        buffer = ''
+        sentence_endings = re.compile(r'[.!?]')
 
         for chunk in stream:
             buffer += chunk

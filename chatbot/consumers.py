@@ -10,16 +10,11 @@ import edge_tts
 if os.path.isfile('env.py'):
     import env
 
-# Constants
-LANGUAGE = 'en'
-OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
-SYSTEM_MESSAGE = 'You are a professional interview assistant. Respond with clear and professional questions and answers'
-
 
 class VoiceConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         """Initialize an Assistant instance for this WebSocket connection."""
-        self.assistant = Assistant(api_key=OPENAI_API_KEY, language=LANGUAGE)
+        self.assistant = Assistant(ai_provider='groq')
         await self.accept()
 
     async def disconnect(self, close_code):
@@ -39,7 +34,6 @@ class VoiceConsumer(AsyncWebsocketConsumer):
         audio_buffer.name = 'speech.ogg'
         audio_buffer.seek(0)
 
-        # text = self.assistant.speech_to_text(audio_buffer)
         if text := self.assistant.speech_to_text(audio_buffer).strip():
             text_stream = self.assistant.openai_chat(text)
             sentences = self.assistant.stream_to_sentences(text_stream)
@@ -51,21 +45,33 @@ class VoiceConsumer(AsyncWebsocketConsumer):
 
 
 class Assistant:
-    def __init__(self, api_key, base_url=None, language='en'):
+    def __init__(self, ai_provider='groq', language='en'):
         """Initialize the Assistant with API key and language settings."""
-        self.api_key = api_key
+        self.stt_model = None
+        self.chat_model = None
         self.language = language
-        self.client = OpenAI(api_key=self.api_key)
-        if base_url:
-            self.client.base_url = base_url
+        self.client = OpenAI()
+        self.initialize_provider(ai_provider)
+        self.system_message = 'You are a professional interview assistant. Respond with clear and professional questions and answers'
+        self.chat_history = [{'role': 'system', 'content': self.system_message}]
 
-        self.chat_history = [{'role': 'system', 'content': SYSTEM_MESSAGE}]
+    def initialize_provider(self, provider):
+        """Initialize AI models based on provider like OpenAI or Groq"""
+        if provider == 'groq':
+            self.client.base_url = 'https://api.groq.com/openai/v1'
+            self.client.api_key = os.environ.get('GROQ_API_KEY')
+            self.stt_model = 'whisper-large-v3'
+            self.chat_model = 'llama-3.3-70b-specdec'
+        elif provider == 'openai':
+            self.client.api_key = os.environ.get('OPENAI_API_KEY')
+            self.stt_model = 'whisper-1'
+            self.chat_model = 'gpt-4o-mini'
 
     def speech_to_text(self, audio_file):
         """Convert speech to text using OpenAI's Whisper model."""
         try:
             transcription = self.client.audio.transcriptions.create(
-                model='whisper-1',
+                model=self.stt_model,
                 language=self.language,
                 file=audio_file
             )
@@ -81,7 +87,7 @@ class Assistant:
 
         try:
             for chunk in self.client.chat.completions.create(
-                    model='gpt-4o-mini',
+                    model=self.chat_model,
                     messages=self.chat_history,
                     stream=True
             ):

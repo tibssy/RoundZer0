@@ -1,0 +1,25 @@
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+}
+footer {
+    margin-top: auto; /* This will push footer to the bottom */
+}
+/* Remove margin from container */
+.container{
+    max-width: 100%;
+    width: 100%;
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+
+.navbar {
+    width: 100%;
+    max-width: 100%;
+}

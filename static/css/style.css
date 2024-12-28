@@ -24,9 +24,8 @@ footer {
     max-width: 100%;
 }
 
-#nav-content {
-    display: flex;
-    gap: 6px
+#navbarNav {
+    gap: 6px;
 }
 
 .nav-item.dropdown {
@@ -45,15 +44,33 @@ footer {
 .nav-item.dropdown .nav-link i{
     display: flex;
     align-items: center;
+}
+
+.user-icon {
     font-size: 25px;
+    margin-right: 5px;
     color: white;
 }
 
+#user-menu-mobile {
+    display: none;
+}
 
 @media (max-width: 992px) {
-    #nav-content {
-        flex-direction: column-reverse;
-        margin-top: 20px;
+    #user-menu-mobile {
+        display: flex;
+        justify-content: space-between;
+        margin: 10px 0;
+
+        & a {
+            color: white;
+            font-size: 1.2rem;
+            text-align: center;
+            text-decoration: none;
+        }
+    }
+    #user-menu {
+        display: none;
     }
 }
 

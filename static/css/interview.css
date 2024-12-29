@@ -24,9 +24,10 @@ main {
     border-radius: 12px;
     text-align: center;
     overflow: hidden;
+    position: relative;
 }
 
-.camera-placeholder-text{
+.camera-placeholder-text {
     color: #ddd;
 }
 
@@ -38,12 +39,67 @@ main {
     height: 150px;
     border-radius: 12px;
     overflow: hidden;
-     background-color: #343a40;
+    background-color: #343a40;
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
 }
 
 #local-camera-preview {
-    display: none;
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: opacity 0.3s ease;
+}
+
+#local-camera-off-text {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 1;
+    color: #ddd;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 20px;
+    width: 100%;
+}
+
+.bottom-controls {
+    position: absolute;
+    bottom: 0px;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.control-btn {
+    background-color: #495057;
+    border: none;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    font-size: 1.3rem;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.control-btn:hover {
+  background-color: #5a6268;
+}
+
+.control-btn.mic-off i {
+    color: red;
+}
+
+.control-btn.camera-off i {
+    color: red;
 }

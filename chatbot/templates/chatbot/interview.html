@@ -18,12 +18,16 @@
 </head>
 <body>
     <div class="container-fluid room-container">
-       <div class="camera-placeholder">
-           <video id="video-placeholder" autoplay loop muted></video>
-       </div>
-        <div id="my-camera" class="my-camera">
-            <video id="local-camera-preview" autoplay playsinline></video>
-           <span id="local-camera-off-text" style="color: #ddd;">Camera is off</span>
+        <div class="camera-placeholder">
+            <video id="video-placeholder" autoplay loop muted></video>
+            <div id="my-camera" class="my-camera">
+                <video id="local-camera-preview" autoplay playsinline></video>
+                <span id="local-camera-off-text" style="color: #ddd;">Camera is off</span>
+            </div>
+        </div>
+        <div class="controls bottom-controls">
+            <button id="mic-toggle" class="control-btn mic-on"><i class="bi bi-mic-fill"></i></button>
+            <button id="camera-toggle" class="control-btn camera-on"><i class="bi bi-camera-video-fill"></i></button>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

@@ -1,20 +1,20 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Chatbot Room{% endblock %}
+{% block title %}Interview{% endblock %}
 
 {% block content %}
-    <div class="container d-flex align-items-center justify-content-center" style="min-height: 90vh;">
+    <div class="container d-flex align-items-center justify-content-center" style="min-height: 80vh;">
         <div class="row justify-content-center w-100">
             <div class="col-md-6 text-center">
                 <div class="card shadow camera-container">
-                    <video id="camera-preview" autoplay playsinline></video>
+                    <video id="camera-preview" autoplay playsinline title="Camera preview"></video>
                     <span id="camera-off-text" style="color: #ddd;">Camera is off</span>
                 </div>
             </div>
             <div class="col-md-4 text-center">
                 <div class="d-flex flex-column align-items-center justify-content-center h-100">
-                    <h2 class="mb-3">Ready to join?</h2>
+                    <h2 class="mb-4">Ready to join?</h2>
                     <button type="button" id="join-button" class="btn btn-primary btn-lg mb-2">Join now</button>
                 </div>
             </div>

@@ -62,6 +62,7 @@ footer {
     border-radius: 12px;
     width: 100%;
     min-height: 40vh;
+    margin: 16px auto;
     background-color: #343a40;
     overflow: hidden;
 }

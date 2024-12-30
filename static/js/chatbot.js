@@ -6,6 +6,9 @@ let audioContext;
 let audioQueue = [];
 let audioSource;
 let isPlaying = false;
+let isRecording = false;
+const recordToggleButton = document.getElementById('record-toggle');
+const videoPlaceholder = document.getElementById('video-placeholder');
 
 ws.onopen = () => {
     console.log("WebSocket connection opened");
@@ -22,9 +25,6 @@ ws.onmessage = (event) => {
     } else {
         const data = JSON.parse(event.data);
         console.log("Received text data", data);
-        if (data.message) {
-            appendMessage(data.message);
-        }
     }
 };
 
@@ -36,16 +36,13 @@ ws.onclose = (event) => {
     console.log('WebSocket closed', event);
 };
 
-function appendMessage(message) {
-    const messagesDiv = document.getElementById('messages');
-    const messageDiv = document.createElement('p');
-    messageDiv.textContent = message;
-    messagesDiv.appendChild(messageDiv);
-}
-
 async function playNextAudio() {
     if (audioQueue.length === 0) {
         isPlaying = false;
+        console.log("All audio finished playing.");
+        if(videoPlaceholder) {
+            videoPlaceholder.pause();
+        }
         return;
     }
 
@@ -54,6 +51,10 @@ async function playNextAudio() {
     const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
 
     isPlaying = true;
+    console.log("Audio playback starting.");
+    if(videoPlaceholder) {
+        videoPlaceholder.play();
+    }
 
     if (audioSource) {
         audioSource.stop();
@@ -71,23 +72,25 @@ async function playNextAudio() {
     audioSource.start();
 }
 
-document.getElementById('start').addEventListener('click', async () => {
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    mediaRecorder = new MediaRecorder(stream);
-    mediaRecorder.start();
+const toggleRecording = async () => {
+    console.log(isRecording);
+    recordToggleButton.classList.toggle('record-on')
+    if (!isRecording) {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        mediaRecorder = new MediaRecorder(stream);
+        mediaRecorder.start();
+        isRecording = true;
 
-    mediaRecorder.ondataavailable = (event) => {
-        if (ws.readyState === WebSocket.OPEN) {
-            ws.send(event.data);
-        }
-    };
+        mediaRecorder.ondataavailable = (event) => {
+            if (ws.readyState === WebSocket.OPEN) {
+                ws.send(event.data);
+            }
+        };
+    } else {
+        mediaRecorder.stop();
+        isRecording = false;
+    }
+};
 
-    document.getElementById('start').disabled = true;
-    document.getElementById('stop').disabled = false;
-});
+recordToggleButton.addEventListener('click', toggleRecording);
 
-document.getElementById('stop').addEventListener('click', () => {
-    mediaRecorder.stop();
-    document.getElementById('start').disabled = false;
-    document.getElementById('stop').disabled = true;
-});

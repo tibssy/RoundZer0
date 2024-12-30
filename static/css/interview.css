@@ -114,3 +114,12 @@ main {
         background-color: #c82333; /* Darker red */
     }
 }
+
+#record-toggle:hover {
+    background-color: green;
+}
+
+.record-on {
+    background-color: red;
+}
+

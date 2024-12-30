@@ -67,6 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 '/static/videos/goat.webm',
                 '/static/videos/bear.webm',
                 '/static/videos/rabbit.webm',
+                '/static/videos/cat.webm',
             ];
             const selectedVideo = videoFiles[Math.floor(Math.random() * videoFiles.length)];
             const source = document.createElement('source');

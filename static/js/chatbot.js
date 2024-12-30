@@ -73,7 +73,6 @@ async function playNextAudio() {
 }
 
 const toggleRecording = async () => {
-    console.log(isRecording);
     recordToggleButton.classList.toggle('record-on')
     if (!isRecording) {
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });

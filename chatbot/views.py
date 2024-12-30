@@ -6,3 +6,6 @@ def chatbot_index(request):
 
 def chatbot_interview(request):
     return render(request, 'chatbot/interview.html')
+
+def vouce_interview(request):
+    return render(request, 'chatbot/chatbot.html')

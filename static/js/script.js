@@ -1,174 +1,136 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
     const joinButton = document.getElementById('join-button');
-    if(joinButton) {
-        joinButton.addEventListener('click', function() {
-            window.location.href = '/chatbot/interview/';
-        });
-    }
-
     const cameraPreview = document.getElementById('camera-preview');
     const cameraOffText = document.getElementById('camera-off-text');
-
     const localCameraPreview = document.getElementById('local-camera-preview');
     const localCameraOffText = document.getElementById('local-camera-off-text');
+    const micToggleButton = document.getElementById('mic-toggle');
+    const cameraToggleButton = document.getElementById('camera-toggle');
+    const endInterviewButton = document.getElementById('end-interview');
+    const videoPlaceholder = document.getElementById('video-placeholder');
 
     let stream = null;
     let localStream = null;
     let isMicOn = true;
     let isCameraOn = true;
 
-        // Get the buttons from the DOM
-    const micToggleButton = document.getElementById('mic-toggle');
-    const cameraToggleButton = document.getElementById('camera-toggle');
-    const endInterviewButton = document.getElementById('end-interview');
+    const toggleClass = (element, condition, classOn, classOff, iconOn, iconOff) => {
+        if (condition) {
+            element.classList.remove(classOff);
+            element.classList.add(classOn);
+            element.innerHTML = iconOn;
+        } else {
+            element.classList.remove(classOn);
+            element.classList.add(classOff);
+            element.innerHTML = iconOff;
+        }
+    };
 
-
-    // Function to request camera and microphone permissions
-    async function requestMediaPermissions(cameraPreviewElement, cameraOffTextElement, streamVariable, isLocal) {
+    const requestMediaPermissions = async (previewElement, offTextElement, isLocal) => {
         try {
-            const stream = await navigator.mediaDevices.getUserMedia({
+            const mediaStream = await navigator.mediaDevices.getUserMedia({
                 video: isCameraOn,
                 audio: isMicOn
             });
 
-            //Set audio volume to 0 in all video tags
-            if(stream){
-                if(isLocal && localCameraPreview){
+            if (mediaStream) {
+                if (isLocal && localCameraPreview) {
                     localCameraPreview.volume = 0;
                 } else if (cameraPreview) {
                     cameraPreview.volume = 0;
                 }
             }
 
-            // Set the video source to the stream
-            if(cameraPreviewElement){
-                cameraPreviewElement.srcObject = stream;
+            if (previewElement) {
+                previewElement.srcObject = mediaStream;
+                previewElement.style.opacity = isCameraOn ? 1 : 0;
             }
-            // Show the video element and hide the text message
-            if(cameraPreviewElement){
-                cameraPreviewElement.style.opacity = isCameraOn ? 1 : 0;
-            }
-            if(cameraOffTextElement){
-                cameraOffTextElement.style.display = isCameraOn ? 'none' : 'flex';
+            if (offTextElement) {
+                offTextElement.style.display = isCameraOn ? 'none' : 'flex';
             }
 
-            if(isLocal){
-                localStream = stream;
-            }else{
-                streamVariable = stream;
+            if (isLocal) {
+                localStream = mediaStream;
+            } else {
+                stream = mediaStream;
             }
-
         } catch (error) {
             console.error('Error requesting camera and microphone permissions:', error);
-            if(cameraPreviewElement){
-                 cameraPreviewElement.style.opacity = 0;
-            }
-            if(cameraOffTextElement){
-                 cameraOffTextElement.style.display = 'flex';
-            }
+            if (previewElement) previewElement.style.opacity = 0;
+            if (offTextElement) offTextElement.style.display = 'flex';
         }
+    };
+
+    const initializeVideoPlaceholder = () => {
+        if (videoPlaceholder) {
+            const videoFiles = [
+                '/static/videos/goat.webm',
+                '/static/videos/bear.webm',
+                '/static/videos/rabbit.webm',
+            ];
+            const selectedVideo = videoFiles[Math.floor(Math.random() * videoFiles.length)];
+            const source = document.createElement('source');
+            source.src = selectedVideo;
+            source.type = 'video/webm';
+            videoPlaceholder.appendChild(source);
+        }
+    };
+
+    const handleToggle = (toggleButton, isOn, classOn, classOff, iconOn, iconOff) => {
+        toggleClass(toggleButton, isOn, classOn, classOff, iconOn, iconOff);
+        if (localCameraPreview && localCameraOffText) {
+            requestMediaPermissions(localCameraPreview, localCameraOffText, true);
+        }
+        if (cameraPreview && cameraOffText) {
+            requestMediaPermissions(cameraPreview, cameraOffText, false);
+        }
+    };
+
+    const endInterview = () => {
+        console.log('Interview Ended');
+        [localStream, stream].forEach((s, index) => {
+            if (s) {
+                s.getTracks().forEach(track => track.stop());
+                if (index === 0 && localCameraPreview) {
+                    localCameraPreview.srcObject = null;
+                } else if (index === 1 && cameraPreview) {
+                    cameraPreview.srcObject = null;
+                }
+            }
+        });
+        window.location.href = "/chatbot/";
+    };
+
+    if (joinButton) {
+        joinButton.addEventListener('click', () => {
+            window.location.href = '/chatbot/interview/';
+        });
     }
 
-
-    // Call the function to request permissions
-    if(cameraPreview && cameraOffText){
-        requestMediaPermissions(cameraPreview, cameraOffText, stream, false);
+    if (cameraPreview && cameraOffText) {
+        requestMediaPermissions(cameraPreview, cameraOffText, false);
     }
-     if(localCameraPreview && localCameraOffText){
-       requestMediaPermissions(localCameraPreview,localCameraOffText, localStream, true);
+    if (localCameraPreview && localCameraOffText) {
+        requestMediaPermissions(localCameraPreview, localCameraOffText, true);
     }
 
+    initializeVideoPlaceholder();
 
-    // Dynamic Video Logic
-    const videoPlaceholder = document.getElementById('video-placeholder');
-
-    if(videoPlaceholder){
-        const videoFiles = [
-            '/static/videos/goat.mp4',
-            '/static/videos/bear.mp4',
-            '/static/videos/rabbit.mp4',
-        ];
-
-        const randomIndex = Math.floor(Math.random() * videoFiles.length);
-        const selectedVideo = videoFiles[randomIndex];
-
-        const source = document.createElement('source');
-        source.src = selectedVideo;
-        source.type = 'video/mp4';
-
-        videoPlaceholder.appendChild(source);
-    }
-
-   if(micToggleButton){
-        //Add event listeners to the buttons
-        micToggleButton.addEventListener('click', function() {
+    if (micToggleButton) {
+        micToggleButton.addEventListener('click', () => {
             isMicOn = !isMicOn;
-                if(isMicOn){
-                    micToggleButton.classList.remove('mic-off');
-                    micToggleButton.classList.add('mic-on');
-                    micToggleButton.innerHTML =  '<i class="bi bi-mic-fill"></i>';
-                }else {
-                    micToggleButton.classList.remove('mic-on');
-                    micToggleButton.classList.add('mic-off');
-                    micToggleButton.innerHTML =  '<i class="bi bi-mic-mute-fill"></i>';
-                }
-                 if (localCameraPreview && localCameraOffText) {
-                    requestMediaPermissions(localCameraPreview, localCameraOffText, localStream, true);
-                }
-                if (cameraPreview && cameraOffText) {
-                    requestMediaPermissions(cameraPreview, cameraOffText, stream, false);
-                }
-        })
-   }
-
-
-    if (cameraToggleButton){
-        cameraToggleButton.addEventListener('click', function() {
-            isCameraOn = !isCameraOn;
-                if(isCameraOn) {
-                    cameraToggleButton.classList.remove('camera-off');
-                    cameraToggleButton.classList.add('camera-on');
-                    cameraToggleButton.innerHTML =  '<i class="bi bi-camera-video-fill"></i>';
-                }else {
-                    cameraToggleButton.classList.remove('camera-on');
-                    cameraToggleButton.classList.add('camera-off');
-                    cameraToggleButton.innerHTML =  '<i class="bi bi-camera-video-off-fill"></i>';
-                }
-                if (localCameraPreview && localCameraOffText) {
-                     requestMediaPermissions(localCameraPreview, localCameraOffText, localStream, true);
-                }
-
-                if (cameraPreview && cameraOffText) {
-                    requestMediaPermissions(cameraPreview, cameraOffText, stream, false);
-                }
-        })
+            handleToggle(micToggleButton, isMicOn, 'mic-on', 'mic-off', '<i class="bi bi-mic-fill"></i>', '<i class="bi bi-mic-mute-fill"></i>');
+        });
     }
 
+    if (cameraToggleButton) {
+        cameraToggleButton.addEventListener('click', () => {
+            isCameraOn = !isCameraOn;
+            handleToggle(cameraToggleButton, isCameraOn, 'camera-on', 'camera-off', '<i class="bi bi-camera-video-fill"></i>', '<i class="bi bi-camera-video-off-fill"></i>');
+        });
+    }
 
-    if(endInterviewButton) {
-        endInterviewButton.addEventListener('click', function() {
-             // Implement any necessary cleanup for ending the interview here.
-            console.log('Interview Ended');
-
-            // Stop local stream if available:
-            if (localStream) {
-                 localStream.getTracks().forEach(track => track.stop());
-                 if (localCameraPreview){
-                   localCameraPreview.srcObject = null;
-                 }
-                }
-
-            // Stop remote stream if available:
-            if (stream) {
-                 stream.getTracks().forEach(track => track.stop());
-                  if(cameraPreview){
-                     cameraPreview.srcObject = null;
-                  }
-                }
-
-               //Redirect to a new page
-            window.location.href = "/chatbot/";
-
-        })
+    if (endInterviewButton) {
+        endInterviewButton.addEventListener('click', endInterview);
     }
 });

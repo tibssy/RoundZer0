@@ -64,7 +64,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const initializeVideoPlaceholder = () => {
         if (videoPlaceholder) {
             const videoFiles = [
+                '/static/videos/sloth.webm',
+                '/static/videos/capybara.webm',
+                '/static/videos/rabbit2.webm',
+                '/static/videos/fox.webm',
+                '/static/videos/parrot.webm',
+                '/static/videos/squirrel.webm',
+                '/static/videos/dog.webm',
                 '/static/videos/goat.webm',
+                '/static/videos/goat2.webm',
                 '/static/videos/bear.webm',
                 '/static/videos/rabbit.webm',
                 '/static/videos/cat.webm',

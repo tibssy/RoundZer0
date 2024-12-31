@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (previewElement) {
                 previewElement.srcObject = mediaStream;
-                previewElement.style.opacity = isCameraOn ? 1 : 0;
+                previewElement.style.display = isCameraOn ? 'unset' : 'none';
             }
             if (offTextElement) {
                 offTextElement.style.display = isCameraOn ? 'none' : 'flex';
@@ -55,7 +55,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         } catch (error) {
             console.error('Error requesting camera and microphone permissions:', error);
-            if (previewElement) previewElement.style.opacity = 0;
             if (offTextElement) offTextElement.style.display = 'flex';
         }
     };

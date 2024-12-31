@@ -24,19 +24,19 @@
             <video id="video-placeholder" loop muted></video>
             <div id="my-camera" class="my-camera">
                 <video id="local-camera-preview" autoplay playsinline></video>
-                <span id="local-camera-off-text" style="color: #ddd;">Camera is off</span>
+                <lottie-player id="local-camera-off" src="{% static 'lottie/audio_indicator.json' %}" speed="1" loop style="width: 100%; height: 100%;"></lottie-player>
             </div>
         </div>
     </main>
 
     <div id="controls">
         <button id="record-toggle" class="control-btn"><i class="bi bi-record-circle-fill"></i></button>
-        <button id="mic-toggle" class="control-btn mic-on"><i class="bi bi-mic-fill"></i></button>
         <button id="camera-toggle" class="control-btn camera-on"><i class="bi bi-camera-video-fill"></i></button>
         <button id="end-interview" class="control-btn end-interview-btn"><i class="bi bi-telephone-fill"></i></button>
     </div>
-
     <script src="{% static 'js/script.js' %}"></script>
     <script src="{% static 'js/chatbot.js' %}"></script>
+    <!-- Lottie -->
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 </body>
 </html>

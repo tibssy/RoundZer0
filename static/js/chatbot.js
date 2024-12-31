@@ -9,6 +9,7 @@ let isPlaying = false;
 let isRecording = false;
 const recordToggleButton = document.getElementById('record-toggle');
 const videoPlaceholder = document.getElementById('video-placeholder');
+const cameraOffLottieContainer = document.getElementById('local-camera-off');
 
 ws.onopen = () => {
     console.log("WebSocket connection opened");
@@ -78,6 +79,7 @@ const toggleRecording = async () => {
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
         mediaRecorder = new MediaRecorder(stream);
         mediaRecorder.start();
+        cameraOffLottieContainer.play()
         isRecording = true;
 
         mediaRecorder.ondataavailable = (event) => {
@@ -87,6 +89,7 @@ const toggleRecording = async () => {
         };
     } else {
         mediaRecorder.stop();
+        cameraOffLottieContainer.pause()
         isRecording = false;
     }
 };

@@ -3,8 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const cameraPreview = document.getElementById('camera-preview');
     const cameraOffText = document.getElementById('camera-off-text');
     const localCameraPreview = document.getElementById('local-camera-preview');
-    const localCameraOffText = document.getElementById('local-camera-off-text');
-    const micToggleButton = document.getElementById('mic-toggle');
+    const localCameraOff = document.getElementById('local-camera-off');
     const cameraToggleButton = document.getElementById('camera-toggle');
     const endInterviewButton = document.getElementById('end-interview');
     const videoPlaceholder = document.getElementById('video-placeholder');
@@ -87,8 +86,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const handleToggle = (toggleButton, isOn, classOn, classOff, iconOn, iconOff) => {
         toggleClass(toggleButton, isOn, classOn, classOff, iconOn, iconOff);
-        if (localCameraPreview && localCameraOffText) {
-            requestMediaPermissions(localCameraPreview, localCameraOffText, true);
+        if (localCameraPreview && localCameraOff) {
+            requestMediaPermissions(localCameraPreview, localCameraOff, true);
         }
         if (cameraPreview && cameraOffText) {
             requestMediaPermissions(cameraPreview, cameraOffText, false);
@@ -119,18 +118,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if (cameraPreview && cameraOffText) {
         requestMediaPermissions(cameraPreview, cameraOffText, false);
     }
-    if (localCameraPreview && localCameraOffText) {
-        requestMediaPermissions(localCameraPreview, localCameraOffText, true);
+    if (localCameraPreview && localCameraOff) {
+        requestMediaPermissions(localCameraPreview, localCameraOff, true);
     }
 
     initializeVideoPlaceholder();
 
-    if (micToggleButton) {
-        micToggleButton.addEventListener('click', () => {
-            isMicOn = !isMicOn;
-            handleToggle(micToggleButton, isMicOn, 'mic-on', 'mic-off', '<i class="bi bi-mic-fill"></i>', '<i class="bi bi-mic-mute-fill"></i>');
-        });
-    }
+
 
     if (cameraToggleButton) {
         cameraToggleButton.addEventListener('click', () => {

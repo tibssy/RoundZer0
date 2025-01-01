@@ -134,6 +134,17 @@ footer {
     color: red;
 }
 
+.save-icon {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.save-icon:hover {
+  color: #007bff;
+}
+
+
 @media (max-width: 992px) {
     #user-menu-mobile {
         display: flex;

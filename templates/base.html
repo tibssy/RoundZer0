@@ -46,7 +46,7 @@
                             <a class="nav-link active" href="#">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'jobs' %}">Jobs</a>
+                            <a class="nav-link {% if request.path == jobs_url %}active{% endif %}" aria-current="page" href="{% url 'jobs' %}">Jobs</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Candidates</a>

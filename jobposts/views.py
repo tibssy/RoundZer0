@@ -9,5 +9,5 @@ from .models import JobPost
 
 class JobList(generic.ListView):
     # model = JobPost
-    queryset = JobPost.objects.all()
+    queryset = JobPost.objects.all().order_by("created_on")
     template_name = "jobposts/index.html"

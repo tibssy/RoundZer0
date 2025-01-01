@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Interview{% endblock %}
+
+{% block content %}
+    <h1>Job Openings</h1>
+{% endblock %}
+
+{% block scripts %}
+   {{block.super}}
+   <script src="{% static 'js/script.js' %}"></script>
+{% endblock %}

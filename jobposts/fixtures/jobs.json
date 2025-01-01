@@ -1,0 +1,163 @@
+[
+    {
+        "model": "jobposts.JobPost",
+        "pk": null,
+        "fields": {
+            "title": "Junior Software Developer",
+            "company_name": "TechNova Inc.",
+            "location": "New York, NY",
+            "employment_type": "FT",
+            "description": "Join our dynamic team to design, develop, and implement software solutions. This position offers the chance to learn from experienced developers and work on exciting projects in a fast-paced environment. Responsibilities include debugging, code optimization, and feature implementation for our core applications.",
+            "requirements": "Proficiency in Python or Java. Familiarity with Git and agile workflows. Excellent problem-solving skills and ability to learn quickly.",
+            "created_on": "2025-01-01T10:00:00Z",
+            "updated_on": "2025-01-01T10:00:00Z",
+            "application_deadline": "2025-02-15",
+            "author": 1
+        }
+    },
+    {
+        "model": "jobposts.JobPost",
+        "pk": null,
+        "fields": {
+            "title": "Data Analyst Intern",
+            "company_name": "DataCraft Solutions",
+            "location": "San Francisco, CA",
+            "employment_type": "IN",
+            "description": "As a Data Analyst Intern, you will assist our data team in collecting, cleaning, and analyzing datasets. You'll help transform raw data into meaningful insights for clients, gaining hands-on experience with industry-standard tools and methodologies.",
+            "requirements": "Basic understanding of SQL and data visualization tools like Tableau or Power BI. Strong attention to detail and analytical thinking.",
+            "created_on": "2025-01-01T10:00:00Z",
+            "updated_on": "2025-01-01T10:00:00Z",
+            "application_deadline": "2025-03-01",
+            "author": 1
+        }
+    },
+    {
+        "model": "jobposts.JobPost",
+        "pk": null,
+        "fields": {
+            "title": "Graphic Designer",
+            "company_name": "Creative Minds Agency",
+            "location": "Austin, TX",
+            "employment_type": "FT",
+            "description": "We are seeking a talented Graphic Designer to create compelling visuals for our clients. You will work closely with the marketing and creative teams to design banners, social media posts, and branding materials. This role requires creativity, attention to detail, and the ability to work within tight deadlines.",
+            "requirements": "Proficiency in Adobe Creative Suite (Photoshop, Illustrator, InDesign). A strong portfolio of design work. Excellent communication and time-management skills.",
+            "created_on": "2025-01-01T10:00:00Z",
+            "updated_on": "2025-01-01T10:00:00Z",
+            "application_deadline": "2025-02-20",
+            "author": 2
+        }
+    },
+    {
+        "model": "jobposts.JobPost",
+        "pk": null,
+        "fields": {
+            "title": "Marketing Coordinator",
+            "company_name": "BrightPath Enterprises",
+            "location": "Remote",
+            "employment_type": "PT",
+            "description": "BrightPath Enterprises is hiring a Marketing Coordinator to support our digital campaigns. This part-time position is perfect for someone with strong communication skills and an interest in growing their marketing expertise. Duties include managing email campaigns, scheduling social media posts, and tracking performance metrics.",
+            "requirements": "Experience with email marketing platforms like Mailchimp. Basic understanding of SEO and analytics tools.",
+            "created_on": "2025-01-01T10:00:00Z",
+            "updated_on": "2025-01-01T10:00:00Z",
+            "application_deadline": "2025-03-10",
+            "author": 2
+        }
+    },
+    {
+        "model": "jobposts.JobPost",
+        "pk": null,
+        "fields": {
+            "title": "Customer Support Specialist",
+            "company_name": "SupportNet Ltd.",
+            "location": "Denver, CO",
+            "employment_type": "FT",
+            "description": "We are looking for a Customer Support Specialist to handle client inquiries via email, phone, and chat. You will be the first point of contact for customers, helping resolve their issues and ensuring satisfaction with our products and services. Training will be provided to familiarize you with our tools.",
+            "requirements": "Strong communication skills. Basic technical knowledge or experience in customer support is a plus.",
+            "created_on": "2025-01-01T10:00:00Z",
+            "updated_on": "2025-01-01T10:00:00Z",
+            "application_deadline": "2025-03-15",
+            "author": 2
+        }
+    },
+    {
+        "model": "jobposts.JobPost",
+        "pk": null,
+        "fields": {
+            "title": "Full Stack Developer",
+            "company_name": "WebWorks Innovations",
+            "location": "Boston, MA",
+            "employment_type": "FT",
+            "description": "WebWorks Innovations is seeking a skilled Full Stack Developer to build and maintain our web-based applications. You will work on both front-end and back-end development, implementing new features, optimizing performance, and ensuring a seamless user experience. This is a fantastic opportunity to be part of a collaborative and innovative team.",
+            "requirements": "Experience with JavaScript, React, and Django. Familiarity with RESTful APIs and database management. A strong problem-solving mindset and passion for technology.",
+            "created_on": "2025-01-01T10:00:00Z",
+            "updated_on": "2025-01-01T10:00:00Z",
+            "application_deadline": "2025-02-25",
+            "author": 1
+        }
+    },
+    {
+        "model": "jobposts.JobPost",
+        "pk": null,
+        "fields": {
+            "title": "Machine Learning Engineer",
+            "company_name": "AI Horizon",
+            "location": "Remote",
+            "employment_type": "CT",
+            "description": "AI Horizon is on the hunt for a Machine Learning Engineer to design, implement, and optimize machine learning models. This role involves working with a multidisciplinary team to build solutions that enhance predictive capabilities and automate processes. You’ll have access to cutting-edge tools and a supportive environment to develop your skills further.",
+            "requirements": "Strong knowledge of Python, TensorFlow, or PyTorch. Experience in building and deploying machine learning models. Familiarity with cloud services like AWS or Google Cloud is a plus.",
+            "created_on": "2025-01-01T10:00:00Z",
+            "updated_on": "2025-01-01T10:00:00Z",
+            "application_deadline": "2025-03-05",
+            "author": 2
+        }
+    },
+    {
+        "model": "jobposts.JobPost",
+        "pk": null,
+        "fields": {
+            "title": "Content Writer",
+            "company_name": "WordCraft Media",
+            "location": "Seattle, WA",
+            "employment_type": "PT",
+            "description": "WordCraft Media is seeking a creative Content Writer to produce engaging and high-quality articles, blog posts, and marketing materials. You'll collaborate with our content team to align with brand tone and messaging while meeting tight deadlines. This is a part-time position perfect for someone with a passion for storytelling.",
+            "requirements": "Excellent writing and editing skills. Familiarity with SEO practices. Ability to meet deadlines and adapt to feedback.",
+            "created_on": "2025-01-01T10:00:00Z",
+            "updated_on": "2025-01-01T10:00:00Z",
+            "application_deadline": "2025-02-28",
+            "author": 1
+        }
+    },
+    {
+        "model": "jobposts.JobPost",
+        "pk": null,
+        "fields": {
+            "title": "HR Manager",
+            "company_name": "Global Solutions Inc.",
+            "location": "Chicago, IL",
+            "employment_type": "FT",
+            "description": "Global Solutions Inc. is looking for an experienced HR Manager to oversee all aspects of human resources practices. Your responsibilities include recruiting top talent, developing HR strategies, and fostering a positive workplace environment. Join our team and make a meaningful impact on the company’s culture and growth.",
+            "requirements": "Proven experience as an HR Manager or similar role. Strong interpersonal and communication skills. Knowledge of HR systems and databases.",
+            "created_on": "2025-01-01T10:00:00Z",
+            "updated_on": "2025-01-01T10:00:00Z",
+            "application_deadline": "2025-03-10",
+            "author": 1
+        }
+    },
+    {
+        "model": "jobposts.JobPost",
+        "pk": null,
+        "fields": {
+            "title": "UI/UX Designer",
+            "company_name": "DesignPros Studio",
+            "location": "Los Angeles, CA",
+            "employment_type": "FT",
+            "description": "We are hiring a talented UI/UX Designer to transform complex concepts into intuitive and aesthetically pleasing designs. You will work closely with developers and product managers to create wireframes, prototypes, and final designs that enhance user satisfaction.",
+            "requirements": "Proficiency in design tools like Figma or Adobe XD. A portfolio demonstrating previous UI/UX projects. Strong understanding of design principles and user-centered design.",
+            "created_on": "2025-01-01T10:00:00Z",
+            "updated_on": "2025-01-01T10:00:00Z",
+            "application_deadline": "2025-03-20",
+            "author": 2
+        }
+    }
+]
+

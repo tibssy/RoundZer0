@@ -72,6 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 '/static/videos/goat.webm',
                 '/static/videos/goat2.webm',
                 '/static/videos/bear.webm',
+                '/static/videos/bear2.webm',
                 '/static/videos/rabbit.webm',
                 '/static/videos/cat.webm',
             ];

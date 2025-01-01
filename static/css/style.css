@@ -4,9 +4,17 @@ body {
     min-height: 100vh;
 }
 
+header {
+    position: fixed;
+    width: 100%;
+    z-index: 99;
+}
+
 main {
     flex: 1;
+    padding-top: 50px;
 }
+
 footer {
     margin-top: auto;
 }

@@ -26,8 +26,14 @@
                         <h4>Job Description</h4>
                         <p>{{ object.description|linebreaksbr }}</p>
                         <hr>
+                        <h4>Responsibilities</h4>
+                        <p>{{ object.responsibilities|linebreaksbr }}</p>
+                        <hr>
                         <h4>Requirements</h4>
                         <p>{{ object.requirements|linebreaksbr }}</p>
+                        <hr>
+                        <h4>Benefits</h4>
+                        <p>{{ object.benefits|linebreaksbr }}</p>
                     </div>
                     <div class="card-footer text-muted">
                         Posted on: {{ object.created_on|date:"F d, Y" }}

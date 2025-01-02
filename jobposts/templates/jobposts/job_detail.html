@@ -27,13 +27,25 @@
                         <p>{{ object.description|linebreaksbr }}</p>
                         <hr>
                         <h4>Responsibilities</h4>
-                        <p>{{ object.responsibilities|linebreaksbr }}</p>
+                        <ul>
+                            {% for item in responsibilities_list %}
+                                <li>{{ item }}</li>
+                            {% endfor %}
+                        </ul>
                         <hr>
                         <h4>Requirements</h4>
-                        <p>{{ object.requirements|linebreaksbr }}</p>
+                        <ul>
+                            {% for item in requirements_list %}
+                                <li>{{ item }}</li>
+                            {% endfor %}
+                        </ul>
                         <hr>
                         <h4>Benefits</h4>
-                        <p>{{ object.benefits|linebreaksbr }}</p>
+                        <ul>
+                            {% for item in benefits_list %}
+                                <li>{{ item }}</li>
+                            {% endfor %}
+                        </ul>
                     </div>
                     <div class="card-footer text-muted">
                         Posted on: {{ object.created_on|date:"F d, Y" }}

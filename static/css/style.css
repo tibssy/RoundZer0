@@ -12,11 +12,14 @@ header {
 
 main {
     flex: 1;
-    padding-top: 50px;
 }
 
 footer {
     margin-top: auto;
+}
+
+.mt-6 {
+    margin-top: 4rem;
 }
 
 .container{
@@ -77,7 +80,6 @@ footer {
     position: relative;
     aspect-ratio: 16 / 9;
 }
-
 
 #camera-preview {
     width: 100%;
@@ -144,6 +146,59 @@ footer {
   color: #007bff;
 }
 
+.pagination {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    bottom: 80px;
+    width: inherit;
+}
+
+.pagination .step-links {
+    display: flex;
+    align-items: center;
+}
+
+.pagination .step-links a,
+.pagination .step-links span {
+    display: inline-block;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    margin: 0 2px;
+    text-decoration: none;
+    color: #333;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    min-width: 30px;
+    text-align: center;
+}
+
+.pagination .step-links a:hover {
+    background-color: #f0f0f0;
+}
+
+.pagination .step-links .current-page-button {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+    cursor: default;
+}
+
+.pagination .step-links .arrow-button {
+    font-weight: bold;
+}
+
+.pagination .step-links span {
+    padding: 8px 12px;
+    border: 1px solid transparent;
+    margin: 0 2px;
+    text-decoration: none;
+    color: #333;
+    border-radius: 4px;
+    min-width: 30px;
+    text-align: center;
+    cursor: default;
+}
 
 @media (max-width: 992px) {
     #user-menu-mobile {

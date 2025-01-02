@@ -1,10 +1,42 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}{{ jobpost.title }} - Interview{% endblock %}
+{% block title %}{{ object.title }} - Interview{% endblock %}
 
 {% block content %}
-<div class="container mt-6">
-    <h1>Job Details</h1>
-</div>
+    <div class="container mt-7 mb-3">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow">
+                    <div class="card-header">
+                        <h1>{{ object.title }}</h1>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-subtitle mb-2 text-muted">{{ object.company_name }}</h5>
+                        <p class="card-text">
+                            <i class="bi bi-geo-alt me-1"></i> Location: {{ object.location }}
+                        </p>
+                        <p class="card-text">
+                            <i class="bi bi-briefcase me-1"></i> Type: {{ object.get_employment_type_display }}
+                        </p>
+                        <p class="card-text">
+                            <i class="bi bi-calendar-event me-1"></i> Deadline: {{ object.application_deadline|date:"F d, Y" }}
+                        </p>
+                        <hr>
+                        <h4>Job Description</h4>
+                        <p>{{ object.description|linebreaksbr }}</p>
+                        <hr>
+                        <h4>Requirements</h4>
+                        <p>{{ object.requirements|linebreaksbr }}</p>
+                    </div>
+                    <div class="card-footer text-muted">
+                        Posted on: {{ object.created_on|date:"F d, Y" }}
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <a href="{% url 'jobs' %}" class="btn btn-secondary">Back to Job Openings</a>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

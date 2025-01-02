@@ -1,68 +1,71 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Interview{% endblock %}
+{% block title %}Job Openings{% endblock %}
 
 {% block content %}
     <div class="container mt-6">
-        <h1>Job Openings</h1>
-        <div class="row">
-            {% for job in object_list %}
-                <div class="col-md-6 mb-4">
-                    <a href="{% url 'job_detail' job.id %}" class="text-decoration-none">
-                        <div class="card shadow">
-                            <div class="card-header d-flex justify-content-between align-items-center border-bottom-0">
-                                <h5 class="card-title mb-0">{{ job.title }}</h5>
-                                <i class="bi bi-bookmark"></i>
-                            </div>
-                            <div class="card-body">
-                                <h6 class="card-subtitle mb-2 text-muted">{{ job.company_name }}</h6>
-                                <p class="card-text">
-                                    <i class="bi bi-geo-alt me-1"></i> Location: {{ job.location }}
-                                </p>
-                                <p class="card-text">
-                                    <i class="bi bi-briefcase me-1"></i> Type: {{ job.get_employment_type_display }}
-                                </p>
-                            </div>
-                            <div class="card-footer d-flex justify-content-end border-top-0">
-                                <small class="text-muted">Posted: {{ job.created_on|date:"M d, Y" }}</small>
-                            </div>
+        <h1 class="text-center">Job Openings</h1>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="row">
+                    {% for job in object_list %}
+                        <div class="col-md-6 mb-4">
+                            <a href="{% url 'job_detail' job.id %}" class="text-decoration-none">
+                                <div class="card shadow">
+                                    <div class="card-header d-flex justify-content-between align-items-center border-bottom-0">
+                                        <h5 class="card-title mb-0">{{ job.title }}</h5>
+                                        <i class="bi bi-bookmark"></i>
+                                    </div>
+                                    <div class="card-body">
+                                        <h6 class="card-subtitle mb-2 text-muted">{{ job.company_name }}</h6>
+                                        <p class="card-text">
+                                            <i class="bi bi-geo-alt me-1"></i> Location: {{ job.location }}
+                                        </p>
+                                        <p class="card-text">
+                                            <i class="bi bi-briefcase me-1"></i> Type: {{ job.get_employment_type_display }}
+                                        </p>
+                                    </div>
+                                    <div class="card-footer d-flex justify-content-end border-top-0">
+                                        <small class="text-muted">Posted: {{ job.created_on|date:"M d, Y" }}</small>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
-                    </a>
+                    {% empty %}
+                        <div class="col">
+                            <p>No job openings currently available.</p>
+                        </div>
+                    {% endfor %}
                 </div>
-            {% empty %}
-                <div class="col">
-                    <p>No job openings currently available.</p>
+                <div class="pagination">
+                    <span class="step-links">
+                        {% if page_obj.has_previous %}
+                            <a href="?page=1" class="arrow-button">«</a>
+                        {% endif %}
+
+                        {% for page_number in page_obj.paginator.page_range %}
+                            {% if page_number == page_obj.number %}
+                                <span class="current-page-button">{{ page_number }}</span>
+                            {% elif page_number <= 5 %}
+                                <a href="?page={{ page_number }}" class="page-button">{{ page_number }}</a>
+                            {% elif page_number > 5 and page_number <= page_obj.number|add:2 %}
+                                <a href="?page={{ page_number }}" class="page-button">{{ page_number }}</a>
+                            {% elif page_number > page_obj.number|add:2 and page_number <= page_obj.paginator.num_pages|add:-2 %}
+                                {% if not page_obj.paginator.num_pages <= 5 and page_number == page_obj.number|add:3 %}
+                                    <span>...</span>
+                                {% endif %}
+                            {% elif page_number > page_obj.paginator.num_pages|add:-2 %}
+                                <a href="?page={{ page_number }}" class="page-button">{{ page_number }}</a>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if page_obj.has_next %}
+                            <a href="?page={{ page_obj.paginator.num_pages }}" class="arrow-button">»</a>
+                        {% endif %}
+                    </span>
                 </div>
-            {% endfor %}
-        </div>
-        <div class="pagination">
-            <span class="step-links">
-                {% if page_obj.has_previous %}
-                    <a href="?page=1" class="arrow-button">«</a>
-                {% endif %}
-
-                {% for page_number in page_obj.paginator.page_range %}
-                    {% if page_number == page_obj.number %}
-                       <span class="current-page-button">{{ page_number }}</span>
-                    {% elif page_number <= 5 %}
-                      <a href="?page={{ page_number }}" class="page-button">{{ page_number }}</a>
-                    {% elif page_number > 5 and page_number <= page_obj.number|add:2 %}
-                          <a href="?page={{ page_number }}" class="page-button">{{ page_number }}</a>
-                    {% elif page_number > page_obj.number|add:2 and page_number <= page_obj.paginator.num_pages|add:-2%}
-                     {% if not page_obj.paginator.num_pages <= 5 and page_number ==  page_obj.number|add:3 %}
-                        <span>...</span>
-                        {%endif%}
-
-                     {% elif page_number >  page_obj.paginator.num_pages|add:-2 %}
-                    <a href="?page={{ page_number }}" class="page-button">{{ page_number }}</a>
-                    {% endif %}
-                {% endfor %}
-
-                {% if page_obj.has_next %}
-                    <a href="?page={{ page_obj.paginator.num_pages }}" class="arrow-button">»</a>
-                {% endif %}
-            </span>
+            </div>
         </div>
     </div>
 {% endblock %}

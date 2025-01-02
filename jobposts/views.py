@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views import generic
+from django.urls import reverse
 from .models import JobPost
 
 
@@ -20,3 +21,8 @@ class JobDetailView(generic.DetailView):
         context['requirements_list'] = [f'{item.strip()}.' for item in job_post.requirements.split('.') if item.strip()]
         context['benefits_list'] = [f'{item.strip()}.' for item in job_post.benefits.replace(',', '.').split('.') if item.strip()]
         return context
+
+
+def redirect_to_chatbot_index(request, job_post_id):
+    """Redirects to the chatbot index page, passing the job_post_id."""
+    return redirect(reverse('chatbot-index') + f'?job_post_id={job_post_id}')

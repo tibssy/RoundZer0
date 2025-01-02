@@ -149,9 +149,7 @@ footer {
 .pagination {
     display: flex;
     justify-content: center;
-    position: absolute;
-    bottom: 80px;
-    width: inherit;
+    margin-bottom: 10px;
 }
 
 .pagination .step-links {

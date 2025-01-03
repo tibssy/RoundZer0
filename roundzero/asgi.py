@@ -16,7 +16,7 @@ from django.core.asgi import get_asgi_application
 from chatbot.routing import websocket_urlpatterns
 
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "roundzero.settings")
+# os.environ.setdefault("DJANGO_SETTINGS_MODULE", "roundzero.settings")
 django_asgi_app = get_asgi_application()
 
 application = ProtocolTypeRouter(

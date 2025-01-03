@@ -106,8 +106,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         });
-        window.location.href = "/chatbot/";
+        window.location.href = "/chatbot/index/";
     };
+
 
     if (joinButton) {
         joinButton.addEventListener('click', () => {

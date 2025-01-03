@@ -20,3 +20,8 @@ class ChatbotIndexView(TemplateView):
 
 class ChatbotInterviewView(TemplateView):
     template_name = 'chatbot/interview.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['job_post_id'] = self.request.GET.get('job_post_id')
+        return context

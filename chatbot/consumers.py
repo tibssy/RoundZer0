@@ -8,7 +8,7 @@ from openai import OpenAI
 import edge_tts
 from urllib.parse import parse_qs
 from jobposts.models import JobPost
-from channels.db import database_sync_to_async
+# from channels.db import database_sync_to_async
 
 # Load environment variables if env.py exists
 if os.path.isfile('env.py'):
@@ -21,16 +21,16 @@ class VoiceConsumer(AsyncWebsocketConsumer):
         job_post_id = self.get_job_id()
         print(f'Job Post ID: {job_post_id}')
 
-        job_post = None
-        if job_post_id:
-            try:
-                job_post = await database_sync_to_async(JobPost.objects.get)(pk=job_post_id)
-            except JobPost.DoesNotExist:
-                print(f"JobPost with ID {job_post_id} not found.")
-                await self.close()
-                return
-
-        print(f'Job Post: {job_post}')
+        # job_post = None
+        # if job_post_id:
+        #     try:
+        #         job_post = await database_sync_to_async(JobPost.objects.get)(pk=job_post_id)
+        #     except JobPost.DoesNotExist:
+        #         print(f"JobPost with ID {job_post_id} not found.")
+        #         await self.close()
+        #         return
+        #
+        # print(f'Job Post: {job_post}')
         # print(f'Title: {job_post.title}\nCompany: {job_post.company_name}\nLocation: {job_post.location}')
 
         self.assistant = Assistant(ai_provider='groq', interview_duration=10)

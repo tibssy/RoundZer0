@@ -1,7 +1,5 @@
-//const wsUrl = `${window.location.protocol === 'https:' ? 'wss://' : 'ws://'}${window.location.host}/ws/voice/?job_post_id=${jobPostId}`;
-//const ws = new WebSocket(wsUrl);
-
-const ws = new WebSocket((window.location.protocol === 'https:' ? 'wss://' : 'ws://') + window.location.host + '/ws/voice/');
+const wsUrl = `${window.location.protocol === 'https:' ? 'wss://' : 'ws://'}${window.location.host}/ws/voice/?job_post_id=${jobPostId}`;
+const ws = new WebSocket(wsUrl);
 let mediaRecorder;
 let audioContext;
 let audioQueue = [];

@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 from channels.generic.websocket import AsyncWebsocketConsumer
 from openai import OpenAI
 import edge_tts
-# from urllib.parse import parse_qs
+from urllib.parse import parse_qs
 # from jobposts.models import JobPost
 # from channels.db import database_sync_to_async
 
@@ -18,8 +18,8 @@ if os.path.isfile('env.py'):
 class VoiceConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         """Initialize an Assistant instance for this WebSocket connection."""
-        # job_post_id = self.get_job_id()
-        # print(job_post_id)
+        job_post_id = self.get_job_id()
+        print(f'Job Post ID: {job_post_id}')
         #
         # job_post = None
         # if job_post_id:
@@ -62,11 +62,11 @@ class VoiceConsumer(AsyncWebsocketConsumer):
                     await self.send(bytes_data=audio_data)
 
 
-    # def get_job_id(self):
-    #     query_string = self.scope['query_string'].decode()
-    #     query_params = parse_qs(query_string)
-    #     job_post_id_list = query_params.get('job_post_id', [])
-    #     return job_post_id_list[0] if job_post_id_list else None
+    def get_job_id(self):
+        query_string = self.scope['query_string'].decode()
+        query_params = parse_qs(query_string)
+        job_post_id_list = query_params.get('job_post_id', [])
+        return job_post_id_list[0] if job_post_id_list else None
 
 
 class Assistant:

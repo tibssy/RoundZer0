@@ -18,11 +18,9 @@ if os.path.isfile('env.py'):
 class VoiceConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         """Initialize an Assistant instance for this WebSocket connection."""
-        job_post_id = self.get_job_id()
-        print(f'Job Post ID: {job_post_id}')
-
         job_post = None
-        if job_post_id:
+
+        if job_post_id := self.get_job_id():
             try:
                 from jobposts.models import JobPost
                 job_post = await database_sync_to_async(JobPost.objects.get)(pk=job_post_id)
@@ -31,10 +29,8 @@ class VoiceConsumer(AsyncWebsocketConsumer):
                 await self.close()
                 return
 
-        print(f'Job Post: {job_post}')
-        print(f'Title: {job_post.title}\nCompany: {job_post.company_name}\nLocation: {job_post.location}')
 
-        self.assistant = Assistant(ai_provider='groq', interview_duration=10)
+        self.assistant = Assistant(ai_provider='groq', interview_duration=10, job_post=job_post)
         await self.accept()
 
     async def disconnect(self, close_code):
@@ -72,7 +68,7 @@ class VoiceConsumer(AsyncWebsocketConsumer):
 
 
 class Assistant:
-    def __init__(self, ai_provider='groq', language='en', interview_duration=30):
+    def __init__(self, ai_provider='groq', language='en', interview_duration=30, job_post=None):
         """Initialize the Assistant with API key and language settings."""
         self.stt_model = None
         self.chat_model = None
@@ -80,6 +76,7 @@ class Assistant:
         self.language = language
         self.interview_duration = interview_duration
         self.client = OpenAI()
+        self.job_post = job_post
         self.initialize_provider(ai_provider)
         self.system_message = (
             f"You are a professional interview assistant. Your name is Sarah. Guide "
@@ -98,6 +95,7 @@ class Assistant:
             f"in every response unless it is necessary to guide the pace or alert the user "
             f"to a time constraint for the current section."
         )
+        self.update_system_message_with_job_data()
         self.chat_history = [{'role': 'system', 'content': self.system_message}]
 
     def initialize_provider(self, provider):
@@ -122,6 +120,16 @@ class Assistant:
             'current_timestamp': current_timestamp.strftime("%Y-%m-%d %H:%M:%S"),
             'time_left': int(time_left_minutes)
         }
+
+    def update_system_message_with_job_data(self):
+        if self.job_post:
+            self.system_message += (
+                f"You are interviewing a candidate for the position of {self.job_post.title} "
+                f"at {self.job_post.company_name}. Tailor your technical questions based "
+                f"on the job description, which includes: {self.job_post.description}. Consider "
+                f"the key responsibilities: {self.job_post.responsibilities} and the required "
+                f"skills: {self.job_post.requirements}."
+            )
 
     def speech_to_text(self, audio_file):
         """Convert speech to text using OpenAI's Whisper model."""

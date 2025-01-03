@@ -8,9 +8,10 @@
         <div class="row justify-content-center w-100">
             <div class="col-md-8">
                 <h1>Welcome to the Interview</h1>
-                {% if job_post_id %}
+                {% if job_post_id and job_title and company_name %}
+                    <p>You are starting the interview for the position of <span class="highlight">{{ job_title }}</span> at <span class="highlight">{{ company_name }}</span></p>
+                {% elif job_post_id %}
                     <p>You are starting the interview for Job Post ID: {{ job_post_id }}</p>
-                    <!-- You can use the job_post_id to personalize the interview or fetch relevant data -->
                 {% endif %}
                 <div class="row">
                     <!-- Camera Column -->

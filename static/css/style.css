@@ -206,6 +206,11 @@ footer {
     cursor: default;
 }
 
+.highlight {
+    font-weight: bold;
+    color: #007bff;
+}
+
 @media (max-width: 992px) {
     #user-menu-mobile {
         display: flex;

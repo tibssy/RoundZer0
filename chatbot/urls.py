@@ -1,8 +1,8 @@
-from . import views
 from django.urls import path
+from .views import ChatbotIndexView, ChatbotInterviewView
 
 
 urlpatterns = [
-    path('', views.chatbot_index, name='chatbot-index'),
-    path('interview/', views.chatbot_interview, name='chatbot-interview'),
+    path('index/', ChatbotIndexView.as_view(), name='chatbot-index'),
+    path('interview/', ChatbotInterviewView.as_view(), name='chatbot-interview'),
 ]

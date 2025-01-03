@@ -17,9 +17,9 @@ class JobDetailView(generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         job_post = self.get_object()
-        context['responsibilities_list'] = [f'{item.strip()}.' for item in job_post.responsibilities.split('.') if item.strip()]
-        context['requirements_list'] = [f'{item.strip()}.' for item in job_post.requirements.split('.') if item.strip()]
-        context['benefits_list'] = [f'{item.strip()}.' for item in job_post.benefits.replace(',', '.').split('.') if item.strip()]
+        context['responsibilities_list'] = [item.strip() for item in job_post.responsibilities.split('. ') if item.strip()]
+        context['requirements_list'] = [item.strip() for item in job_post.requirements.split('. ') if item.strip()]
+        context['benefits_list'] = [item.strip() for item in job_post.benefits.replace(',', '.').split('. ') if item.strip()]
         return context
 
 

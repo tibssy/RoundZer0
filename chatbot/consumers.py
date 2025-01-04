@@ -1,27 +1,17 @@
 import io
 import json
 from channels.generic.websocket import AsyncWebsocketConsumer
-from urllib.parse import parse_qs
-from channels.db import database_sync_to_async
 from .ai_assistant import Assistant
+from .model_managers import DatabaseManager
 
 
 class VoiceConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         """Initialize an Assistant instance for this WebSocket connection."""
-        job_post = None
-
-        if job_post_id := self.get_job_id():
-            try:
-                from jobposts.models import JobPost
-                job_post = await database_sync_to_async(JobPost.objects.get)(pk=job_post_id)
-            except JobPost.DoesNotExist:
-                print(f"JobPost with ID {job_post_id} not found.")
-                await self.close()
-                return
-
-
-        self.assistant = Assistant(ai_provider='groq', interview_duration=10, job_post=job_post)
+        db_manager = DatabaseManager(self.scope)
+        self.job_post = await db_manager.get_job_post()
+        self.criteria = await db_manager.get_evaluation_criteria()
+        self.assistant = Assistant(ai_provider='groq', interview_duration=10, job_post=self.job_post)
         await self.accept()
 
     async def disconnect(self, close_code):
@@ -29,7 +19,8 @@ class VoiceConsumer(AsyncWebsocketConsumer):
         history = self.assistant.chat_history
         res = '\n'.join(f'{": ".join(message.values())}'.split('|')[0] for message in history[1:])
         print(res)
-
+        print(self.criteria)
+        
 
     async def receive(self, text_data=None, bytes_data=None):
         """Process received data from WebSocket."""
@@ -52,13 +43,3 @@ class VoiceConsumer(AsyncWebsocketConsumer):
                 audio_data = await self.assistant.text_to_speech(sentence)
                 if audio_data:
                     await self.send(bytes_data=audio_data)
-
-
-    def get_job_id(self):
-        query_string = self.scope['query_string'].decode()
-        query_params = parse_qs(query_string)
-        job_post_id_list = query_params.get('job_post_id', [])
-        return job_post_id_list[0] if job_post_id_list else None
-
-
-

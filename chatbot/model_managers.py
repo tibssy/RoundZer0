@@ -1,5 +1,7 @@
 from urllib.parse import parse_qs
 from channels.db import database_sync_to_async
+from jobposts.models import JobPost
+from .models import EvaluationRubric
 
 
 class DatabaseManager:
@@ -17,14 +19,11 @@ class DatabaseManager:
     @database_sync_to_async
     def get_job_post(self):
         """Fetch a JobPost instance by its ID."""
-        from jobposts.models import JobPost
-
         return JobPost.objects.get(pk=self.job_post_id)
 
     @database_sync_to_async
     def get_evaluation_criteria(self):
         """Fetch evaluation criteria for a specific job post."""
-        from .models import EvaluationRubric
         criteria = EvaluationRubric.objects.filter(job_post_id=self.job_post_id).values(
             'criterion', 'weight', 'scoring_guide'
         )

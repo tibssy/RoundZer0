@@ -47,7 +47,7 @@ class Assistant:
             self.client.base_url = 'https://api.groq.com/openai/v1'
             self.client.api_key = os.environ.get('GROQ_API_KEY')
             self.stt_model = 'whisper-large-v3'
-            self.chat_model = 'llama-3.3-70b-specdec'
+            self.chat_model = 'llama-3.3-70b-versatile'
         elif provider == 'openai':
             self.client.api_key = os.environ.get('OPENAI_API_KEY')
             self.stt_model = 'whisper-1'
@@ -143,3 +143,42 @@ class Assistant:
 
         if buffer.strip():
             yield buffer.strip()
+
+
+class FeedbackAssistant:
+    def __init__(self, interview_history, ai_provider='groq', language='en', job_post=None, evaluation_criteria=None):
+        self.chat_model = None
+        self.interview_history = interview_history
+        self.language = language
+        self.job_post = job_post
+        self.evaluation_criteria = evaluation_criteria
+        self.client = OpenAI()
+        self.initialize_provider(ai_provider)
+        self.system_message = (
+            f'You are a helpful assistant designed to output JSON.'
+        )
+
+    def initialize_provider(self, provider):
+        """Initialize AI models based on provider like OpenAI or Groq"""
+        if provider == 'groq':
+            self.client.base_url = 'https://api.groq.com/openai/v1'
+            self.client.api_key = os.environ.get('GROQ_API_KEY')
+            self.chat_model = 'llama-3.3-70b-versatile'
+        elif provider == 'openai':
+            self.client.api_key = os.environ.get('OPENAI_API_KEY')
+            self.chat_model = 'gpt-4o-mini'
+
+    def openai_chat(self, text: str):
+        """Generate chat responses using OpenAI's GPT model."""
+        message = [
+            {'role': 'system', 'content': self.system_message},
+            {'role': 'user', 'content': ''}
+        ]
+
+        completion = self.client.chat.completions.create(
+            model=self.chat_model,
+            response_format={ "type": "json_object" },
+            messages=message,
+        )
+
+        print(completion)

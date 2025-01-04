@@ -26,7 +26,10 @@ class VoiceConsumer(AsyncWebsocketConsumer):
 
     async def disconnect(self, close_code):
         """Handle disconnection."""
-        pass
+        history = self.assistant.chat_history
+        res = '\n'.join(f'{": ".join(message.values())}'.split('|')[0] for message in history[1:])
+        print(res)
+
 
     async def receive(self, text_data=None, bytes_data=None):
         """Process received data from WebSocket."""

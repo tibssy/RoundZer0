@@ -167,29 +167,44 @@ class FeedbackAssistant:
             self.chat_model = 'gpt-4o-mini'
 
     def generate_system_message(self):
-        """Generate the system message with job description and evaluation criteria."""
+        """Generate a system message for evaluating candidate answers."""
         system_message = (
-            "You are a helpful assistant designed to evaluate candidate answers during a job interview. "
-            "Your task is to analyze the responses and provide feedback in JSON format based on the "
-            "evaluation criteria and job description. "
+            "You are a structured assistant designed to evaluate candidate answers during a job interview. "
+            "Analyze the responses and provide feedback in JSON format based on the evaluation criteria, job description, and scoring weights."
+            "\n\nThe interview is for the position of {self.job_post.title} at {self.job_post.company_name}. "
+            "The job description includes: {self.job_post.description}. "
+            "Key responsibilities are: {self.job_post.responsibilities}. "
+            "Required skills include: {self.job_post.requirements}."
+            "\n\nEvaluation criteria to consider during feedback:"
         )
 
-        if self.job_post:
+        for idx, criterion in enumerate(self.evaluation_criteria, start=1):
             system_message += (
-                f"\nThe interview is for the position of {self.job_post.title} at {self.job_post.company_name}. "
-                f"The job description includes: {self.job_post.description}. Key responsibilities are: "
-                f"{self.job_post.responsibilities}. Required skills include: {self.job_post.requirements}."
+                f"\n  {idx}. {criterion['criterion']} (Weight: {criterion['weight']}%). "
+                f"Scoring guide: {criterion['scoring_guide']}."
             )
 
-        if self.evaluation_criteria:
-            system_message += "\nEvaluation criteria to consider during feedback:"
-            for idx, criterion in enumerate(self.evaluation_criteria, start=1):
-                system_message += f"\n  {idx}. {criterion['criterion']} (Weight: {criterion['weight']}%)."
-                system_message += f" Scoring guide: {criterion['scoring_guide']}."
-
+        system_message += (
+            "\n\nYour JSON output must strictly follow this structure:"
+            "\n{"
+            "\n  'candidate_name': '<name>',"
+            "\n  'position': '<position>',"
+            "\n  '<criterion_1_name>': {"
+            "\n    'score': <numerical_score>,"
+            "\n    'comment': '<feedback>',"
+            "\n    'weight': <weight>"
+            "\n  },"
+            "\n  '<criterion_2_name>': {"
+            "\n    'score': <numerical_score>,"
+            "\n    'comment': '<feedback>',"
+            "\n    'weight': <weight>"
+            "\n  },"
+            "\n  ... (repeat for all criteria)"
+            "\n  'overall_score': <weighted_average_score>,"
+            "\n  'recommendation': '<summary_of_candidate_potential_and_fit>'"
+            "\n}"
+        )
         return system_message
-
-
 
     def generate_feedback(self, text: str):
         """Generate chat responses using OpenAI's GPT model."""

@@ -167,10 +167,11 @@ class FeedbackAssistant:
             self.chat_model = 'gpt-4o-mini'
 
     def generate_system_message(self):
-        """Generate a system message for evaluating candidate answers."""
+        """Generate a system message for evaluating candidate answers, ensuring scores are between 0 and 100."""
         system_message = (
             "You are a structured assistant designed to evaluate candidate answers during a job interview. "
-            "Analyze the responses and provide feedback in JSON format based on the evaluation criteria, job description, and scoring weights."
+            "Analyze the responses and provide feedback in JSON format based on the evaluation criteria, job description, and scoring weights. "
+            "**All scores you provide must be in the range of 0 to 100, inclusive.**"
             "\n\nThe interview is for the position of {self.job_post.title} at {self.job_post.company_name}. "
             "The job description includes: {self.job_post.description}. "
             "Key responsibilities are: {self.job_post.responsibilities}. "
@@ -190,17 +191,17 @@ class FeedbackAssistant:
             "\n  'candidate_name': '<name>',"
             "\n  'position': '<position>',"
             "\n  '<criterion_1_name>': {"
-            "\n    'score': <numerical_score>,"
+            "\n    'score': <numerical_score>,  // **Score must be between 0 and 100**"
             "\n    'comment': '<feedback>',"
             "\n    'weight': <weight>"
             "\n  },"
             "\n  '<criterion_2_name>': {"
-            "\n    'score': <numerical_score>,"
+            "\n    'score': <numerical_score>,  // **Score must be between 0 and 100**"
             "\n    'comment': '<feedback>',"
             "\n    'weight': <weight>"
             "\n  },"
             "\n  ... (repeat for all criteria)"
-            "\n  'overall_score': <weighted_average_score>,"
+            "\n  'overall_score': <weighted_average_score>, // **This should also be between 0 and 100**"
             "\n  'recommendation': '<summary_of_candidate_potential_and_fit>'"
             "\n}"
         )
@@ -208,7 +209,7 @@ class FeedbackAssistant:
 
     def generate_feedback(self, text: str):
         """Generate chat responses using OpenAI's GPT model."""
-        print(f'system message:\n{self.system_message}\n\n\n')
+        # print(f'system message:\n{self.system_message}\n\n\n')
         message = [
             {'role': 'system', 'content': self.system_message},
             {'role': 'user', 'content': text}

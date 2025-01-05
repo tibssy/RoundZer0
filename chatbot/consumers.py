@@ -1,7 +1,7 @@
 import io
 import json
 from channels.generic.websocket import AsyncWebsocketConsumer
-from .ai_assistant import Assistant
+from .ai_assistant import Assistant, FeedbackAssistant
 from .model_managers import DatabaseManager
 
 
@@ -16,11 +16,12 @@ class VoiceConsumer(AsyncWebsocketConsumer):
 
     async def disconnect(self, close_code):
         """Handle disconnection."""
-        history = self.assistant.chat_history
-        res = '\n'.join(f'{": ".join(message.values())}'.split('|')[0] for message in history[1:])
-        print(res)
-        print(self.criteria)
-        
+        conversation_history = self.assistant.chat_history
+        conversation_text = '\n'.join(f'{": ".join(message.values())}'.split('|')[0] for message in conversation_history[1:])
+        feedback_assistant = FeedbackAssistant(job_post=self.job_post, evaluation_criteria=self.criteria)
+        feedback = feedback_assistant.generate_feedback(conversation_text)
+        print(feedback)
+        # send feedback to employer and a brief result to candidate...
 
     async def receive(self, text_data=None, bytes_data=None):
         """Process received data from WebSocket."""

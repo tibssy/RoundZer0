@@ -1,5 +1,6 @@
 import os
 import re
+import json
 from datetime import datetime, timedelta
 from openai import OpenAI
 import edge_tts
@@ -146,17 +147,14 @@ class Assistant:
 
 
 class FeedbackAssistant:
-    def __init__(self, interview_history, ai_provider='groq', language='en', job_post=None, evaluation_criteria=None):
+    def __init__(self, ai_provider='groq', language='en', job_post=None, evaluation_criteria=None):
         self.chat_model = None
-        self.interview_history = interview_history
         self.language = language
         self.job_post = job_post
         self.evaluation_criteria = evaluation_criteria
         self.client = OpenAI()
         self.initialize_provider(ai_provider)
-        self.system_message = (
-            f'You are a helpful assistant designed to output JSON.'
-        )
+        self.system_message = self.generate_system_message()
 
     def initialize_provider(self, provider):
         """Initialize AI models based on provider like OpenAI or Groq"""
@@ -168,17 +166,47 @@ class FeedbackAssistant:
             self.client.api_key = os.environ.get('OPENAI_API_KEY')
             self.chat_model = 'gpt-4o-mini'
 
-    def openai_chat(self, text: str):
-        """Generate chat responses using OpenAI's GPT model."""
-        message = [
-            {'role': 'system', 'content': self.system_message},
-            {'role': 'user', 'content': ''}
-        ]
-
-        completion = self.client.chat.completions.create(
-            model=self.chat_model,
-            response_format={ "type": "json_object" },
-            messages=message,
+    def generate_system_message(self):
+        """Generate the system message with job description and evaluation criteria."""
+        system_message = (
+            "You are a helpful assistant designed to evaluate candidate answers during a job interview. "
+            "Your task is to analyze the responses and provide feedback in JSON format based on the "
+            "evaluation criteria and job description. "
         )
 
-        print(completion)
+        if self.job_post:
+            system_message += (
+                f"\nThe interview is for the position of {self.job_post.title} at {self.job_post.company_name}. "
+                f"The job description includes: {self.job_post.description}. Key responsibilities are: "
+                f"{self.job_post.responsibilities}. Required skills include: {self.job_post.requirements}."
+            )
+
+        if self.evaluation_criteria:
+            system_message += "\nEvaluation criteria to consider during feedback:"
+            for idx, criterion in enumerate(self.evaluation_criteria, start=1):
+                system_message += f"\n  {idx}. {criterion['criterion']} (Weight: {criterion['weight']}%)."
+                system_message += f" Scoring guide: {criterion['scoring_guide']}."
+
+        return system_message
+
+
+
+    def generate_feedback(self, text: str):
+        """Generate chat responses using OpenAI's GPT model."""
+        print(f'system message:\n{self.system_message}\n\n\n')
+        message = [
+            {'role': 'system', 'content': self.system_message},
+            {'role': 'user', 'content': text}
+        ]
+
+        try:
+            completion = self.client.chat.completions.create(
+                model=self.chat_model,
+                response_format={"type": "json_object"},
+                messages=message,
+            )
+            content = completion.choices[0].message.content
+            return json.loads(content)
+        except Exception as e:
+            print(f"Error in generate_feedback: {e}")
+            return None

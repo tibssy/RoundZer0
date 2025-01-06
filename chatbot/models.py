@@ -24,3 +24,24 @@ class EvaluationRubric(models.Model):
     def __str__(self):
         return f"Rubric for {self.job_post.title if self.job_post else 'General'}: {self.criterion[:50]}..."
 
+
+class InterviewPreparation(models.Model):
+    job_post = models.ForeignKey(
+        'jobposts.JobPost',
+        on_delete=models.CASCADE,
+        related_name='interview_preparations',
+        null=True,
+        blank=True,
+        help_text="Optional: Tie this preparation to a specific job post."
+    )
+    questions = models.JSONField(
+        help_text="A list of technical questions.",
+        default=list
+    )
+    interview_duration = models.PositiveIntegerField(
+        help_text="Duration of the interview in minutes."
+    )
+    created_on = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.job_post.title if self.job_post else 'General'} - {len(self.questions)} questions"

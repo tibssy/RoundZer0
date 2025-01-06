@@ -12,13 +12,21 @@ if os.path.isfile('env.py'):
 
 
 class Assistant:
-    def __init__(self, ai_provider='groq', language='en', interview_duration=30, job_post=None):
+    def __init__(
+            self,
+            ai_provider='groq',
+            language='en',
+            interview_duration=None,
+            job_post=None,
+            questions_list=None
+    ):
         """Initialize the Assistant with API key and language settings."""
         self.stt_model = None
         self.chat_model = None
         self.initial_timestamp = datetime.now()
         self.language = language
-        self.interview_duration = interview_duration
+        self.interview_duration = interview_duration or 15
+        self.questions_list = questions_list
         self.client = OpenAI()
         self.job_post = job_post
         self.initialize_provider(ai_provider)
@@ -73,6 +81,12 @@ class Assistant:
                 f"on the job description, which includes: {self.job_post.description}. Consider "
                 f"the key responsibilities: {self.job_post.responsibilities} and the required "
                 f"skills: {self.job_post.requirements}."
+            )
+        if self.questions_list:
+            self.system_message += (
+                f"In addition to the standard interview progression, ask the following "
+                f"custom questions, selected randomly: {', '.join(self.questions_list)}. "
+                f"Make sure all questions are asked and that the order is random."
             )
 
     def speech_to_text(self, audio_file):

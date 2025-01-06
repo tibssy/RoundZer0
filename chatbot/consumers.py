@@ -11,7 +11,10 @@ class VoiceConsumer(AsyncWebsocketConsumer):
         db_manager = DatabaseManager(self.scope)
         self.job_post = await db_manager.get_job_post()
         self.criteria = await db_manager.get_evaluation_criteria()
-        self.assistant = Assistant(ai_provider='groq', interview_duration=10, job_post=self.job_post)
+        preparation_details = await db_manager.get_interview_preparation()
+        interview_duration = preparation_details.get('interview_duration')
+        questions = preparation_details.get('questions')
+        self.assistant = Assistant(ai_provider='groq', interview_duration=interview_duration, job_post=self.job_post, questions_list=questions)
         await self.accept()
 
     async def disconnect(self, close_code):

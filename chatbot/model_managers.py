@@ -1,7 +1,7 @@
 from urllib.parse import parse_qs
 from channels.db import database_sync_to_async
 from jobposts.models import JobPost
-from .models import EvaluationRubric
+from .models import EvaluationRubric, InterviewPreparation
 
 
 class DatabaseManager:
@@ -28,3 +28,11 @@ class DatabaseManager:
             'criterion', 'weight', 'scoring_guide'
         )
         return list(criteria)
+
+    @database_sync_to_async
+    def get_interview_preparation(self):
+        """Fetch interview preparation details for a specific job post."""
+        preparation = InterviewPreparation.objects.filter(job_post_id=self.job_post_id).values(
+            'questions', 'interview_duration'
+        ).first()
+        return preparation

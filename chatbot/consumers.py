@@ -17,10 +17,9 @@ class VoiceConsumer(AsyncWebsocketConsumer):
         """Initialize an Assistant instance for this WebSocket connection."""
         try:
             await self.initialize_interview()
+            await self.accept()
         except Exception as e:
             await self.close()
-            return
-        await self.accept()
 
     async def disconnect(self, close_code):
         """Handle disconnection."""
@@ -34,17 +33,17 @@ class VoiceConsumer(AsyncWebsocketConsumer):
         await self.send(text_data=json.dumps({'message': 'Data received'}))
 
     async def initialize_interview(self):
+        """Initialize interview parameters and assistant."""
         db_manager = DatabaseManager(self.scope)
         self.job_post = await db_manager.get_job_post()
         self.criteria = await db_manager.get_evaluation_criteria()
         preparation_details = await db_manager.get_interview_preparation()
-        interview_duration = preparation_details.get('interview_duration')
-        questions = preparation_details.get('questions')
+
         self.assistant = Assistant(
             ai_provider='groq',
-            interview_duration=interview_duration,
+            interview_duration=preparation_details.get('interview_duration'),
             job_post=self.job_post,
-            questions_list=questions
+            questions_list=preparation_details.get('questions')
         )
 
     async def generate_feedback_on_disconnect(self):

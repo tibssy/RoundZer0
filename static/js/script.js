@@ -64,7 +64,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const videoFiles = [
                 '/static/videos/sloth.webm',
                 '/static/videos/sloth2.webm',
+                '/static/videos/cat3.webm',
                 '/static/videos/capybara.webm',
+                '/static/videos/goat4.webm',
                 '/static/videos/rabbit2.webm',
                 '/static/videos/sheep.webm',
                 '/static/videos/pig.webm',

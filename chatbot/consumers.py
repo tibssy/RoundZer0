@@ -7,15 +7,19 @@ import asyncio
 
 
 class VoiceConsumer(AsyncWebsocketConsumer):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.job_post = None
+        self.criteria = None
+        self.assistant = None
+
     async def connect(self):
         """Initialize an Assistant instance for this WebSocket connection."""
-        db_manager = DatabaseManager(self.scope)
-        self.job_post = await db_manager.get_job_post()
-        self.criteria = await db_manager.get_evaluation_criteria()
-        preparation_details = await db_manager.get_interview_preparation()
-        interview_duration = preparation_details.get('interview_duration')
-        questions = preparation_details.get('questions')
-        self.assistant = Assistant(ai_provider='groq', interview_duration=interview_duration, job_post=self.job_post, questions_list=questions)
+        try:
+            await self.initialize_interview()
+        except Exception as e:
+            await self.close()
+            return
         await self.accept()
 
     async def disconnect(self, close_code):
@@ -29,21 +33,19 @@ class VoiceConsumer(AsyncWebsocketConsumer):
 
         await self.send(text_data=json.dumps({'message': 'Data received'}))
 
-    async def process_voice_data(self, bytes_data):
-        """Process the voice data received from WebRTC."""
-        audio_buffer = io.BytesIO(bytes_data)
-        audio_buffer.name = 'speech.ogg'
-        audio_buffer.seek(0)
-
-        if text := self.assistant.speech_to_text(audio_buffer).strip():
-            text_stream = self.assistant.openai_chat(text)
-            sentences = self.assistant.stream_to_sentences(text_stream)
-
-            for sentence in sentences:
-                audio_data = await self.assistant.text_to_speech(sentence)
-                if audio_data:
-                    await self.send(bytes_data=audio_data)
-
+    async def initialize_interview(self):
+        db_manager = DatabaseManager(self.scope)
+        self.job_post = await db_manager.get_job_post()
+        self.criteria = await db_manager.get_evaluation_criteria()
+        preparation_details = await db_manager.get_interview_preparation()
+        interview_duration = preparation_details.get('interview_duration')
+        questions = preparation_details.get('questions')
+        self.assistant = Assistant(
+            ai_provider='groq',
+            interview_duration=interview_duration,
+            job_post=self.job_post,
+            questions_list=questions
+        )
 
     async def generate_feedback_on_disconnect(self):
         """Generate and handle feedback upon disconnection."""
@@ -60,3 +62,18 @@ class VoiceConsumer(AsyncWebsocketConsumer):
             feedback = feedback_assistant.generate_feedback(conversation_text)
             print(feedback)
             # Send feedback to employer and a brief result to candidate...
+
+    async def process_voice_data(self, bytes_data):
+        """Process the voice data received from WebRTC."""
+        audio_buffer = io.BytesIO(bytes_data)
+        audio_buffer.name = 'speech.ogg'
+        audio_buffer.seek(0)
+
+        if text := self.assistant.speech_to_text(audio_buffer).strip():
+            text_stream = self.assistant.openai_chat(text)
+            sentences = self.assistant.stream_to_sentences(text_stream)
+
+            for sentence in sentences:
+                audio_data = await self.assistant.text_to_speech(sentence)
+                if audio_data:
+                    await self.send(bytes_data=audio_data)

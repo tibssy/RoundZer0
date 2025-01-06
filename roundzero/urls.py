@@ -25,4 +25,5 @@ urlpatterns = [
     path('jobs/', include('jobposts.urls'), name='jobposts-urls'),
     path('chatbot/', include('chatbot.urls'), name='chatbot-urls'),
     path("accounts/", include("allauth.urls")),
+    path('', include('home.urls'), name='home-urls'),
 ]

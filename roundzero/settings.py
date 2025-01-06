@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     "django_summernote",
     "jobposts",
     "chatbot",
+    "home",
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"

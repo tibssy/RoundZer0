@@ -1,5 +1,6 @@
 {% load static %}
 
+{% url 'home' as home_url %}
 {% url 'jobs' as jobs_url %}
 {% url 'account_login' as login_url %}
 {% url 'account_signup' as signup_url %}
@@ -27,7 +28,7 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="{{ home_url }}">
                   <img src="{% static 'images/logo.png' %}" alt="Site Logo" height="30" class="d-inline-block align-top">
                   <span class="ms-2" style="color:white">RoundZer0</span>
                 </a>
@@ -37,7 +38,7 @@
                 <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">Home</a>
+                            <a class="nav-link {% if request.path == home_url %}active{% endif %}" aria-current="page" href="{{ home_url }}">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link {% if request.path == jobs_url %}active{% endif %}" aria-current="page" href="{% url 'jobs' %}">Jobs</a>

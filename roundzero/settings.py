@@ -38,6 +38,8 @@ ALLOWED_HOSTS = ["127.0.0.1", ".herokuapp.com"]
 INSTALLED_APPS = [
     "daphne",
     "channels",
+    "crispy_forms",
+    "crispy_bootstrap5",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -52,6 +54,11 @@ INSTALLED_APPS = [
     "jobposts",
     "chatbot",
 ]
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',

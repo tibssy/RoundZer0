@@ -3,6 +3,7 @@ import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 from .ai_assistant import Assistant, FeedbackAssistant
 from .model_managers import DatabaseManager
+import asyncio
 
 
 class VoiceConsumer(AsyncWebsocketConsumer):
@@ -19,12 +20,7 @@ class VoiceConsumer(AsyncWebsocketConsumer):
 
     async def disconnect(self, close_code):
         """Handle disconnection."""
-        conversation_history = self.assistant.chat_history
-        conversation_text = '\n'.join(f'{": ".join(message.values())}'.split('|')[0] for message in conversation_history[1:])
-        feedback_assistant = FeedbackAssistant(job_post=self.job_post, evaluation_criteria=self.criteria)
-        feedback = feedback_assistant.generate_feedback(conversation_text)
-        print(feedback)
-        # send feedback to employer and a brief result to candidate...
+        asyncio.create_task(self.generate_feedback_on_disconnect())
 
     async def receive(self, text_data=None, bytes_data=None):
         """Process received data from WebSocket."""
@@ -47,3 +43,20 @@ class VoiceConsumer(AsyncWebsocketConsumer):
                 audio_data = await self.assistant.text_to_speech(sentence)
                 if audio_data:
                     await self.send(bytes_data=audio_data)
+
+
+    async def generate_feedback_on_disconnect(self):
+        """Generate and handle feedback upon disconnection."""
+        conversation_history = self.assistant.chat_history
+        if len(conversation_history) >= 4:
+            conversation_text = '\n'.join(
+                f'{": ".join(message.values())}'.split('|')[0]
+                for message in conversation_history[1:]
+            )
+            feedback_assistant = FeedbackAssistant(
+                job_post=self.job_post,
+                evaluation_criteria=self.criteria
+            )
+            feedback = feedback_assistant.generate_feedback(conversation_text)
+            print(feedback)
+            # Send feedback to employer and a brief result to candidate...

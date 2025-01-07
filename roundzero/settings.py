@@ -51,9 +51,10 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     "django_summernote",
+    "home",
     "jobposts",
     "chatbot",
-    "home",
+    "about",
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"

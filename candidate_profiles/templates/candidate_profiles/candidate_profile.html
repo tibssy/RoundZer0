@@ -1,34 +1,61 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Candidate Profile - {{ candidate.user.username }}{% endblock %}
 
 {% block content %}
-  <div class="container mt-8">
-    <h1>Candidate Profile</h1>
-    <p><strong>Name:</strong> {{ candidate.user.first_name }} {{ candidate.user.last_name }}</p>
-    <p><strong>Email:</strong> {{ candidate.user.email }}</p>
-    {% if candidate.phone %}
-      <p><strong>Phone:</strong> {{ candidate.phone }}</p>
-    {% endif %}
-    {% if candidate.resume %}
-      <p><strong>Resume:</strong> <a href="{{ candidate.resume.url }}">Download Resume</a></p>
-    {% endif %}
-
-    <h2>Interview History</h2>
-    {% if candidate.interviews.all %}
-      <ul class="list-group">
-        {% for interview in candidate.interviews.all %}
-          <li class="list-group-item">
-            <strong>Company:</strong> {{ interview.company_name }}<br>
-            <strong>Date:</strong> {{ interview.interview_date }}<br>
-            {% if interview.feedback %}
-              <strong>Feedback:</strong> {{ interview.feedback }}
-            {% endif %}
-          </li>
-        {% endfor %}
-      </ul>
-    {% else %}
-      <p>No interview history available.</p>
-    {% endif %}
-  </div>
+    <div class="container mt-7 mb-3">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow">
+                    <div class="card-header">
+                        <h1>Candidate Profile</h1>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-subtitle mb-2 text-muted">{{ candidate.user.username }}</h5>
+                        <p class="card-text">
+                            <i class="bi bi-person me-1"></i> <strong>Name:</strong> {{ candidate.user.first_name }} {{ candidate.user.last_name }}
+                        </p>
+                        <p class="card-text">
+                            <i class="bi bi-envelope me-1"></i> <strong>Email:</strong> {{ candidate.user.email }}
+                        </p>
+                        {% if candidate.phone %}
+                            <p class="card-text">
+                                <i class="bi bi-telephone me-1"></i> <strong>Phone:</strong> {{ candidate.phone }}
+                            </p>
+                        {% endif %}
+                        {% if candidate.resume %}
+                            <p class="card-text">
+                                <i class="bi bi-file-earmark-text me-1"></i> <strong>Resume:</strong>
+                                <a href="{{ candidate.resume.url }}">Download Resume</a>
+                            </p>
+                        {% endif %}
+                        <hr>
+                        <h4>Interview History</h4>
+                        {% if candidate.interviews.all %}
+                            <ul>
+                                {% for interview in candidate.interviews.all %}
+                                    <li>
+                                        <i class="bi bi-building me-1"></i> <strong>Company:</strong> {{ interview.company_name }}<br>
+                                        <i class="bi bi-calendar me-1"></i> <strong>Date:</strong> {{ interview.interview_date }}<br>
+                                        {% if interview.feedback %}
+                                            <i class="bi bi-chat-dots me-1"></i> <strong>Feedback:</strong> {{ interview.feedback }}
+                                        {% endif %}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <p>No interview history available.</p>
+                        {% endif %}
+                    </div>
+                    <div class="card-footer text-muted">
+                        Profile Last Updated: {{ candidate.updated_on|date:"F d, Y" }}
+                    </div>
+                </div>
+                <div class="mt-3 d-flex justify-content-between">
+                    <a href="{% url 'delete_profile_and_account' %}" class="btn btn-danger">Delete Profile and Account</a>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

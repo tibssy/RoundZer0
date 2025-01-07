@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     "jobposts",
     "chatbot",
     "about",
+    "candidate_profiles",
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"

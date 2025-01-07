@@ -11,6 +11,7 @@ class VoiceConsumer(AsyncWebsocketConsumer):
         super().__init__(*args, **kwargs)
         self.job_post = None
         self.criteria = None
+        self.preparation = None
         self.assistant = None
 
     async def connect(self):
@@ -37,14 +38,23 @@ class VoiceConsumer(AsyncWebsocketConsumer):
         db_manager = DatabaseManager(self.scope)
         self.job_post = await db_manager.get_job_post()
         self.criteria = await db_manager.get_evaluation_criteria()
-        preparation_details = await db_manager.get_interview_preparation()
+        self.preparation = await db_manager.get_interview_preparation()
+        self._create_assistant()
 
-        self.assistant = Assistant(
-            ai_provider='groq',
-            interview_duration=preparation_details.get('interview_duration'),
-            job_post=self.job_post,
-            questions_list=preparation_details.get('questions')
-        )
+    def _create_assistant(self):
+        """Create an Assistant instance based on preparation details."""
+        assistant_params = {
+            'ai_provider': 'groq',
+            'job_post': self.job_post,
+        }
+
+        if self.preparation:
+            assistant_params.update({
+                'interview_duration': self.preparation.get('interview_duration'),
+                'questions_list': self.preparation.get('questions')
+            })
+
+        self.assistant = Assistant(**assistant_params)
 
     async def generate_feedback_on_disconnect(self):
         """Generate and handle feedback upon disconnection."""

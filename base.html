@@ -1,12 +1,12 @@
 {% load static %}
 
+
 {% url 'home' as home_url %}
 {% url 'jobs' as jobs_url %}
 {% url 'about' as about_url %}
 {% url 'account_login' as login_url %}
 {% url 'account_signup' as signup_url %}
 {% url 'account_logout' as logout_url %}
-{% url 'candidate_profile' as candidate_profile_url %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -30,7 +30,7 @@
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
                 <a class="navbar-brand" href="{{ home_url }}">
-                  <img src="{% static 'images/logo.png' %}" alt="Site Logo" height="30" class="d-inline-block align-top">
+                  <img src="{% static 'images/logo.png' %}}" alt="Site Logo" height="30" class="d-inline-block align-top">
                   <span class="ms-2" style="color:white">RoundZer0</span>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,28 +48,23 @@
                             <a class="nav-link {% if request.path == about_url %}active{% endif %}" aria-current="page" href="{{ about_url }}">About</a>
                         </li>
                         {% if user.is_authenticated %}
-                            {% if request.user.groups.all.0.name == 'Candidate' %}
-                                <li class="nav-item d-none d-sm-block dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="bi bi-person-circle"></i>
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                        <li><a class="dropdown-item" href="{% url 'candidate_profile' %}">Profile</a></li>
-                                        <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item" href="{% url 'account_logout' %}">Logout</a></li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item d-block d-sm-none">
-                                    <a href="{% url 'candidate_profile' %}" class="nav-link text-light">{{ user.username }}</a>
-                                </li>
-                                <li class="nav-item d-block d-sm-none">
-                                    <a href="{% url 'account_logout' %}" class="nav-link text-light">Logout</a>
-                                </li>
-                            {% else %}
-                                <li class="nav-item">
-                                    <a class="nav-link {% if request.path == logout_url %}active{% endif %}" aria-current="page" href="{% url 'account_logout' %}">Logout</a>
-                                </li>
-                            {% endif %}
+                            {% for group in request.user.groups.all %}
+                                {% if group.name == 'Candidate' %}
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            {{ user.username }}
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                            <p>helloka</p>
+
+                                        </ul>
+                                    </li>
+                                {% else %}
+                                    <li class="nav-item">
+                                        <a class="nav-link {% if request.path == logout_url %}active{% endif %}" aria-current="page" href="{% url 'account_logout' %}">Logout</a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
                         {% else %}
                             <li class="nav-item">
                                 <a class="nav-link {% if request.path == signup_url %}active{% endif %}" aria-current="page"

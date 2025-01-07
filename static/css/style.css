@@ -54,14 +54,12 @@ footer {
 .nav-item.dropdown .nav-link {
     display: flex;
     align-items: center;
-    padding-top: 0px;
-    padding-bottom: 0px;
-    width: 25px;
 }
 
 .nav-item.dropdown .nav-link i{
     display: flex;
     align-items: center;
+    font-size: 1.4rem;
 }
 
 .user-icon {

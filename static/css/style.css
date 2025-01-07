@@ -59,7 +59,12 @@ footer {
 .nav-item.dropdown .nav-link i{
     display: flex;
     align-items: center;
-    font-size: 1.4rem;
+    font-size: 1.5rem;
+}
+
+.nav-link.active {
+    color: #ffc107 !important;
+    font-weight: 600;
 }
 
 .user-icon {

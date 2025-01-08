@@ -214,6 +214,20 @@ footer {
     color: #007bff;
 }
 
+.message-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+}
+
+.alert-wrapper {
+    position: relative;
+    margin: 0 auto;
+    padding: 10px;
+}
+
 @media (max-width: 992px) {
     #user-menu-mobile {
         display: flex;

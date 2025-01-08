@@ -87,8 +87,22 @@
     </header>
 
     <!-- Main -->
-    <main>
-        {% block content %}{% endblock %}
+    <main style="position: relative;">
+        <div class="message-container">
+            {% if messages %}
+                <div class="alert-wrapper">
+                    {% for message in messages %}
+                        <div class="alert alert-{% if message.tags == 'success' %}success{% elif message.tags == 'info' %}info{% elif message.tags == 'warning' %}warning{% elif message.tags == 'error' %}danger{% else %}primary{% endif %} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        <div class="container mt-3">
+            {% block content %}{% endblock %}
+        </div>
     </main>
 
     <!-- Footer -->
@@ -101,6 +115,8 @@
     {% block scripts %}
      <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Dismiss Alert -->
+    <script src="{% static 'js/alert.js' %}"></script>
     {% endblock %}
 </body>
 </html>

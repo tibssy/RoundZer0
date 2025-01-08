@@ -4,10 +4,12 @@ from jobposts.models import JobPost
 from .models import EvaluationRubric, InterviewPreparation
 from candidate_profiles.models import Candidate
 
+
 class DatabaseManager:
     def __init__(self, scope):
         self.scope = scope
         self.job_post_id = self.get_job_id()
+        self.user_id = self.get_user_id()
 
     def get_job_id(self):
         """Extract the job_post_id from the WebSocket query string."""
@@ -15,6 +17,25 @@ class DatabaseManager:
         query_params = parse_qs(query_string)
         job_post_id_list = query_params.get('job_post_id', [])
         return job_post_id_list[0] if job_post_id_list else None
+
+    def get_user_id(self):
+        """Get the current user's ID from the scope."""
+        if self.scope and 'user' in self.scope and self.scope['user'].is_authenticated:
+            return self.scope['user'].id
+        return None
+
+    @database_sync_to_async
+    def get_user_profile(self):
+        """Fetch the user profile of a candidate based on the user ID."""
+        try:
+            candidate = Candidate.objects.get(user_id=self.user_id)
+        except Candidate.DoesNotExist:
+            return None
+        else:
+            return {
+                'name': f'{candidate.user.first_name} {candidate.user.first_name}',
+                'email': candidate.user.email,
+            }
 
     @database_sync_to_async
     def get_job_post(self):
@@ -36,12 +57,3 @@ class DatabaseManager:
             'questions', 'interview_duration'
         ).first()
         return preparation
-
-    @database_sync_to_async
-    def get_candidate_resume(self, user_id):
-        """Fetch the resume of a candidate based on the user ID."""
-        try:
-            candidate = Candidate.objects.get(user_id=user_id)
-            return candidate.resume
-        except Candidate.DoesNotExist:
-            return None

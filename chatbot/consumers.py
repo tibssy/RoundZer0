@@ -42,8 +42,8 @@ class VoiceConsumer(AsyncWebsocketConsumer):
         self.criteria = await db_manager.get_evaluation_criteria()
         self.preparation = await db_manager.get_interview_preparation()
         self._create_assistant()
-        candidate_resume = db_manager.get_candidate_resume(user_id=2)
-        print(candidate_resume)
+        profile = await db_manager.get_user_profile()
+        print(profile)
 
 
     def _create_assistant(self):

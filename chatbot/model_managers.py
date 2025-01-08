@@ -2,7 +2,7 @@ from urllib.parse import parse_qs
 from channels.db import database_sync_to_async
 from jobposts.models import JobPost
 from .models import EvaluationRubric, InterviewPreparation
-
+from candidate_profiles.models import Candidate
 
 class DatabaseManager:
     def __init__(self, scope):
@@ -36,3 +36,12 @@ class DatabaseManager:
             'questions', 'interview_duration'
         ).first()
         return preparation
+
+    @database_sync_to_async
+    def get_candidate_resume(self, user_id):
+        """Fetch the resume of a candidate based on the user ID."""
+        try:
+            candidate = Candidate.objects.get(user_id=user_id)
+            return candidate.resume
+        except Candidate.DoesNotExist:
+            return None

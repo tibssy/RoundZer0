@@ -4,6 +4,8 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 from .ai_assistant import Assistant, FeedbackAssistant
 from .model_managers import DatabaseManager
 import asyncio
+import pdfplumber
+
 
 
 class VoiceConsumer(AsyncWebsocketConsumer):
@@ -40,6 +42,10 @@ class VoiceConsumer(AsyncWebsocketConsumer):
         self.criteria = await db_manager.get_evaluation_criteria()
         self.preparation = await db_manager.get_interview_preparation()
         self._create_assistant()
+        candidate_resume = db_manager.get_candidate_resume(user_id=2)
+        print(candidate_resume)
+        # self.read_to_text(candidate_resume)
+
 
     def _create_assistant(self):
         """Create an Assistant instance based on preparation details."""
@@ -86,3 +92,16 @@ class VoiceConsumer(AsyncWebsocketConsumer):
                 audio_data = await self.assistant.text_to_speech(sentence)
                 if audio_data:
                     await self.send(bytes_data=audio_data)
+
+
+    def read_to_text(self, pdf_file):
+        audio_buffer = io.BytesIO(pdf_file)
+        audio_buffer.name = 'test.pdf'
+        # audio_buffer.seek(0)
+
+        with pdfplumber.open(audio_buffer) as pdf:
+            text = ''
+            for page in pdf.pages:
+                text += page.extract_text()
+
+            print(text)

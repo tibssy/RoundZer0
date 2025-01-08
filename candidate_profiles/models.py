@@ -9,6 +9,7 @@ class Candidate(models.Model):
     phone = models.CharField(max_length=15, blank=True, null=True)
     resume = models.FileField(upload_to="resumes/", blank=True, null=True)
     created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         if self.user.first_name and self.user.last_name:

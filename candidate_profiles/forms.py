@@ -9,13 +9,20 @@ class EditProfileForm(forms.ModelForm):
 
     class Meta:
         model = Candidate
-        fields = ['phone', 'resume']
+        fields = ['phone', 'executive_summary', 'key_skills']
         labels = {
             'phone': 'Phone Number',
-            'resume': 'Upload New Resume',
+            'executive_summary': 'Executive Summary / About Me',
+            'key_skills': 'Key Skills',
+        }
+        widgets = {
+            'executive_summary': forms.Textarea(attrs={'rows': 4}),
         }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields['first_name'].initial = self.instance.user.first_name
+        self.fields['last_name'].initial = self.instance.user.last_name
+        self.fields['email'].initial = self.instance.user.email
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control'

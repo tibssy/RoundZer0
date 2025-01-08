@@ -43,10 +43,17 @@
                                 {% endif %}
                             </div>
                             <div class="mb-3">
-                                <label for="{{ form.resume.id_for_label }}" class="form-label">Resume</label>
-                                {{ form.resume }}
-                                {% if form.resume.errors %}
-                                    <div class="text-danger">{{ form.resume.errors.as_text }}</div>
+                                <label for="{{ form.executive_summary.id_for_label }}" class="form-label">Executive Summary / About Me</label>
+                                {{ form.executive_summary }}
+                                {% if form.executive_summary.errors %}
+                                    <div class="text-danger">{{ form.executive_summary.errors.as_text }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="mb-3">
+                                <label for="{{ form.key_skills.id_for_label }}" class="form-label">Key Skills</label>
+                                {{ form.key_skills }}
+                                {% if form.key_skills.errors %}
+                                    <div class="text-danger">{{ form.key_skills.errors.as_text }}</div>
                                 {% endif %}
                             </div>
                             <button type="submit" class="btn btn-primary">Save Changes</button>

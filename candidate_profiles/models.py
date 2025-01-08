@@ -7,9 +7,14 @@ class Candidate(models.Model):
         User, on_delete=models.CASCADE, related_name="candidate_profile"
     )
     phone = models.CharField(max_length=15, blank=True, null=True)
-    resume = models.FileField(upload_to="resumes/", blank=True, null=True)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
+    executive_summary = models.TextField(
+        blank=True, null=True, help_text="A brief overview of your professional background and goals."
+    )
+    key_skills = models.TextField(
+        blank=True, null=True, help_text="Separate skills with commas (e.g., Python, Django, Communication)."
+    )
 
     def __str__(self):
         if self.user.first_name and self.user.last_name:

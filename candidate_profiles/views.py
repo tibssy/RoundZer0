@@ -5,7 +5,6 @@ from django.contrib import messages
 from .models import Candidate
 from .forms import EditProfileForm
 
-
 @login_required
 def candidate_profile(request):
     try:
@@ -52,5 +51,3 @@ def delete_profile_and_account(request):
         user.delete()
         messages.success(request, "Your profile and account have been deleted successfully.")
         return redirect('home')
-
-    return render(request, 'candidate_profiles/delete_profile_confirm.html')

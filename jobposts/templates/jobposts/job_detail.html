@@ -54,9 +54,9 @@
                 <div class="d-flex justify-content-between mt-3">
                     <a href="{% url 'jobs' %}" class="btn btn-secondary">Back to Job Openings</a>
                     {% if user.is_authenticated %}
-                        <a href="{% url 'start_interview' object.pk %}" class="btn btn-primary ms-2">Start Interview</a>
+                        <a href="{% url 'start_interview' object.pk %}" class="btn btn-primary">Start Interview</a>
                     {% else %}
-                        <a href="{% url 'account_login' %}" class="btn btn-outline-primary me-2">Login to Apply</a>
+                        <a href="{% url 'account_login' %}" class="btn btn-outline-primary">Login to Apply</a>
                     {% endif %}
                 </div>
             </div>

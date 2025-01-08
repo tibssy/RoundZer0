@@ -54,7 +54,31 @@
                 </div>
                 <div class="mt-3 d-flex justify-content-between">
                     <a href="{% url 'edit_profile' %}" class="btn btn-primary">Edit Profile</a>
-                    <a href="{% url 'delete_profile_and_account' %}" class="btn btn-danger">Delete Profile</a>
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteProfileModal">
+                        Delete Profile
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Profile Modal -->
+    <div class="modal fade" id="deleteProfileModal" tabindex="-1" aria-labelledby="deleteProfileModalLabel" aria-hidden="true">
+        <div class="modal-dialog mt-8 modal-lg shadow">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteProfileModalLabel">Delete Profile and Account</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete your profile and account? <strong>This action cannot be undone.</strong></p>
+                    <form method="post" action="{% url 'delete_profile_and_account' %}">
+                        {% csrf_token %}
+                        <div class="d-flex justify-content-between gap-2">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-danger">Yes, Delete My Profile</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

@@ -51,9 +51,13 @@
                         Posted on: {{ object.created_on|date:"F d, Y" }}
                     </div>
                 </div>
-                <div class="mt-3">
+                <div class="d-flex justify-content-between mt-3">
                     <a href="{% url 'jobs' %}" class="btn btn-secondary">Back to Job Openings</a>
-                    <a href="{% url 'start_interview' object.pk %}" class="btn btn-primary ms-2">Start Interview</a>
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'start_interview' object.pk %}" class="btn btn-primary ms-2">Start Interview</a>
+                    {% else %}
+                        <a href="{% url 'account_login' %}" class="btn btn-outline-primary me-2">Login to Apply</a>
+                    {% endif %}
                 </div>
             </div>
         </div>

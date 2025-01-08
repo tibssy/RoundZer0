@@ -47,7 +47,7 @@ footer {
     padding-left: 4px;
 
     & li {
-        margin: 0 3px
+        margin: 0 2px;
     }
 }
 
@@ -72,7 +72,7 @@ footer {
     display: block;
     right: 0;
     opacity: 0;
-    transition: all 0.3s;
+    transition: all 0.2s;
 }
 
 .dropdown-menu.show {

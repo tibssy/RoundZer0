@@ -264,6 +264,10 @@ footer {
     max-width: 800px;
 }
 
+.edit-icon-lg {
+    font-size: 120%;
+}
+
 @media (max-width: 992px) {
     #user-menu-mobile {
         display: flex;

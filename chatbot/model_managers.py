@@ -3,7 +3,7 @@ from channels.db import database_sync_to_async
 from jobposts.models import JobPost
 from .models import EvaluationRubric, InterviewPreparation
 from candidate_profiles.models import Candidate, InterviewHistory
-from datetime import date
+from datetime import datetime
 
 
 class DatabaseManager:
@@ -62,15 +62,16 @@ class DatabaseManager:
         return preparation
 
     @database_sync_to_async
-    def send_feedback_to_user(self, company_name, feedback):
+    def send_feedback_to_user(self, job_title, company_name, feedback):
         """Sends interview feedback to a user's interview history."""
         try:
             candidate = Candidate.objects.get(user_id=self.user_id)
             interview_history_entry = InterviewHistory(
                 candidate=candidate,
+                job_title=job_title,
                 company_name=company_name,
                 feedback=feedback,
-                interview_date=date.today()
+                interview_date=datetime.now()
             )
             interview_history_entry.save()
             print(f"Interview history saved for candidate {candidate} with company '{company_name}'.")

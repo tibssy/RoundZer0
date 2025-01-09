@@ -27,8 +27,9 @@ class InterviewHistory(models.Model):
         Candidate, related_name="interviews", on_delete=models.CASCADE
     )
     company_name = models.CharField(max_length=255)
+    job_title = models.CharField(max_length=255, blank=True, null=True)
     feedback = models.TextField(blank=True, null=True)
-    interview_date = models.DateField()
+    interview_date = models.DateTimeField()
 
     def __str__(self):
         return f"{self.company_name} - {self.candidate.user.first_name} {self.candidate.user.last_name}"

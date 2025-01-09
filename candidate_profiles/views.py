@@ -12,7 +12,8 @@ def candidate_profile(request):
     except Candidate.DoesNotExist:
         return render(request, 'candidate_profiles/no_profile.html')
 
-    context = {'candidate': candidate}
+    interviews = candidate.interviews.order_by('-interview_date')
+    context = {'candidate': candidate, 'interviews': interviews}
     return render(request, 'candidate_profiles/candidate_profile.html', context)
 
 @login_required

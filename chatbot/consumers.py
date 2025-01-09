@@ -78,7 +78,8 @@ class VoiceConsumer(AsyncWebsocketConsumer):
 
             # Send "hello" as company name to candidate interview history
             await self.db_manager.send_feedback_to_user(
-                company_name="hello",
+                job_title=self.job_post.title,
+                company_name=self.job_post.company_name,
                 feedback=feedback.get('feedback')
             )
 

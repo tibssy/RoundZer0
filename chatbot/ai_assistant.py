@@ -217,6 +217,7 @@ class FeedbackAssistant:
             "\n  ... (repeat for all criteria)"
             "\n  'overall_score': <weighted_average_score>, // **This should also be between 0 and 100**"
             "\n  'recommendation': '<summary_of_candidate_potential_and_fit>'"
+            "\n  'feedback': '<summarize_candidate_fit_for_the_position_and_provide_specific_constructive_suggestions_for_improvement>'"
             "\n}"
         )
         return system_message

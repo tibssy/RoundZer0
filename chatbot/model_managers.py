@@ -2,7 +2,8 @@ from urllib.parse import parse_qs
 from channels.db import database_sync_to_async
 from jobposts.models import JobPost
 from .models import EvaluationRubric, InterviewPreparation
-from candidate_profiles.models import Candidate
+from candidate_profiles.models import Candidate, InterviewHistory
+from datetime import date
 
 
 class DatabaseManager:
@@ -33,8 +34,10 @@ class DatabaseManager:
             return None
         else:
             return {
-                'name': f'{candidate.user.first_name} {candidate.user.first_name}',
+                'name': f'{candidate.user.first_name} {candidate.user.last_name}',
                 'email': candidate.user.email,
+                'executive_summary': candidate.executive_summary,
+                'key_skills': candidate.key_skills,
             }
 
     @database_sync_to_async
@@ -57,3 +60,19 @@ class DatabaseManager:
             'questions', 'interview_duration'
         ).first()
         return preparation
+
+    @database_sync_to_async
+    def send_feedback_to_user(self, company_name, feedback):
+        """Sends interview feedback to a user's interview history."""
+        try:
+            candidate = Candidate.objects.get(user_id=self.user_id)
+            interview_history_entry = InterviewHistory(
+                candidate=candidate,
+                company_name=company_name,
+                feedback=feedback,
+                interview_date=date.today()
+            )
+            interview_history_entry.save()
+            print(f"Interview history saved for candidate {candidate} with company '{company_name}'.")
+        except Candidate.DoesNotExist:
+            print(f"Candidate with user ID {self.user_id} not found.")

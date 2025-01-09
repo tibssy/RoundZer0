@@ -4,8 +4,6 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 from .ai_assistant import Assistant, FeedbackAssistant
 from .model_managers import DatabaseManager
 import asyncio
-# import pdfplumber
-
 
 
 class VoiceConsumer(AsyncWebsocketConsumer):
@@ -15,6 +13,7 @@ class VoiceConsumer(AsyncWebsocketConsumer):
         self.criteria = None
         self.preparation = None
         self.assistant = None
+        self.db_manager = None
 
     async def connect(self):
         """Initialize an Assistant instance for this WebSocket connection."""
@@ -37,12 +36,12 @@ class VoiceConsumer(AsyncWebsocketConsumer):
 
     async def initialize_interview(self):
         """Initialize interview parameters and assistant."""
-        db_manager = DatabaseManager(self.scope)
-        self.job_post = await db_manager.get_job_post()
-        self.criteria = await db_manager.get_evaluation_criteria()
-        self.preparation = await db_manager.get_interview_preparation()
+        self.db_manager = DatabaseManager(self.scope)
+        self.job_post = await self.db_manager.get_job_post()
+        self.criteria = await self.db_manager.get_evaluation_criteria()
+        self.preparation = await self.db_manager.get_interview_preparation()
         self._create_assistant()
-        profile = await db_manager.get_user_profile()
+        profile = await self.db_manager.get_user_profile()
         print(profile)
 
 
@@ -76,6 +75,13 @@ class VoiceConsumer(AsyncWebsocketConsumer):
             feedback = feedback_assistant.generate_feedback(conversation_text)
             print(feedback)
             # Send feedback to employer and a brief result to candidate...
+
+            # Send "hello" as company name to candidate interview history
+            await self.db_manager.send_feedback_to_user(
+                company_name="hello",
+                feedback=feedback.get('feedback')
+            )
+
 
     async def process_voice_data(self, bytes_data):
         """Process the voice data received from WebRTC."""

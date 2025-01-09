@@ -23,7 +23,6 @@ def edit_profile(request):
         if form.is_valid():
             request.user.first_name = form.cleaned_data['first_name']
             request.user.last_name = form.cleaned_data['last_name']
-            request.user.email = form.cleaned_data['email']
             request.user.save()
             form.save()
             messages.success(request, 'Your profile has been updated successfully.')

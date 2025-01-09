@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     "jobposts",
     "chatbot",
     "about",
+    "employer_profiles",
     "candidate_profiles",
 ]
 

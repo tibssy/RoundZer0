@@ -5,7 +5,6 @@ from .models import Candidate
 class EditProfileForm(forms.ModelForm):
     first_name = forms.CharField(max_length=30, label='First Name')
     last_name = forms.CharField(max_length=30, label='Last Name')
-    # email = forms.EmailField(label='Email')
 
     class Meta:
         model = Candidate

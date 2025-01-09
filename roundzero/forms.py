@@ -2,6 +2,8 @@ from allauth.account.forms import SignupForm
 from django import forms
 from django.contrib.auth.models import Group
 from candidate_profiles.models import Candidate
+from employer_profiles.models import Employer
+
 
 class CustomSignupForm(SignupForm):
     USER_TYPE_CHOICES = (
@@ -16,12 +18,12 @@ class CustomSignupForm(SignupForm):
         group = None
         if user_type == 'employer':
             group = Group.objects.get(name='Employer')
+            Employer.objects.create(user=user)
         elif user_type == 'candidate':
             group = Group.objects.get(name='Candidate')
-            # Create Candidate profile automatically
             Candidate.objects.create(user=user)
 
-        if group: #check if group exists
+        if group:
             user.groups.add(group)
             user.save()
 

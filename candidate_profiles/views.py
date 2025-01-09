@@ -20,7 +20,7 @@ def candidate_history(request):
     try:
         candidate = request.user.candidate_profile
     except Candidate.DoesNotExist:
-        return render(request, 'candidate_profiles/no_profile.html')  # Or handle appropriately
+        return render(request, 'candidate_profiles/no_profile.html')
 
     interviews = candidate.interviews.order_by('-interview_date')
     context = {'candidate': candidate, 'interviews': interviews}

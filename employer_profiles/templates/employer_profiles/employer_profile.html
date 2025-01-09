@@ -17,14 +17,14 @@
                     <div class="card-body">
                         <h5 class="card-subtitle mb-2 text-muted">{{ employer.user.username }}</h5>
                         <p class="card-text">
-                            <i class="bi bi-person me-2"></i> <strong>Name:</strong>{{ employer.user.company_name }}
+                            <i class="bi bi-person me-2"></i><strong>Company:</strong> {{ employer.company_name }}
                         </p>
                         <p class="card-text">
-                            <i class="bi bi-envelope me-2"></i> <strong>Email:</strong>{{ employer.user.email }}
+                            <i class="bi bi-envelope me-2"></i><strong>Email:</strong> {{ employer.user.email }}
                         </p>
                         {% if employer.phone %}
                             <p class="card-text">
-                                <i class="bi bi-telephone me-2"></i> <strong>Phone:</strong>{{ employer.phone }}
+                                <i class="bi bi-telephone me-2"></i><strong>Phone:</strong> {{ employer.phone }}
                             </p>
                         {% endif %}
                     </div>

@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from django.contrib import messages
-from .models import Candidate
+from .models import Candidate, InterviewHistory
 from .forms import EditProfileForm
 
 @login_required
@@ -53,3 +53,18 @@ def delete_profile_and_account(request):
         user.delete()
         messages.success(request, "Your profile and account have been deleted successfully.")
         return redirect('home')
+
+@login_required
+def delete_interview(request, interview_id):
+    interview = get_object_or_404(InterviewHistory, id=interview_id)
+    if interview.candidate.user == request.user:  # Check if the logged-in user owns this interview
+        if request.method == 'POST':
+            interview.delete()
+            messages.success(request, "Interview history deleted successfully.")
+            return redirect('candidate_history')
+        else:
+            # If it's not a POST request (e.g., someone manually typed the URL), redirect back
+            return redirect('candidate_history')
+    else:
+        messages.error(request, "You are not authorized to delete this interview history.")
+        return redirect('candidate_history')

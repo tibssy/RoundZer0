@@ -6,4 +6,5 @@ urlpatterns = [
     path('profile/edit/', views.edit_profile, name='edit_profile'),
     path('profile/history/', views.candidate_history, name='candidate_history'),
     path('delete_profile/', views.delete_profile_and_account, name='delete_profile_and_account'),
+    path('interview/delete/<int:interview_id>/', views.delete_interview, name='delete_interview'),
 ]

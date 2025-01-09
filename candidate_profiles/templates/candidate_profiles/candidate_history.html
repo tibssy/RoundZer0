@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Interview History - {{ candidate.user.username }}{% endblock %}
+
+{% block content %}
+    <div class="container mt-8 mb-3">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h1>Interview History</h1>
+                        <a href="{% url 'candidate_profile' %}" class="btn btn-outline-secondary btn-sm" title="Back to Profile">
+                            <i class="bi bi-arrow-left"></i> Back to Profile
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        {% if interviews %}
+                            <div class="accordion" id="interviewAccordion">
+                                {% for interview in interviews %}
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="heading{{ interview.id }}">
+                                            <button class="accordion-button collapsed"
+                                                    type="button"
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#collapse{{ interview.id }}"
+                                                    aria-expanded="false"
+                                                    aria-controls="collapse{{ interview.id }}">
+                                                <i class="bi bi-briefcase-fill me-1"></i> {{ interview.job_title }}
+                                            </button>
+                                        </h2>
+                                        <div id="collapse{{ interview.id }}" class="accordion-collapse collapse" aria-labelledby="heading{{ interview.id }}" data-bs-parent="#interviewAccordion">
+                                            <div class="accordion-body">
+                                                <i class="bi bi-building me-1"></i> <strong>Company:</strong> {{ interview.company_name }}
+                                                <br>
+                                                <i class="bi bi-calendar me-1"></i> <strong>Date:</strong> {{ interview.interview_date }}
+                                                {% if interview.feedback %}
+                                                    <hr>
+                                                    <i class="bi bi-chat-dots me-1"></i> <strong>Feedback:</strong> {{ interview.feedback }}
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <p>No interview history available.</p>
+                        {% endif %}
+                    </div>
+                    <div class="card-footer text-muted">
+                        <small>Last Updated: {{ candidate.updated_on|date:"F d, Y" }}</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -16,7 +16,7 @@ def employer_profile(request):
     return render(request, 'employer_profiles/employer_profile.html', context)
 
 @login_required
-def edit_profile(request):
+def edit_employer_profile(request):
     employer = get_object_or_404(Employer, user=request.user)
     if request.method == 'POST':
         form = EditProfileForm(request.POST, instance=employer)
@@ -29,11 +29,11 @@ def edit_profile(request):
     else:
         form = EditProfileForm(instance=employer)
     context = {'form': form}
-    return render(request, 'employer_profiles/edit_profile.html', context)
+    return render(request, 'employer_profiles/edit_employer_profile.html', context)
 
 
 @login_required
-def delete_profile_and_account(request):
+def delete_employer_profile(request):
     if request.method == 'POST':
         user = request.user
         logout(request)

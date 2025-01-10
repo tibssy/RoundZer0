@@ -27,7 +27,7 @@ def candidate_history(request):
     return render(request, 'candidate_profiles/candidate_history.html', context)
 
 @login_required
-def edit_profile(request):
+def edit_candidate_profile(request):
     candidate = get_object_or_404(Candidate, user=request.user)
     if request.method == 'POST':
         form = EditProfileForm(request.POST, instance=candidate)
@@ -43,10 +43,10 @@ def edit_profile(request):
     else:
         form = EditProfileForm(instance=candidate)
     context = {'form': form}
-    return render(request, 'candidate_profiles/edit_profile.html', context)
+    return render(request, 'candidate_profiles/edit_candidate_profile.html', context)
 
 @login_required
-def delete_profile_and_account(request):
+def delete_candidate_profile(request):
     if request.method == 'POST':
         user = request.user
         logout(request)

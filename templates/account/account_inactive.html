@@ -1,14 +1,30 @@
-{% extends "allauth/layouts/entrance.html" %}
+{% extends "base.html" %}
 {% load i18n %}
-{% load allauth %}
-{% block head_title %}
-    {% translate "Account Inactive" %}
-{% endblock head_title %}
+{% load static %}
+
+{% block title %}
+    {% translate "Account Inactive" %} - {{ block.super }}
+{% endblock %}
+
 {% block content %}
-    {% element h1 %}
-        {% translate "Account Inactive" %}
-    {% endelement %}
-    {% element p %}
-        {% translate "This account is inactive." %}
-    {% endelement %}
-{% endblock content %}
+    <div class="container mt-8">
+        <div class="row justify-content-center">
+            <div class="col-md-8 text-center">
+                <div class="alert alert-warning" role="alert">
+                    <h1 class="alert-heading">{% translate "Account Inactive" %}</h1>
+                    <p>{% translate "This account is inactive." %}</p>
+                    <div style="font-size: 8em; margin-bottom: 15px; color: orange;">
+                        <i class="bi bi-emoji-frown"></i>
+                    </div>
+                    <p class="text-center">
+                        {% translate "If you believe this is an error, please contact the administrator at" %}
+                        <a href="mailto:admin@example.com">
+                            <i class="bi bi-envelope-fill me-1"></i><span style="display: none;">admin@example.com</span>
+                        </a>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

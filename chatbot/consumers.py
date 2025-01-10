@@ -74,13 +74,14 @@ class VoiceConsumer(AsyncWebsocketConsumer):
             )
             feedback = feedback_assistant.generate_feedback(conversation_text)
             print(feedback)
-            # Send feedback to employer and a brief result to candidate...
 
-            await self.db_manager.send_feedback_to_user(
-                job_title=self.job_post.title,
-                company_name=self.job_post.company_name,
-                feedback=feedback.get('feedback')
-            )
+            # Send feedback to employer and a brief result to candidate...
+            if feedback:
+                await self.db_manager.send_feedback_to_user(
+                    job_title=self.job_post.title,
+                    company_name=self.job_post.company_name,
+                    feedback=feedback.get('feedback')
+                )
 
 
     async def process_voice_data(self, bytes_data):

@@ -7,6 +7,7 @@ class Employer(models.Model):
         User, on_delete=models.CASCADE, related_name="employer_profile"
     )
     company_name = models.CharField(max_length=255)
+    company_description = models.TextField(blank=True, null=True)
     phone = models.CharField(max_length=15, blank=True, null=True)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)

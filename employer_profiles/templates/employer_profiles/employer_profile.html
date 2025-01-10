@@ -27,6 +27,11 @@
                                 <i class="bi bi-telephone me-2"></i><strong>Phone:</strong> {{ employer.phone }}
                             </p>
                         {% endif %}
+                        {% if employer.company_description %}
+                            <p class="card-text">
+                                <i class="bi bi-info-circle me-2"></i><strong>Description:</strong> {{ employer.company_description|linebreaksbr }}
+                            </p>
+                        {% endif %}
                     </div>
                     <div class="card-footer text-muted">
                         Profile Last Updated: {{ employer.updated_on|date:"F d, Y" }}

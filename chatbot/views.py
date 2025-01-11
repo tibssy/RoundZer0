@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import TemplateView
 from jobposts.models import JobPost
+from .random_assistant import get_assistant
 
 
 class ChatbotIndexView(TemplateView):
@@ -23,5 +24,10 @@ class ChatbotInterviewView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['job_post_id'] = self.request.GET.get('job_post_id')
+        job_post_id = self.request.GET.get('job_post_id')
+        name, voice = get_assistant()
+
+        self.request.session['speaker'] = {'name': name, 'voice': voice}
+        context['video_filename'] = f'videos/{name}.webm'
+        context['job_post_id'] = job_post_id
         return context

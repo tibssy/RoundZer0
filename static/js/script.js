@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const localCameraOff = document.getElementById('local-camera-off');
     const cameraToggleButton = document.getElementById('camera-toggle');
     const endInterviewButton = document.getElementById('end-interview');
-    const videoPlaceholder = document.getElementById('video-placeholder');
 
     let stream = null;
     let localStream = null;
@@ -59,41 +58,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    const initializeVideoPlaceholder = () => {
-        if (videoPlaceholder) {
-            const videoFiles = [
-                '/static/videos/sloth.webm',
-                '/static/videos/sloth2.webm',
-                '/static/videos/cat3.webm',
-                '/static/videos/deer.webm',
-                '/static/videos/camel.webm',
-                '/static/videos/monkey.webm',
-                '/static/videos/capybara.webm',
-                '/static/videos/goat4.webm',
-                '/static/videos/rabbit2.webm',
-                '/static/videos/sheep.webm',
-                '/static/videos/pig.webm',
-                '/static/videos/fox.webm',
-                '/static/videos/parrot.webm',
-                '/static/videos/squirrel.webm',
-                '/static/videos/dog.webm',
-                '/static/videos/dog2.webm',
-                '/static/videos/dog3.webm',
-                '/static/videos/goat.webm',
-                '/static/videos/goat2.webm',
-                '/static/videos/bear.webm',
-                '/static/videos/bear2.webm',
-                '/static/videos/rabbit.webm',
-                '/static/videos/cat.webm',
-            ];
-            const selectedVideo = videoFiles[Math.floor(Math.random() * videoFiles.length)];
-            const source = document.createElement('source');
-            source.src = selectedVideo;
-            source.type = 'video/webm';
-            videoPlaceholder.appendChild(source);
-        }
-    };
-
     const handleToggle = (toggleButton, isOn, classOn, classOff, iconOn, iconOff) => {
         toggleClass(toggleButton, isOn, classOn, classOff, iconOn, iconOff);
         if (localCameraPreview && localCameraOff) {
@@ -132,10 +96,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (localCameraPreview && localCameraOff) {
         requestMediaPermissions(localCameraPreview, localCameraOff, true);
     }
-
-    initializeVideoPlaceholder();
-
-
 
     if (cameraToggleButton) {
         cameraToggleButton.addEventListener('click', () => {

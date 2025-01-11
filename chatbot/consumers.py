@@ -58,6 +58,9 @@ class VoiceConsumer(AsyncWebsocketConsumer):
                 'questions_list': self.preparation.get('questions')
             })
 
+        if speaker := self.scope["session"].get("speaker"):
+            assistant_params.update(speaker)
+
         self.assistant = Assistant(**assistant_params)
 
     async def generate_feedback_on_disconnect(self):

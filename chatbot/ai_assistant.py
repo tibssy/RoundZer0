@@ -16,11 +16,14 @@ class Assistant:
             self,
             ai_provider='groq',
             language='en',
+            name='Emma',
+            voice='en-US-EmmaMultilingualNeural',
             interview_duration=None,
             job_post=None,
             questions_list=None
     ):
         """Initialize the Assistant with API key and language settings."""
+        self.voice = voice
         self.stt_model = None
         self.chat_model = None
         self.initial_timestamp = datetime.now()
@@ -31,7 +34,7 @@ class Assistant:
         self.job_post = job_post
         self.initialize_provider(ai_provider)
         self.system_message = (
-            f"You are a professional interview assistant. Your name is Sarah. Guide "
+            f"You are a professional interview assistant. Your name is {name}. Guide "
             f"the conversation through a structured interview progression, starting "
             f"with an introduction, followed by technical questions, behavioral "
             f"questions, and concluding remarks. You can hear and respond in voice, "
@@ -129,7 +132,7 @@ class Assistant:
     async def text_to_speech(self, text: str):
         """Convert text to speech using Edge TTS."""
         try:
-            communicate = edge_tts.Communicate(text)
+            communicate = edge_tts.Communicate(text, voice=self.voice)
             audios = []
             async for chunk in communicate.stream():
                 if chunk['type'] == 'audio':

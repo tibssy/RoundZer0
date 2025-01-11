@@ -20,7 +20,8 @@ class Assistant:
             voice='en-US-EmmaMultilingualNeural',
             interview_duration=None,
             job_post=None,
-            questions_list=None
+            questions_list=None,
+            candidate_profile=None
     ):
         """Initialize the Assistant with API key and language settings."""
         self.voice = voice
@@ -30,6 +31,7 @@ class Assistant:
         self.language = language
         self.interview_duration = interview_duration or 15
         self.questions_list = questions_list
+        self.candidate_profile = candidate_profile
         self.client = OpenAI()
         self.job_post = job_post
         self.initialize_provider(ai_provider)
@@ -37,7 +39,7 @@ class Assistant:
             f"You are a professional interview assistant. Your name is {name}. Guide "
             f"the conversation through a structured interview progression, starting "
             f"with an introduction, followed by technical questions, behavioral "
-            f"questions, and concluding remarks. You can hear and respond in voice, "
+            f"questions,  and concluding remarks. You can hear and respond in voice, "
             f"mimicking natural human interaction. Ensure all questions and answers "
             f"are phrased clearly and professionally, without slang, informal "
             f"phrases, or unprofessional language. Your responses must be concise "
@@ -90,6 +92,14 @@ class Assistant:
                 f"In addition to the standard interview progression, ask the following "
                 f"custom questions, selected randomly: {', '.join(self.questions_list)}. "
                 f"Make sure all questions are asked and that the order is random."
+            )
+
+        if self.candidate_profile:
+            self.system_message += (
+                f"The candidate's profile is as follows:\n"
+                f"  - Name: {self.candidate_profile.get('name', 'N/A')}\n"
+                f"  - Key Skills: {self.candidate_profile.get('key_skills', 'N/A')}\n"
+                f"Use this information to personalize the interview questions and to assess the candidate's fit for the role."
             )
 
     def speech_to_text(self, audio_file):

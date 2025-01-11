@@ -12,6 +12,7 @@ class VoiceConsumer(AsyncWebsocketConsumer):
         self.job_post = None
         self.criteria = None
         self.preparation = None
+        self.user_profile = None
         self.assistant = None
         self.db_manager = None
 
@@ -40,9 +41,9 @@ class VoiceConsumer(AsyncWebsocketConsumer):
         self.job_post = await self.db_manager.get_job_post()
         self.criteria = await self.db_manager.get_evaluation_criteria()
         self.preparation = await self.db_manager.get_interview_preparation()
+        self.user_profile = await self.db_manager.get_user_profile()
         self._create_assistant()
-        profile = await self.db_manager.get_user_profile()
-        print(profile)
+
 
 
     def _create_assistant(self):
@@ -60,6 +61,9 @@ class VoiceConsumer(AsyncWebsocketConsumer):
 
         if speaker := self.scope["session"].get("speaker"):
             assistant_params.update(speaker)
+
+        if self.user_profile:
+            assistant_params.update({'candidate_profile': self.user_profile})
 
         self.assistant = Assistant(**assistant_params)
 

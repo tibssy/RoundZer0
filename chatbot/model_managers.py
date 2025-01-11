@@ -9,15 +9,8 @@ from datetime import datetime
 class DatabaseManager:
     def __init__(self, scope):
         self.scope = scope
-        self.job_post_id = self.get_job_id()
+        self.job_post_id = self.scope["session"].get("job_post_id")
         self.user_id = self.get_user_id()
-
-    def get_job_id(self):
-        """Extract the job_post_id from the WebSocket query string."""
-        query_string = self.scope['query_string'].decode()
-        query_params = parse_qs(query_string)
-        job_post_id_list = query_params.get('job_post_id', [])
-        return job_post_id_list[0] if job_post_id_list else None
 
     def get_user_id(self):
         """Get the current user's ID from the scope."""

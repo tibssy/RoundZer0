@@ -1,5 +1,5 @@
 const WS_PROTOCOL = window.location.protocol === 'https:' ? 'wss://' : 'ws://';
-const WS_URL = `${WS_PROTOCOL}${window.location.host}/ws/voice/?job_post_id=${jobPostId}`;
+const WS_URL = WS_PROTOCOL + window.location.host + '/ws/voice/';
 const recordToggleButton = document.getElementById('record-toggle');
 const videoPlaceholder = document.getElementById('video-placeholder');
 const cameraOffLottieContainer = document.getElementById('local-camera-off');

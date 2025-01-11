@@ -19,7 +19,9 @@
 <body>
     <div class="container d-flex flex-column justify-content-evenly">
         <div class="col-12">
-            <h1 class="text-center m-0 text-light">Interview</h1>
+            <h1 id="interview" class="text-center m-0 text-light">
+                Interview with {{ company_name }} {% if job_title %}for the position of {{ job_title }}{% endif %}
+            </h1>
         </div>
         <div class="row">
             <div class="col-12">

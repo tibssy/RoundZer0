@@ -62,9 +62,23 @@ body {
     transform: rotate(135deg);
 }
 
+#interview {
+    font-size: 120%;
+}
+
+@media screen and (min-width: 768px) {
+    #interview {
+        font-size: 110%;
+    }
+}
+
 @media screen and (min-width: 992px) {
     .small-video {
         width: 260px;
         height: 150px;
+    }
+
+    #interview {
+        font-size: 180%;
     }
 }

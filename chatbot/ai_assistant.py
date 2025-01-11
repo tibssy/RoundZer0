@@ -186,14 +186,14 @@ class FeedbackAssistant:
     def generate_system_message(self):
         """Generate a system message for evaluating candidate answers, ensuring scores are between 0 and 100."""
         system_message = (
-            "You are a structured assistant designed to evaluate candidate answers during a job interview. "
-            "Analyze the responses and provide feedback in JSON format based on the evaluation criteria, job description, and scoring weights. "
-            "**All scores you provide must be in the range of 0 to 100, inclusive.**"
-            "\n\nThe interview is for the position of {self.job_post.title} at {self.job_post.company_name}. "
-            "The job description includes: {self.job_post.description}. "
-            "Key responsibilities are: {self.job_post.responsibilities}. "
-            "Required skills include: {self.job_post.requirements}."
-            "\n\nEvaluation criteria to consider during feedback:"
+            f"You are a structured assistant designed to evaluate candidate answers during a job interview. "
+            f"Analyze the responses and provide feedback in JSON format based on the evaluation criteria, job description, and scoring weights. "
+            f"**All scores you provide must be in the range of 0 to 100, inclusive.**"
+            f"\n\nThe interview is for the position of {self.job_post.title} at {self.job_post.company_name}. "
+            f"The job description includes: {self.job_post.description}. "
+            f"Key responsibilities are: {self.job_post.responsibilities}. "
+            f"Required skills include: {self.job_post.requirements}."
+            f"\n\nEvaluation criteria to consider during feedback:"
         )
 
         for idx, criterion in enumerate(self.evaluation_criteria, start=1):

@@ -1,5 +1,6 @@
 import os
 import re
+import time
 import json
 from datetime import datetime, timedelta
 from openai import OpenAI
@@ -235,22 +236,31 @@ class FeedbackAssistant:
         )
         return system_message
 
-    def generate_feedback(self, text: str):
+    def generate_feedback(self, text: str, max_retries=3, initial_delay=1):
         """Generate chat responses using OpenAI's GPT model."""
-        # print(f'system message:\n{self.system_message}\n\n\n')
         message = [
             {'role': 'system', 'content': self.system_message},
             {'role': 'user', 'content': text}
         ]
 
-        try:
-            completion = self.client.chat.completions.create(
-                model=self.chat_model,
-                response_format={"type": "json_object"},
-                messages=message,
-            )
-            content = completion.choices[0].message.content
-            return json.loads(content)
-        except Exception as e:
-            print(f"Error in generate_feedback: {e}")
-            return None
+        for attempt in range(max_retries):
+            try:
+                completion = self.client.chat.completions.create(
+                    model=self.chat_model,
+                    response_format={"type": "json_object"},
+                    messages=message,
+                )
+                content = completion.choices[0].message.content
+                return json.loads(content)
+            except json.JSONDecodeError as e:
+                print(f"Attempt {attempt + 1}/{max_retries} - JSONDecodeError: {e}")
+                if attempt < max_retries - 1:
+                    delay = initial_delay * (2 ** attempt)
+                    print(f"Retrying in {delay:.2f} seconds...")
+                    time.sleep(delay)
+                else:
+                    print("Max retries reached. Could not parse JSON.")
+                    return None
+            except Exception as e:
+                print(f"Attempt {attempt + 1}/{max_retries} - Error in generate_feedback: {e}")
+                return None

@@ -33,11 +33,11 @@
 <body>
     <!-- Navigation -->
     <header class="p-2">
-        <nav class="navbar navbar-expand-lg rounded-3">
-            <div class="container">
+        <nav class="navbar navbar-expand-lg rounded-3 p-1">
+            <div class="container ps-2 pe-1">
                 <a class="navbar-brand" href="{{ home_url }}">
                   <img src="{% static 'images/logo.png' %}" alt="Site Logo" height="30" class="d-inline-block align-top">
-                  <span class="ms-2" style="color: var(--primary-text)">RoundZer0</span>
+                  <span id="logo-text" class="ms-2">RoundZer0</span>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -62,7 +62,7 @@
                         {% if user.is_authenticated %}
                             {% if request.user.groups.all.0.name == 'Candidate' %}
                                 <li class="nav-item d-none d-sm-block dropdown">
-                                    <a class="nav-link text-success" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="bi bi-person-circle"></i>
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-end bg-dark" aria-labelledby="navbarDropdown">

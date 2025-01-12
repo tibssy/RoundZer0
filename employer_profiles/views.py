@@ -4,6 +4,8 @@ from django.contrib.auth import logout
 from django.contrib import messages
 from .models import Employer
 from .forms import EditProfileForm
+from jobposts.models import JobPost
+
 
 @login_required
 def employer_profile(request):
@@ -31,7 +33,6 @@ def edit_employer_profile(request):
     context = {'form': form}
     return render(request, 'employer_profiles/edit_employer_profile.html', context)
 
-
 @login_required
 def delete_employer_profile(request):
     if request.method == 'POST':
@@ -40,3 +41,10 @@ def delete_employer_profile(request):
         user.delete()
         messages.success(request, "Your profile and account have been deleted successfully.")
         return redirect('home')
+
+
+@login_required
+def my_jobs(request):
+    jobs = JobPost.objects.filter(author=request.user).order_by('-created_on')
+    context = {'jobs': jobs}
+    return render(request, 'employer_profiles/my_jobs.html', context)

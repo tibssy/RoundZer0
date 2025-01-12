@@ -1,3 +1,12 @@
+:root {
+    --primary-background: #b1e1d1;
+    --secondary-background: #c2f6e5;
+    --tertiary-background: #FFFDF7;
+    --primary-text: #000000ab;
+    --accent: #008055;
+}
+
+
 body {
     display: flex;
     flex-direction: column;
@@ -12,10 +21,12 @@ header {
     position: fixed;
     width: 100%;
     z-index: 99;
+    transition: padding 0.3s ease-in-out;
 }
 
 main {
     flex: 1;
+    background-color: var(--tertiary-background);
 }
 
 footer {
@@ -45,6 +56,8 @@ footer {
     width: 100%;
     max-width: 100%;
     box-shadow: 0 2px 4px #303030;
+    background-image: linear-gradient(var(--secondary-background), var(--primary-background));
+    transition: border-radius 0.3s ease-in-out;
 }
 
 #navbarNav {
@@ -64,6 +77,10 @@ footer {
 .nav-item.dropdown .nav-link {
     display: flex;
     align-items: center;
+
+    & a {
+        background-color: var(--primary-text);
+    }
 }
 
 .nav-item.dropdown .nav-link i{
@@ -102,7 +119,7 @@ footer {
 }
 
 .nav-link.active {
-    color: #ffc107 !important;
+    color: var(--accent) !important;
     font-weight: 600;
 }
 

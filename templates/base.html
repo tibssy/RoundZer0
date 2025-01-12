@@ -11,7 +11,7 @@
 {% url 'employer_profile' as employer_profile_url %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,12 +32,12 @@
 </head>
 <body>
     <!-- Navigation -->
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <header class="p-2">
+        <nav class="navbar navbar-expand-lg rounded-3">
             <div class="container">
                 <a class="navbar-brand" href="{{ home_url }}">
                   <img src="{% static 'images/logo.png' %}" alt="Site Logo" height="30" class="d-inline-block align-top">
-                  <span class="ms-2" style="color:white">RoundZer0</span>
+                  <span class="ms-2" style="color: var(--primary-text)">RoundZer0</span>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -159,6 +159,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Dismiss Alert -->
     <script src="{% static 'js/alert.js' %}"></script>
+    <script src="{% static 'js/animations.js' %}"></script>
     {% endblock %}
 </body>
 </html>

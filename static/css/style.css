@@ -1,10 +1,14 @@
 :root {
-    --primary-background: #0d557d;
-    --secondary-background: #41c2f4;
-    --tertiary-background: #FFFDF7;
+    --primary-background: #c1f5e4;
+    --secondary-background: #b2e2d2;
+    --tertiary-background: #fffaeb;
     --primary-text: #000000ab;
-    --accent: #fd993b;
-    --shadow: #202020;
+    --accent: #11ffb0;
+    --shadow: #30303080;
+    --shadow-light: #6464643f;
+    --box-shadow-small: 0 1px 2px var(--shadow);
+    --box-shadow-normal: 0 2px 4px var(--shadow);
+    --box-shadow-large: 0 4px 8px var(--shadow-light);
 }
 
 
@@ -19,6 +23,7 @@ body {
     font-optical-sizing: auto;
     font-weight: 500;
     font-style: normal;
+    background: var(--tertiary-background);
 }
 
 
@@ -30,29 +35,34 @@ header {
 }
 
 #logo-text {
-    color: var(--accent);
+    color: var(--primary-text);
     font-size: 1.5rem;
-    font-weight: 800;
-    text-shadow: 1px 2px var(--shadow);
+    font-weight: 900;
+    /* text-shadow: 1px 2px var(--shadow); */
 }
 
 main {
     flex: 1;
-    background-color: var(--tertiary-background);
+    /* background-color: var(--tertiary-background); */
 }
 
+
 footer {
+    background-color: var(--bs-tertiary-color);
+}
+
+/* footer {
     margin-top: auto;
 
     & .container {
         background-color: var(--primary-background);
-        box-shadow: 0 2px 4px var(--shadow);
+        box-shadow: var(--box-shadow-normal);
     }
 
     & p {
         margin: 0;
     }
-}
+} */
 
 
 .mt-6 {
@@ -73,8 +83,8 @@ footer {
 .navbar {
     width: 100%;
     max-width: 100%;
-    box-shadow: 0 2px 4px var(--shadow);
-    background-image: linear-gradient(to right, var(--primary-background), var(--secondary-background));
+    box-shadow: var(--box-shadow-normal);
+    background-image: linear-gradient(to top, var(--primary-background), var(--secondary-background));
     transition: border-radius 0.3s ease-in-out;
 }
 
@@ -95,9 +105,10 @@ footer {
 .nav-item.dropdown .nav-link {
     display: flex;
     align-items: center;
-    background-color: var(--primary-background);
+    background-color: #30303085;
     border-radius: 6px;
-    box-shadow: 0 2px 4px var(--shadow) inset;
+    /* box-shadow: 0 2px 4px var(--shadow) inset; */
+    box-shadow: var(--box-shadow-small) inset;
 
 
     & a {
@@ -121,10 +132,10 @@ footer {
 
 .nav-link.active {
     color: var(--accent) !important;
-    font-weight: 600;
-    background-color: var(--primary-background);
+    font-weight: 900;
+    background-color: var(--shadow);
     border-radius: 6px;
-    box-shadow: 0 2px 4px var(--shadow) inset;
+    box-shadow: var(--box-shadow-small) inset;
     text-shadow: 1px 2px var(--shadow);
 }
 
@@ -135,8 +146,8 @@ footer {
 
     display: block;
     overflow: hidden;
-    background-color: var(--secondary-background);
-    box-shadow: 0 2px 4px var(--shadow);
+    background-color: var(--primary-background);
+    box-shadow: var(--box-shadow-normal);
     border: none;
     padding: 5px;
     opacity: 0;
@@ -153,28 +164,50 @@ footer {
 
 
 .dropdown-item {
-    color: var(--primary-background);
+    color: var(--primary-text);
     font-weight: 900;
     font-size: 1rem;
     transition: all 0.3s;
 
     &:hover {
         border-radius: 6px;
-        background-color: var(--primary-background);
+        background-color: var(--shadow);
         color: var(--tertiary-background)
     }
 }
 
 .dropdown-divider {
-    background-color: var(--primary-background);
+    background-color: var(--shadow-light);
     margin: 4px 2px
 }
 
 
+.alert {
+    box-shadow: var(--box-shadow-small);
+}
 
 
 
+.card {
+    box-shadow: var(--box-shadow-large);
+}
 
+.card-header {
+    background-color: var(--primary-background);
+}
+
+
+.accordion-button {
+    background-color: #e9fffa;
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: var(--primary-background);
+}
+
+.accordion-button:focus {
+    box-shadow: none;
+}
 
 
 
@@ -283,6 +316,7 @@ footer {
 .pagination .step-links {
     display: flex;
     align-items: center;
+    gap: 6px
 }
 
 .pagination .step-links a,
@@ -290,13 +324,15 @@ footer {
     display: inline-block;
     padding: 8px 12px;
     border: 1px solid #ddd;
-    margin: 0 2px;
+    margin: 0;
     text-decoration: none;
     color: #333;
     border-radius: 4px;
     transition: background-color 0.3s ease;
     min-width: 30px;
     text-align: center;
+    background-color: var(--primary-background);
+    box-shadow: var(--box-shadow-small);
 }
 
 .pagination .step-links a:hover {

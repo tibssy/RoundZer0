@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Interview{% endblock %}
+
+{% block content %}
+<div id="interview-welcome" class="container d-flex align-items-center justify-content-center mt-7">
+    <div class="row justify-content-center w-100">
+        <div class="col-lg-10 text-center">
+            <h1>Welcome to the Interview</h1>
+            <div class="row">
+                <!-- Camera Column -->
+                <div class="col-12 col-md-8 text-center camera-col">
+                    <div class="card shadow camera-container">
+                        <video id="camera-preview" autoplay playsinline></video>
+                        <span id="camera-off-text" style="color: #ddd;">Camera is off</span>
+                        <div class="controls overlay-controls" style="backdrop-filter: blur(12px);">
+                            <button id="camera-toggle" class="control-btn camera-on">
+                                <i class="bi bi-camera-video-fill"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Join Button Column -->
+                <div class="col-12 col-md-4 text-center">
+                    <div class="d-flex flex-column align-items-center justify-content-center h-100">
+                        {% if job_post_id and job_title and company_name %}
+                        <p>You are starting the interview for the position of <span class="highlight">{{ job_title }}</span> at
+                            <span class="highlight">{{ company_name }}</span>
+                        </p>
+                        {% elif job_post_id %}
+                        <p>You are starting the interview for Job Post ID: {{ job_post_id }}</p>
+                        {% endif %}
+                        {% if job_post_id %}
+                        <a href="{% url 'chatbot-interview' %}?job_post_id={{ job_post_id }}"
+                            class="btn btn-primary btn-lg mb-2" id="join-button">Join now</a>
+                        {% else %}
+                        <p>No job post ID available.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{block.super}}
+<script src="{% static 'js/script.js' %}"></script>
+{% endblock %}

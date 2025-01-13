@@ -21,7 +21,7 @@ class BaseChatbotView(TemplateView):
 
 
 class ChatbotIndexView(BaseChatbotView):
-    template_name = 'chatbot/index.html'
+    template_name = 'chatbot/interview_welcome.html'
 
 
 class ChatbotInterviewView(BaseChatbotView):

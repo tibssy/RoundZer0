@@ -83,10 +83,10 @@
                                 </li>
                             {% elif request.user.groups.all.0.name == 'Employer' %}
                                 <li class="nav-item d-none d-md-block dropdown">
-                                    <a class="nav-link text-primary" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="bi bi-briefcase-fill"></i>
                                     </a>
-                                    <ul class="dropdown-menu dropdown-menu-end bg-dark" aria-labelledby="navbarDropdown">
+                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                         <li><a class="dropdown-item" href="{% url 'employer_profile' %}"><i class="bi bi-person-fill me-2"></i>Profile</a></li>
                                         <li><a class="dropdown-item" href="{% url 'employer_jobs' %}"><i class="bi bi-briefcase-fill me-2"></i>My Jobs</a></li>
                                         <li><hr class="dropdown-divider"></li>

@@ -6,56 +6,58 @@
 {% block head_title %}{% trans "Sign In" %}{% endblock head_title %}
 
 {% block content %}
-<div class="container mt-8">
-  <div class="row justify-content-center">
-    <div class="col-md-6">
-      <div class="card shadow">
-        <div class="card-body p-5">
-          <h2 class="text-center mb-4">{% trans "Sign In" %}</h2>
+<div class="main-content sign-up-in-bg d-flex justify-content-between align-items-center">
+  <div class="container mt-2">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card shadow">
+          <div class="card-body p-5">
+            <h2 class="text-center mb-4">{% trans "Sign In" %}</h2>
 
-          {% if not SOCIALACCOUNT_ONLY %}
-          <p class="text-center">
-            {% blocktrans %}
-              If you have not created an account yet, then please
-              <a href="{{ signup_url }}">sign up</a> first.
-            {% endblocktrans %}
-          </p>
+            {% if not SOCIALACCOUNT_ONLY %}
+            <p class="text-center">
+              {% blocktrans %}
+                If you have not created an account yet, then please
+                <a href="{{ signup_url }}">sign up</a> first.
+              {% endblocktrans %}
+            </p>
 
-          <form method="post" action="{% url 'account_login' %}" class="mb-3">
-            {% csrf_token %}
-            {{ form|crispy }}  {# Render the form using crispy forms #}
-            {% if redirect_field_value %}
-            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+            <form method="post" action="{% url 'account_login' %}" class="mb-3">
+              {% csrf_token %}
+              {{ form|crispy }}  {# Render the form using crispy forms #}
+              {% if redirect_field_value %}
+              <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+              {% endif %}
+              <div class="d-grid gap-2">
+                <button class="btn btn-primary" type="submit">{% trans "Sign In" %}</button>
+              </div>
+            </form>
             {% endif %}
+
+            {% if LOGIN_BY_CODE_ENABLED or PASSKEY_LOGIN_ENABLED %}
+            <hr class="my-4">
             <div class="d-grid gap-2">
-              <button class="btn btn-primary" type="submit">{% trans "Sign In" %}</button>
+              {% if PASSKEY_LOGIN_ENABLED %}
+              <button type="submit" form="mfa_login" id="passkey_login" class="btn btn-outline-primary">
+                {% trans "Sign in with a passkey" %}
+              </button>
+              {% endif %}
+              {% if LOGIN_BY_CODE_ENABLED %}
+              <a href="{% url 'account_login_code' %}" class="btn btn-outline-primary">
+                {% trans "Mail me a sign-in code" %}
+              </a>
+              {% endif %}
             </div>
-          </form>
-          {% endif %}
+            {% endif %}
 
-          {% if LOGIN_BY_CODE_ENABLED or PASSKEY_LOGIN_ENABLED %}
-          <hr class="my-4">
-          <div class="d-grid gap-2">
-            {% if PASSKEY_LOGIN_ENABLED %}
-            <button type="submit" form="mfa_login" id="passkey_login" class="btn btn-outline-primary">
-              {% trans "Sign in with a passkey" %}
-            </button>
-            {% endif %}
-            {% if LOGIN_BY_CODE_ENABLED %}
-            <a href="{% url 'account_login_code' %}" class="btn btn-outline-primary">
-              {% trans "Mail me a sign-in code" %}
-            </a>
-            {% endif %}
           </div>
-          {% endif %}
-
         </div>
+        {% if SOCIALACCOUNT_ENABLED %}
+        <div class="mt-3 text-center">
+          {% include "socialaccount/snippets/login.html" %}
+        </div>
+        {% endif %}
       </div>
-      {% if SOCIALACCOUNT_ENABLED %}
-      <div class="mt-3 text-center">
-        {% include "socialaccount/snippets/login.html" %}
-      </div>
-      {% endif %}
     </div>
   </div>
 </div>

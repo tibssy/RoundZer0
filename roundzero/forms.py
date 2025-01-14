@@ -4,13 +4,16 @@ from django.contrib.auth.models import Group
 from candidate_profiles.models import Candidate
 from employer_profiles.models import Employer
 
-
 class CustomSignupForm(SignupForm):
     USER_TYPE_CHOICES = (
         ('employer', 'Employer'),
         ('candidate', 'Candidate'),
     )
-    user_type = forms.ChoiceField(choices=USER_TYPE_CHOICES, label="I am a", widget=forms.RadioSelect)
+    user_type = forms.ChoiceField(
+        choices=USER_TYPE_CHOICES,
+        label="I am a",
+        widget=forms.Select  # Changed to forms.Select for dropdown
+    )
 
     def save(self, request):
         user = super().save(request)

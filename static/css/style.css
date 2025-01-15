@@ -141,6 +141,19 @@ footer {
     }
 }
 
+.scale-on-hover {
+    transition: transform 0.3s ease-in-out;
+
+    &:hover {
+        transform: scale(1.05);
+    }
+}
+
+.text-justify {
+    text-align: justify;
+}
+  
+
 
 /* Navigation */
 .navbar {
@@ -274,6 +287,10 @@ footer {
 
 .accordion-button:focus {
     box-shadow: none;
+}
+
+#hero-text {
+    text-align: center;
 }
 
 #hero-button-container {
@@ -524,6 +541,10 @@ footer {
     .navbar-nav {
         padding-top: 0;
         gap: 6px;
+    }
+
+    #hero-text {
+        text-align: unset;
     }
 
     #hero-button-container {

@@ -10,7 +10,7 @@
         <!-- Hero -->
         <section class="row align-items-center">
             <!-- Text Content -->
-            <div class="col-md-6 text-start mb-4">
+            <div id="hero-text" class="col-md-6 mb-4">
                 <h1 class="display-4 fw-bold mb-4">Welcome to RoundZer0</h1>
                 <p class="lead">
                     Your go-to platform for connecting talent and opportunities. Explore jobs,
@@ -99,7 +99,7 @@
                 {% for job in newest_jobs %}
                 <div class="col-md-4 mb-4">
                     <a href="{% url 'job_detail' job.id %}" class="text-decoration-none">
-                        <div class="card rounded-4 blur-container h-100">
+                        <div class="card rounded-4 blur-container h-100 scale-on-hover">
                             <div class="card-body">
                                 <h5 class="card-title fw-bold mb-3 ms-1">{{ job.title }}</h5>
                                 <h6 class="card-subtitle mb-2">

@@ -6,12 +6,10 @@
 {% block head_title %}{% trans "Signup" %}{% endblock %}
 
 {% block content %}
-<div class="main-content sign-up-in-bg d-flex justify-content-start align-items-center">
+<div class="main-content sign-up-in-bg d-flex justify-content-center align-items-center">
   <div class="container mt-2">
-    <div class="row">
-      <div class="col-md-6">
-        <div class="card shadow rounded rounded-4">
-          <div class="card-body p-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6 p-5">
             <h2 class="text-center mb-4">{% trans "Sign Up" %}</h2>
             <p class="text-center">
               {% blocktrans %}
@@ -21,7 +19,6 @@
                 instead.
               {% endblocktrans %}
             </p>
-
             <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
               {% csrf_token %}
               {{ form|crispy }}
@@ -32,8 +29,6 @@
                 <button class="btn btn-primary" type="submit">{% trans "Sign Up" %}</button>
               </div>
             </form>
-          </div>
-        </div>
       </div>
     </div>
   </div>

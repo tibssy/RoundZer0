@@ -6,13 +6,13 @@ from employer_profiles.models import Employer
 
 class CustomSignupForm(SignupForm):
     USER_TYPE_CHOICES = (
-        ('employer', 'Employer'),
         ('candidate', 'Candidate'),
+        ('employer', 'Employer')
     )
     user_type = forms.ChoiceField(
         choices=USER_TYPE_CHOICES,
         label="I am a",
-        widget=forms.Select  # Changed to forms.Select for dropdown
+        widget=forms.Select
     )
 
     def save(self, request):

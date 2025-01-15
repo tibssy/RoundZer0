@@ -50,7 +50,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {% if request.path == jobs_url %}active{% endif %}" aria-current="page" href="{% url 'jobs' %}">
+                            <a class="nav-link {% if request.path == jobs_url %}active{% endif %}" aria-current="page" href="{{ jobs_url }}">
                                 <i class="bi bi-briefcase-fill me-2"></i>Jobs
                             </a>
                         </li>

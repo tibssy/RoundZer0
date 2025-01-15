@@ -129,6 +129,17 @@ footer {
     }
 }
 
+#how-it-works {
+    backdrop-filter: blur(12px);
+    background-color: #e9ebedb2;
+
+    & hr {
+        width: 95%;
+        margin: 0 auto;
+        border-top: 2px solid #000c;
+    }
+}
+
 
 /* Navigation */
 .navbar {
@@ -264,6 +275,9 @@ footer {
     box-shadow: none;
 }
 
+#hero-button-container {
+    justify-content: space-evenly;
+}
 
 #hero-image {
     max-height: 800px;
@@ -507,6 +521,10 @@ input:-webkit-autofill {
     .navbar-nav {
         padding-top: 0;
         gap: 6px;
+    }
+
+    #hero-button-container {
+        justify-content: unset;
     }
 
 }

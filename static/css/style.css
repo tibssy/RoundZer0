@@ -46,17 +46,17 @@ main {
 }
 
 .main-content {
-    /* flex: 1; */
     min-height: 100vh;
-    /* display: flex; */
-    /* align-items: center;
-    justify-content: center; */
     padding: 60px 0;
     margin-bottom: calc(var(--footer-height) * -1);
 }
 
 .sign-up-in-bg {
     background: url(../images/sign_in_up.webp) no-repeat center center / cover;
+}
+
+.home-bg {
+    background: url(../images/home.webp) no-repeat center center / cover;
 }
 
 
@@ -99,11 +99,34 @@ footer {
 }
 
 
-button.btn.btn-primary {
+.btn.btn-primary {
     background-color: #305377;
     border: 1px solid #2d4868;
     border-radius: 8px;
     box-shadow: 0 2px 4px #2b3645;
+
+    &:hover {
+        background-color: var(--secondary-background);
+        border: 1px solid var(--secondary-background);
+        color: var(--primary-text);
+        font-weight: 800;
+    }
+}
+
+
+.btn.btn-outline-secondary {
+    background-color: var(--primary-text);
+    border: 1px solid var(--primary-text);
+    color: var(--primary-background);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px #2b3645;
+
+    &:hover {
+        background-color: var(--secondary-background);
+        border: 1px solid var(--secondary-background);
+        color: var(--primary-text);
+        font-weight: 800;
+    }
 }
 
 
@@ -240,6 +263,16 @@ button.btn.btn-primary {
 .accordion-button:focus {
     box-shadow: none;
 }
+
+
+#hero-image {
+    max-height: 800px;
+    overflow: hidden;
+    box-shadow: 0 3px 6px #00000080;
+}
+
+
+
 
 /* Forms */
 .form-control,

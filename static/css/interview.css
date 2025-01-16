@@ -5,7 +5,7 @@
 }
 
 body {
-    background-color: #303030;
+    background-color: #212a37;
 }
 
 .container {
@@ -36,7 +36,7 @@ body {
     right: -5px;
     width: 150px;
     height: 100px;
-    background: #202020;
+    background: #212a37;
     border-radius: 8px;
     overflow: hidden;
     display: flex;

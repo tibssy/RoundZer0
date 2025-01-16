@@ -1,9 +1,12 @@
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 from jobposts.models import JobPost
 from .random_assistant import get_assistant
 
 
+@method_decorator(login_required, name='dispatch')
 class BaseChatbotView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -20,10 +23,12 @@ class BaseChatbotView(TemplateView):
         return context
 
 
+@method_decorator(login_required, name='dispatch')
 class ChatbotIndexView(BaseChatbotView):
     template_name = 'chatbot/interview_welcome.html'
 
 
+@method_decorator(login_required, name='dispatch')
 class ChatbotInterviewView(BaseChatbotView):
     template_name = 'chatbot/interview.html'
 

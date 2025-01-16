@@ -63,6 +63,10 @@ main {
     background: url(../images/error.webp) no-repeat center center / cover;
 }
 
+.interview-bg {
+    background: url(../images/interview-index.webp) no-repeat center center / cover;
+}
+
 footer {
     position: relative;
     margin-top: auto;
@@ -96,7 +100,7 @@ footer {
 }
 
 .text-logout {
-    color: var(--accent);
+    color: var(--accent) !important;
 }
 
 
@@ -428,6 +432,7 @@ footer {
     position: relative;
     aspect-ratio: 16 / 9;
     max-height: 45vh;
+    box-shadow: var(--box-shadow-normal);
 }
 
 #camera-preview {
@@ -575,9 +580,6 @@ footer {
     position: absolute;
     top: 66px;
     right: 0;
-    /* bottom: 0;
-    left: 0; */
-    /* width: 100%; */
     z-index: 999;
 }
 
@@ -609,10 +611,10 @@ footer {
 
 }
 
-@media screen and (min-width: 992px) {
+/* @media screen and (min-width: 992px) {
     #interview-welcome {
         height: 80vh;
     }
-}
+} */
 
 

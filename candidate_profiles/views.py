@@ -5,6 +5,7 @@ from django.contrib import messages
 from .models import Candidate, InterviewHistory
 from .forms import EditProfileForm
 
+
 @login_required
 def candidate_profile(request):
     try:

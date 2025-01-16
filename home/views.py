@@ -1,8 +1,6 @@
 from django.shortcuts import render
 from jobposts.models import JobPost
 
-# def home(request):
-#     return render(request, 'home/index.html')
 
 def home(request):
     # Fetch the three newest job posts

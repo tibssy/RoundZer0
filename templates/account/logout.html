@@ -1,31 +1,31 @@
 {% extends "base.html" %}
+
 {% load allauth i18n %}
-{% load crispy_forms_tags %}  {# Load crispy forms tags (though not strictly needed here, good practice) #}
+{% load crispy_forms_tags %}
 
 {% block head_title %}{% trans "Sign Out" %}{% endblock head_title %}
 
 {% block content %}
 <div class="main-content error-bg d-flex justify-content-center align-items-center">
-  <div class="container mt-4">
-    <div class="row justify-content-center">
-      <div class="col-md-8">
-        <div class="card shadow rounded rounded-4 blur-container">
-          <div class="card-body p-5">
-            <h2 class="text-center mb-4">{% trans "Sign Out" %}</h2>
-            <p class="text-center">{% trans 'Are you sure you want to sign out?' %}</p>
-
-            <form method="post" action="{% url 'account_logout' %}" class="mt-3">
-              {% csrf_token %}
-              {{ redirect_field }}
-              <div class="d-flex justify-content-between">
-                <button class="btn btn-danger" type="submit">{% trans 'Sign Out' %}</button>
-                <a href="{% url 'candidate_profile' %}" class="btn btn-secondary">Cancel</a>
-              </div>
-            </form>
-          </div>
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow rounded rounded-4 blur-container">
+                    <div class="card-body p-5">
+                        <h2 class="text-center mb-4">{% trans "Sign Out" %}</h2>
+                        <p class="text-center">{% trans 'Are you sure you want to sign out?' %}</p>
+                        <form method="post" action="{% url 'account_logout' %}" class="mt-3">
+                            {% csrf_token %}
+                            {{ redirect_field }}
+                            <div class="d-flex justify-content-between">
+                                <button class="btn btn-danger" type="submit">{% trans 'Sign Out' %}</button>
+                                <a href="{% url 'candidate_profile' %}" class="btn btn-secondary">Cancel</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
 {% endblock content %}

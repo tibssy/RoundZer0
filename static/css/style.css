@@ -59,12 +59,9 @@ main {
     background: url(../images/home.webp) no-repeat center center / cover;
 }
 
-
-
-/* footer {
-    background-color: var(--bs-tertiary-color);
-    padding: 10px 0;
-} */
+.error-bg {
+    background: url(../images/error.webp) no-repeat center center / cover;
+}
 
 footer {
     position: relative;

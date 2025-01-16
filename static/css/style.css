@@ -95,6 +95,10 @@ footer {
     margin-top: 6rem;
 }
 
+.text-logout {
+    color: var(--accent);
+}
+
 
 .btn.btn-primary {
     background-color: var(--primary-background);
@@ -305,12 +309,13 @@ footer {
     }
 }
 
-.accordion-button {
-    background-color: #e9fffa;
-}
+/* .accordion-button {
+    background-color: var(--primary-text);
+} */
 
 .accordion-button:not(.collapsed) {
-    background-color: var(--primary-background);
+    background-color: var(--accent);
+    /* color: var(--primary-text); */
 }
 
 .accordion-button:focus {

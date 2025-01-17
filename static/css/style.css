@@ -3,6 +3,7 @@
     --secondary-background: #305578;
     --tertiary-background: #2b3645;
     --primary-text: #e8ebeb;
+    --secondary-text: #d4d4d4;
     --accent: #ff8800;
     --shadow: #000000a9;
     --shadow-light: #00000071;
@@ -74,7 +75,7 @@ footer {
     & .container {
         background-color: #e9ebed;
         box-shadow: var(--box-shadow-normal);
-        color: #333;
+        color: var(--primary-background);
         height: 100%;
     }
 
@@ -105,6 +106,10 @@ footer {
     font-weight: 800;
 }
 
+.bi {
+    color: var(--accent);
+}
+
 
 .btn.btn-primary {
     background-color: var(--primary-background);
@@ -122,8 +127,8 @@ footer {
 
 
 .btn.btn-outline-secondary {
-    background-color: var(--primary-text);
-    border: 1px solid var(--primary-text);
+    background-color: var(--secondary-text);
+    border: 1px solid var(--secondary-text);
     color: var(--primary-background);
     border-radius: 6px;
     box-shadow: var(--box-shadow-small);
@@ -216,28 +221,23 @@ footer {
 
 }
 
-.nav-item.dropdown .nav-link {
+/* .nav-item.dropdown .nav-link {
     display: flex;
     align-items: center;
-    background-color: var(--primary-text);
-    border-radius: 6px;
-    box-shadow: var(--box-shadow-small) inset;
+
 
 
     & a {
         background-color: var(--primary-text);
     }
-}
+} */
 
-.nav-item.dropdown .nav-link[aria-expanded="true"] {
-    background-color: var(--accent);
-}
 
 .nav-item.dropdown .nav-link i{
     display: flex;
     align-items: center;
     font-size: 1.5rem;
-    color: var(--primary-background);
+    /* color: var(--primary-background); */
 }
 
 .nav-link {
@@ -425,7 +425,6 @@ footer {
 
     & input {
         background-color: var(--primary-text);
-        border: 1px solid var(--primary-background);
         line-height: 1.5;
 
         &:focus {
@@ -566,10 +565,10 @@ footer {
 .pagination .step-links span {
     display: inline-block;
     padding: 8px 12px;
-    border: 1px solid #ddd;
+    /* border: 1px solid #ddd; */
     margin: 0;
     text-decoration: none;
-    color: #333;
+    color: var(--primary-background);
     border-radius: 4px;
     /* transition: background-color 0.3s ease border-color 0.3s ease; */
     transition: 0.3s ease;
@@ -577,6 +576,7 @@ footer {
     text-align: center;
     background-color: var(--primary-text);
     box-shadow: var(--box-shadow-small);
+    font-weight: 900;
 }
 
 .pagination .step-links a:hover {
@@ -587,7 +587,7 @@ footer {
 
 .pagination .step-links .current-page-button {
     background-color: var(--primary-background);
-    color: var(--primary-text);
+    color: var(--accent);
     border-color: var(--primary-background);
     cursor: default;
 }
@@ -601,7 +601,7 @@ footer {
     border: 1px solid transparent;
     margin: 0 2px;
     text-decoration: none;
-    color: #333;
+    color: var(--primary-background);
     border-radius: 4px;
     min-width: 30px;
     text-align: center;

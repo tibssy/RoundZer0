@@ -189,27 +189,28 @@ footer {
 
 
 .navbar-toggler {
-    background-color: var(--primary-text);
-    box-shadow: var(--box-shadow-small) inset;
+    box-shadow: none;
     border: none;
+    font-size: 1.8rem;
 
     &:focus {
+        box-shadow: none;
         border: none;
-        box-shadow: var(--box-shadow-small) inset;
     }
 }
 
 
-.navbar-toggler[aria-expanded="true"] {
-    background-color: var(--accent);
+
+.navbar-toggler-icon-rotate {
+    display: inline-block;
+    transition: transform 0.3s ease-in-out;
+}
+
+.navbar-toggler[aria-expanded="true"] .navbar-toggler-icon-rotate {
+    transform: rotate(180deg);
 }
 
 
-.navbar-toggler-icon {
-    width: 1em;
-    height: 1.3em;
-    color: var(--primary-background);
-}
 
 .navbar-nav {
     padding-top: 8px;
@@ -221,23 +222,10 @@ footer {
 
 }
 
-/* .nav-item.dropdown .nav-link {
-    display: flex;
-    align-items: center;
-
-
-
-    & a {
-        background-color: var(--primary-text);
-    }
-} */
-
-
 .nav-item.dropdown .nav-link i{
     display: flex;
     align-items: center;
     font-size: 1.5rem;
-    /* color: var(--primary-background); */
 }
 
 .nav-link {
@@ -286,8 +274,6 @@ footer {
 
 .dropdown-item {
     color: var(--primary-text);
-    font-weight: 900;
-    font-size: 1rem;
     transition: all 0.3s;
 
     &:hover {
@@ -323,21 +309,7 @@ footer {
     border: 4px solid var(--primary-background);
 }
 
-/* .edit-button {
-    display: flex;
-    align-items: center;
-    background-color: var(--primary-text);
-    color: var(--primary-background);
-    font-size: 1.1rem;
-    border: 0;
-    border-radius: 6px;
-    box-shadow: var(--box-shadow-small) inset;
-    transition: 0.3s ease-in-out;
 
-    &:hover {
-        background-color: var(--accent);
-    }
-} */
 
 /* .accordion-button {
     background-color: var(--primary-text);
@@ -445,7 +417,7 @@ footer {
 #dropdownMenuButton1 {
     border-radius: 10px;
     background-color: var(--primary-background);
-    color: var(--primary-text);
+    color: var(--accent);
     border: 1px solit var(--primary-background);
     
     &:focus {

@@ -40,12 +40,12 @@
                             </span>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item" href="{% url 'jobs' %}?sort=created_on_desc">Posted (Newest)</a></li>
-                            <li><a class="dropdown-item" href="{% url 'jobs' %}?sort=created_on_asc">Posted (Oldest)</a></li>
-                            <li><a class="dropdown-item" href="{% url 'jobs' %}?sort=company_name_asc">Company (A-Z)</a></li>
-                            <li><a class="dropdown-item" href="{% url 'jobs' %}?sort=company_name_desc">Company (Z-A)</a></li>
-                            <li><a class="dropdown-item" href="{% url 'jobs' %}?sort=location_asc">Location (A-Z)</a></li>
-                            <li><a class="dropdown-item" href="{% url 'jobs' %}?sort=location_desc">Location (Z-A)</a></li>
+                            <li><a class="dropdown-item" href="{% url 'jobs' %}?sort=created_on_desc"><i class="bi bi-calendar-plus me-1"></i> Posted (Newest)</a></li>
+                            <li><a class="dropdown-item" href="{% url 'jobs' %}?sort=created_on_asc"><i class="bi bi-calendar-minus me-1"></i> Posted (Oldest)</a></li>
+                            <li><a class="dropdown-item" href="{% url 'jobs' %}?sort=company_name_asc"><i class="bi bi-sort-alpha-down me-1"></i> Company (A-Z)</a></li>
+                            <li><a class="dropdown-item" href="{% url 'jobs' %}?sort=company_name_desc"><i class="bi bi-sort-alpha-up me-1"></i> Company (Z-A)</a></li>
+                            <li><a class="dropdown-item" href="{% url 'jobs' %}?sort=location_asc"><i class="bi bi-geo-alt-fill me-1"></i> Location (A-Z)</a></li>
+                            <li><a class="dropdown-item" href="{% url 'jobs' %}?sort=location_desc"><i class="bi bi-geo-alt me-1"></i> Location (Z-A)</a></li>
                         </ul>
                     </div>
                 </div>

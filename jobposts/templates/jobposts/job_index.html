@@ -6,11 +6,13 @@
 {% block content %}
 <div class="main-content home-bg">
     <div class="container mt-4">
-        <h1 class="text-center mb-4">Job Openings</h1>
+        <h1 class="text-center mb-4 text-pbg">Job Openings</h1>
+
+        <!-- Search/Filter field -->
         <div class="row justify-content-center mb-3">
             <div class="col-md-10">
-                <div class="d-md-flex justify-content-between align-items-center mb-2">
-                    <div class="mb-2 mb-md-0">
+                <div class="d-flex justify-content-between align-items-center gap-2">
+                    <div class="flex-grow-1">
                         <form method="get" class="d-flex search-field">
                             <input class="form-control" type="search" placeholder="Search by title, company, or location" name="q" value="{{ request.GET.q }}">
                             <button class="btn" type="submit">
@@ -20,22 +22,22 @@
                     </div>
                     <div class="dropdown">
                         <button class="btn form-control dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                            Sort By:
-                            {% if request.GET.sort == 'created_on_desc' %}
-                                Posted (Newest)
-                            {% elif request.GET.sort == 'created_on_asc' %}
-                                Posted (Oldest)
-                            {% elif request.GET.sort == 'company_name_asc' %}
-                                Company (A-Z)
-                            {% elif request.GET.sort == 'company_name_desc' %}
-                                Company (Z-A)
-                            {% elif request.GET.sort == 'location_asc' %}
-                                Location (A-Z)
-                            {% elif request.GET.sort == 'location_desc' %}
-                                Location (Z-A)
-                            {% else %}
-                                Posted (Newest)
-                            {% endif %}
+                            <i class="bi bi-sort-down"></i>
+                            <span class="visually-hidden">
+                                {% if request.GET.sort == 'created_on_desc' or not request.GET.sort %}
+                                    Sorted by Newest
+                                {% elif request.GET.sort == 'created_on_asc' %}
+                                    Sorted by Oldest
+                                {% elif request.GET.sort == 'company_name_asc' %}
+                                    Sorted by Company A-Z
+                                {% elif request.GET.sort == 'company_name_desc' %}
+                                    Sorted by Company Z-A
+                                {% elif request.GET.sort == 'location_asc' %}
+                                    Sorted by Location A-Z
+                                {% elif request.GET.sort == 'location_desc' %}
+                                    Sorted by Location Z-A
+                                {% endif %}
+                            </span>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
                             <li><a class="dropdown-item" href="{% url 'jobs' %}?sort=created_on_desc">Posted (Newest)</a></li>
@@ -50,6 +52,7 @@
             </div>
         </div>
 
+        <!-- Job List -->
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="row">

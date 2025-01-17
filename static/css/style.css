@@ -323,7 +323,7 @@ footer {
     border: 4px solid var(--primary-background);
 }
 
-.edit-button {
+/* .edit-button {
     display: flex;
     align-items: center;
     background-color: var(--primary-text);
@@ -337,7 +337,7 @@ footer {
     &:hover {
         background-color: var(--accent);
     }
-}
+} */
 
 /* .accordion-button {
     background-color: var(--primary-text);

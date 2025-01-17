@@ -57,7 +57,7 @@ def create_job(request):
             job_post = form.save(commit=False)
             job_post.author = request.user
             job_post.save()
-            return redirect('my_jobs')
+            return redirect('employer_jobs')
     else:
         form = JobPostForm()
     return render(request, 'employer_profiles/create_job.html', {'form': form})

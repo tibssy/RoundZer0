@@ -4,6 +4,7 @@ from django.urls import reverse
 from .models import JobPost
 from django.db.models import Q
 
+
 class JobList(generic.ListView):
     template_name = "jobposts/job_index.html"
     paginate_by = 6
@@ -42,17 +43,23 @@ class JobList(generic.ListView):
         context['current_sort'] = self.request.GET.get('sort')
         return context
 
+
 class JobDetailView(generic.DetailView):
     model = JobPost
     template_name = 'jobposts/job_detail.html'
 
+    def split_text(self, text: str) -> list:
+        prepared_text = text.replace('. ', '.|').split('|')
+        return [clean for item in prepared_text if (clean := item.strip())]
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         job_post = self.get_object()
-        context['responsibilities_list'] = [item.strip() for item in job_post.responsibilities.split('. ') if item.strip()]
-        context['requirements_list'] = [item.strip() for item in job_post.requirements.split('. ') if item.strip()]
-        context['benefits_list'] = [item.strip() for item in job_post.benefits.replace(',', '.').split('. ') if item.strip()]
+        context['responsibilities_list'] = self.split_text(job_post.responsibilities)
+        context['requirements_list'] = self.split_text(job_post.requirements)
+        context['benefits_list'] = self.split_text(job_post.benefits)
         return context
+
 
 def redirect_to_chatbot_index(request, job_post_id):
     """Redirects to the chatbot index page, passing the job_post_id."""

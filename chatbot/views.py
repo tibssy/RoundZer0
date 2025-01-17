@@ -40,3 +40,8 @@ class ChatbotInterviewView(BaseChatbotView):
         context['video_filename'] = f'videos/{name}.webm'
 
         return context
+
+
+@method_decorator(login_required, name='dispatch')
+class ChatbotInterviewEndView(BaseChatbotView):
+    template_name = 'chatbot/interview_end.html'

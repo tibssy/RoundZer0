@@ -69,6 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const endInterview = () => {
+        console.log('endInterview function called'); // Add this line
         console.log('Interview Ended');
         [localStream, stream].forEach((s, index) => {
             if (s) {
@@ -80,7 +81,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         });
-        window.location.href = "/chatbot/index/";
+        console.log('Attempting redirection to /chatbot/interview/end/'); // Add this line
+        window.location.href = "/chatbot/interview/end/";
     };
 
 

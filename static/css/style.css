@@ -1,6 +1,6 @@
 :root {
-    --primary-background: #305578;
-    --secondary-background: #447da7;
+    --primary-background: #173d57;
+    --secondary-background: #305578;
     --tertiary-background: #2b3645;
     --primary-text: #e8ebeb;
     --accent: #ff8800;
@@ -11,9 +11,6 @@
     --box-shadow-large: 0 4px 8px var(--shadow-light);
     --footer-height: 50px;
 }
-
-
-
 
 
 body {
@@ -176,13 +173,33 @@ footer {
     width: 100%;
     max-width: 100%;
     box-shadow: var(--box-shadow-normal);
-    background-image: linear-gradient(to right, var(--primary-background), var(--secondary-background));
+    /* background-image: linear-gradient(to right, var(--primary-background), var(--secondary-background)); */
+    background-color: var(--primary-background);
     transition: border-radius 0.3s ease-in-out;
 }
+
+
+.navbar-toggler {
+    background-color: var(--primary-text);
+    box-shadow: var(--box-shadow-small) inset;
+    border: none;
+
+    &:focus {
+        border: none;
+        box-shadow: var(--box-shadow-small) inset;
+    }
+}
+
+
+.navbar-toggler[aria-expanded="true"] {
+    background-color: var(--accent);
+}
+
 
 .navbar-toggler-icon {
     width: 1em;
     height: 1em;
+    color: var(--primary-background);
 }
 
 .navbar-nav {
@@ -207,6 +224,10 @@ footer {
     }
 }
 
+.nav-item.dropdown .nav-link[aria-expanded="true"] {
+    background-color: var(--accent);
+}
+
 .nav-item.dropdown .nav-link i{
     display: flex;
     align-items: center;
@@ -218,7 +239,6 @@ footer {
     color: var(--primary-text);
     font-weight: 900;
     font-size: 1rem;
-    padding-left: 12px;
 
     &:hover {
         color: #fff;
@@ -231,7 +251,6 @@ footer {
     background-color: var(--primary-text);
     border-radius: 6px;
     box-shadow: var(--box-shadow-small) inset;
-    text-shadow: 1px 2px var(--shadow);
 }
 
 
@@ -241,7 +260,7 @@ footer {
 
     display: block;
     overflow: hidden;
-    background-color: var(--secondary-background);
+    background-color: var(--primary-background);
     box-shadow: var(--box-shadow-normal);
     border: none;
     padding: 5px;
@@ -288,13 +307,13 @@ footer {
 }
 
 .card-header {
-    background-color: var(--secondary-background);
+    background-color: var(--primary-background);
     color: var(--primary-text);
 }
 
 .bordered-card {
     border-radius: 10px;
-    border: 4px solid var(--secondary-background);
+    border: 4px solid var(--primary-background);
 }
 
 .edit-button {

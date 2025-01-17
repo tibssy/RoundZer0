@@ -1,11 +1,11 @@
 :root {
-    --primary-background: #173d57;
+    --primary-background: #15354b;
     --secondary-background: #305578;
     --tertiary-background: #2b3645;
     --primary-text: #e8ebeb;
     --accent: #ff8800;
-    --shadow: #525252;
-    --shadow-light: #6464643f;
+    --shadow: #000000a9;
+    --shadow-light: #00000071;
     --box-shadow-small: 0 2px 2px var(--shadow);
     --box-shadow-normal: 0 2px 4px var(--shadow);
     --box-shadow-large: 0 4px 8px var(--shadow-light);
@@ -104,7 +104,7 @@ footer {
 .btn.btn-primary {
     background-color: var(--primary-background);
     border: 1px solid var(--primary-background);
-    border-radius: 8px;
+    border-radius: 6px;
     box-shadow: var(--box-shadow-small);
 
     &:hover {
@@ -120,7 +120,7 @@ footer {
     background-color: var(--primary-text);
     border: 1px solid var(--primary-text);
     color: var(--primary-background);
-    border-radius: 8px;
+    border-radius: 6px;
     box-shadow: var(--box-shadow-small);
 
     &:hover {
@@ -135,7 +135,7 @@ footer {
     background-color: #c41313;
     border: 1px solid #c41313;
     color: var(--primary-text);
-    border-radius: 8px;
+    border-radius: 6px;
     box-shadow: var(--box-shadow-small);
 
     &:hover {
@@ -173,7 +173,6 @@ footer {
     width: 100%;
     max-width: 100%;
     box-shadow: var(--box-shadow-normal);
-    /* background-image: linear-gradient(to right, var(--primary-background), var(--secondary-background)); */
     background-color: var(--primary-background);
     transition: border-radius 0.3s ease-in-out;
 }
@@ -198,7 +197,7 @@ footer {
 
 .navbar-toggler-icon {
     width: 1em;
-    height: 1em;
+    height: 1.3em;
     color: var(--primary-background);
 }
 
@@ -293,7 +292,7 @@ footer {
 }
 
 .dropdown-divider {
-    background-color: var(--shadow-light);
+    background-color: var(--primary-text);
     margin: 4px 2px
 }
 
@@ -414,17 +413,23 @@ footer {
 
 
 .search-field {
+    background-color: var(--primary-background);
     border: 1px solid var(--primary-background);
     border-radius: 10px;
 
     & input {
+        background-color: var(--primary-text);
         border: 1px solid var(--primary-background);
         line-height: 1.2;
+
+        &:focus {
+            background-color: #fff;
+        }
     }
 
     & button {
         border: 0;
-        color: var(--primary-background);
+        color: var(--primary-text);
 
         &:hover {
             color: var(--accent);

@@ -6,4 +6,5 @@ urlpatterns = [
     path('profile/edit/', views.edit_employer_profile, name='edit_employer_profile'),
     path('delete_profile/', views.delete_employer_profile, name='delete_employer_profile'),
     path('my_jobs/', views.my_jobs, name='employer_jobs'),
+    path('my_jobs/create/', views.create_job, name='create_job'),
 ]

@@ -48,3 +48,7 @@ def my_jobs(request):
     jobs = JobPost.objects.filter(author=request.user).order_by('-created_on')
     context = {'jobs': jobs}
     return render(request, 'employer_profiles/my_jobs.html', context)
+
+
+def create_job(request):
+    return render(request, 'employer_profiles/create_job.html')

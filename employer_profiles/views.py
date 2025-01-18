@@ -77,3 +77,11 @@ def edit_my_jobs(request, job_id):
         form = JobPostForm(instance=job)
     context = {'form': form, 'job': job}
     return render(request, 'employer_profiles/edit_my_jobs.html', context)
+
+@login_required
+def delete_my_job(request, job_id):
+    job = get_object_or_404(JobPost, id=job_id, author=request.user)
+    if request.method == 'POST':
+        job.delete()
+        messages.success(request, "Job posting deleted successfully.")
+        return redirect('employer_jobs')

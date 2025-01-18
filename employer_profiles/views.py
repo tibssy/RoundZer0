@@ -61,3 +61,19 @@ def create_job(request):
     else:
         form = JobPostForm()
     return render(request, 'employer_profiles/create_job.html', {'form': form})
+
+@login_required
+def edit_my_jobs(request, job_id):
+    job = get_object_or_404(JobPost, id=job_id, author=request.user)
+    if request.method == 'POST':
+        form = JobPostForm(request.POST, instance=job)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your job posting has been updated successfully.')
+            return redirect('employer_jobs')
+        else:
+            messages.error(request, 'There were errors in your form.')
+    else:
+        form = JobPostForm(instance=job)
+    context = {'form': form, 'job': job}
+    return render(request, 'employer_profiles/edit_my_jobs.html', context)

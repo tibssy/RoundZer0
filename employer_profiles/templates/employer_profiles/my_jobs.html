@@ -19,7 +19,7 @@
                         {% if jobs %}
                             <ul class="list-group list-group-flush">
                                 {% for job in jobs %}
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <a href="{% url 'edit_my_jobs' job.id %}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                                         <div>
                                             <h5 class="mb-1">{{ job.title }}</h5>
                                             <p class="mb-1 text-muted">
@@ -30,18 +30,7 @@
                                                 Posted on: {{ job.created_on|date:"F d, Y" }}
                                             </small>
                                         </div>
-                                        <div>
-                                            <a href="#" class="btn btn-outline-info btn-sm me-1" title="View Details">
-                                                <i class="bi bi-eye"></i>
-                                            </a>
-                                            <a href="#" class="btn btn-outline-secondary btn-sm me-1" title="Edit Job">
-                                                <i class="bi bi-pencil"></i>
-                                            </a>
-                                            <a href="#" class="btn btn-outline-danger btn-sm" title="Delete Job">
-                                                <i class="bi bi-trash"></i>
-                                            </a>
-                                        </div>
-                                    </li>
+                                    </a>
                                 {% endfor %}
                             </ul>
                         {% else %}

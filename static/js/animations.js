@@ -1,14 +1,21 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const header = document.getElementsByTagName("header")[0];
-    const navBar = document.getElementsByClassName("navbar")[0];
+    const header = document.querySelector("header");
+    const navBar = document.querySelector(".navbar");
 
-    window.addEventListener("scroll", () => {
-        if (window.scrollY >= 10) {
-            header.classList.remove("p-2");
-            navBar.classList.remove("rounded-3");
-        } else {
-            header.classList.add("p-2");
-            navBar.classList.add("rounded-3");
-        }
+    const handleScroll = () => {
+        const isScrolled = window.scrollY >= 10;
+        header.classList.toggle("p-2", !isScrolled);
+        navBar.classList.toggle("rounded-3", !isScrolled);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    const messages = document.querySelectorAll('.alert.fade.show');
+    messages.forEach(message => {
+        message.classList.add('fade-out');
+        setTimeout(() => {
+            const bsAlert = bootstrap.Alert.getOrCreateInstance(message);
+            bsAlert.close();
+        }, 3000);
     });
 });

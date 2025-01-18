@@ -19,18 +19,28 @@
                         {% if jobs %}
                             <ul class="list-group list-group-flush">
                                 {% for job in jobs %}
-                                    <a href="{% url 'edit_my_jobs' job.id %}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center rounded border shadow-sm p-3 my-2">
                                         <div>
-                                            <h5 class="mb-1">{{ job.title }}</h5>
+                                            <h5 class="mb-3 ms-1">{{ job.title }}</h5>
                                             <p class="mb-1 text-muted">
-                                                <i class="bi bi-building me-1"></i> {{ job.company_name }} |
-                                                <i class="bi bi-geo-alt me-1"></i> {{ job.location }}
+                                                <i class="bi bi-building me-2"></i>{{ job.company_name }}
+                                            </p>
+                                            <p>
+                                                <i class="bi bi-geo-alt me-2"></i>{{ job.location }}
                                             </p>
                                             <small class="text-muted">
                                                 Posted on: {{ job.created_on|date:"F d, Y" }}
                                             </small>
                                         </div>
-                                    </a>
+                                        <div class="d-flex flex-column gap-2">
+                                            <a href="{% url 'edit_my_jobs' job.id %}" class="btn rounded elevate" title="Edit Job">
+                                                <i class="bi bi-pencil-square fs-3"></i>
+                                            </a>
+                                            <a href="#" class="btn rounded elevate" title="View Candidates">
+                                                <i class="bi bi-people-fill fs-3"></i>
+                                            </a>
+                                        </div>
+                                    </li>
                                 {% endfor %}
                             </ul>
                         {% else %}

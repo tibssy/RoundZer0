@@ -89,6 +89,7 @@ class VoiceConsumer(AsyncWebsocketConsumer):
                     company_name=self.job_post.company_name,
                     feedback=feedback.get('feedback')
                 )
+                await self.db_manager.send_feedback_to_employer(feedback)
 
 
     async def process_voice_data(self, bytes_data):

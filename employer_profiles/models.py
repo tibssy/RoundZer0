@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from candidate_profiles.models import Candidate
+from jobposts.models import JobPost
 
 
 class Employer(models.Model):
@@ -16,3 +18,15 @@ class Employer(models.Model):
         return self.company_name
 
 
+class InterviewFeedback(models.Model):
+    job_post = models.ForeignKey(
+        JobPost, on_delete=models.CASCADE, related_name='interview_feedbacks'
+    )
+    candidate = models.ForeignKey(
+        Candidate, on_delete=models.CASCADE, related_name='employer_feedbacks'
+    )
+    feedback_text = models.JSONField()
+    created_on = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Feedback for {self.candidate} on {self.job_post.title}"

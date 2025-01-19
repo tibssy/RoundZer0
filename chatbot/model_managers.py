@@ -3,6 +3,7 @@ from channels.db import database_sync_to_async
 from jobposts.models import JobPost
 from .models import EvaluationRubric, InterviewPreparation
 from candidate_profiles.models import Candidate, InterviewHistory
+from employer_profiles.models import InterviewFeedback
 from datetime import datetime
 
 
@@ -66,3 +67,20 @@ class DatabaseManager:
             print(f"Interview history saved for candidate {candidate} with company '{company_name}'.")
         except Candidate.DoesNotExist:
             print(f"Candidate with user ID {self.user_id} not found.")
+
+    @database_sync_to_async
+    def send_feedback_to_employer(self, feedback_data):
+        """Saves the generated feedback (dictionary) to the InterviewFeedback model."""
+        try:
+            candidate = Candidate.objects.get(user_id=self.user_id)
+            job_post = JobPost.objects.get(pk=self.job_post_id)
+            InterviewFeedback.objects.create(
+                job_post=job_post,
+                candidate=candidate,
+                feedback_text=feedback_data
+            )
+            print(f"Feedback saved for employer regarding candidate {candidate} on job post '{job_post.title}'.")
+        except Candidate.DoesNotExist:
+            print(f"Candidate with user ID {self.user_id} not found while saving employer feedback.")
+        except JobPost.DoesNotExist:
+            print(f"JobPost with ID {self.job_post_id} not found while saving employer feedback.")

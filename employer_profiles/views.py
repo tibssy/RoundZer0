@@ -100,7 +100,7 @@ def job_applications(request, job_id):
 
             if isinstance(value, dict):
                 key = ' '.join(key.split('_')).title()
-                processed_feedback_text.append(f'<strong>{key} {value.get("score")}%: </strong>{value.get("comment")}')
+                processed_feedback_text.append(f'<strong>- {key} {value.get("score")}%: </strong>{value.get("comment")}')
             else:
                 processed_feedback_text.append(value)
 

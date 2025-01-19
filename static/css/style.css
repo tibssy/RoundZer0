@@ -18,9 +18,10 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    font-family: "JetBrains Mono", serif;
+    /* font-family: "JetBrains Mono", serif; */
+    font-family: "Roboto Condensed", serif;
     font-optical-sizing: auto;
-    font-weight: 500;
+    font-weight: 400;
     font-style: normal;
     margin: 0;
 }
@@ -63,6 +64,10 @@ main {
 
 .interview-bg {
     background: url(../images/interview-index.webp) no-repeat center center / cover;
+}
+
+.primary-bg {
+    background-color: var(--primary-background);
 }
 
 footer {
@@ -127,12 +132,12 @@ footer {
     border: 1px solid var(--primary-background);
     border-radius: 6px;
     box-shadow: var(--box-shadow-small);
+    font-weight: 600;
 
     &:hover {
         background-color: var(--secondary-background);
         border: 1px solid var(--secondary-background);
         color: var(--primary-text);
-        font-weight: 800;
     }
 }
 
@@ -143,12 +148,12 @@ footer {
     color: var(--primary-background);
     border-radius: 6px;
     box-shadow: var(--box-shadow-small);
+    font-weight: 600;
 
     &:hover {
         background-color: var(--secondary-background);
         border: 1px solid var(--secondary-background);
         color: var(--primary-text);
-        font-weight: 800;
     }
 }
 
@@ -158,12 +163,12 @@ footer {
     color: var(--primary-text);
     border-radius: 6px;
     box-shadow: var(--box-shadow-small);
+    font-weight: 600;
 
     &:hover {
         background-color: #e23333;
         border: 1px solid #e23333;
         color: var(--primary-text);
-        font-weight: 800;
     }
 }
 
@@ -322,13 +327,16 @@ footer {
 
 
 
-/* .accordion-button {
-    background-color: var(--primary-text);
-} */
+.accordion-button {
+    transition: 0.3s ease-in;
+}
 
 .accordion-button:not(.collapsed) {
     background-color: var(--accent);
-    /* color: var(--primary-text); */
+    
+    & i {
+        color: var(--primary-background);
+    }
 }
 
 .accordion-button:focus {

@@ -10,7 +10,7 @@
             <div class="col-md-10">
                 <div class="card bordered-card">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h1>Candidates with Feedback for: {{ job.title }}</h1>
+                        <h1 class="fs-4 fw-bold mb-0">Candidates Applications for: {{ job.title }}</h1>
                     </div>
                     <div class="card-body">
                         {% if processed_feedbacks %}
@@ -18,7 +18,7 @@
                                 {% for processed_feedback in processed_feedbacks %}
                                     <div class="accordion-item">
                                         <h2 class="accordion-header" id="heading{{ processed_feedback.feedback.id }}">
-                                            <button class="accordion-button collapsed"
+                                            <button class="accordion-button collapsed fs-5"
                                                     type="button"
                                                     data-bs-toggle="collapse"
                                                     data-bs-target="#collapse{{ processed_feedback.feedback.id }}"
@@ -27,23 +27,32 @@
                                                 <i class="bi bi-person-fill me-2"></i>
                                                 {{ processed_feedback.feedback.candidate.user.first_name }} {{ processed_feedback.feedback.candidate.user.last_name }}
                                                 {% if processed_feedback.feedback.overall_score is not None %}
-                                                    <span class="ms-2 badge bg-primary rounded-pill">{{ processed_feedback.feedback.overall_score }}%</span>
+                                                    <span class="ms-2 badge primary-bg rounded-pill">{{ processed_feedback.feedback.overall_score }}%</span>
                                                 {% endif %}
                                             </button>
                                         </h2>
                                         <div id="collapse{{ processed_feedback.feedback.id }}" class="accordion-collapse collapse" aria-labelledby="heading{{ processed_feedback.feedback.id }}" data-bs-parent="#feedbackAccordion">
                                             <div class="accordion-body">
-                                                <i class="bi bi-envelope me-1"></i> <strong>Email:</strong> {{ processed_feedback.feedback.candidate.user.email }}
-                                                <br>
-                                                <i class="bi bi-calendar-event me-1"></i> <strong>Feedback Given on:</strong> {{ processed_feedback.feedback.created_on|date:"F d, Y H:i" }}
+                                                <p>
+                                                    <i class="bi bi-envelope me-1"></i> <strong>Email:</strong> {{ processed_feedback.feedback.candidate.user.email }}
+                                                </p>
+                                                <p>
+                                                    <i class="bi bi-calendar-event me-1"></i> <strong>Feedback Given on:</strong> {{ processed_feedback.feedback.created_on|date:"F d, Y H:i" }}
+                                                </p>
                                                 <hr>
-                                                <i class="bi bi-chat-dots me-1"></i> <strong>Feedback:</strong><br>
-                                                {% for item in processed_feedback.processed_feedback_text %}
-                                                    {{ item|safe }}<br><br>
-                                                {% endfor %}
+                                                <div>
+                                                    <i class="bi bi-chat-dots me-1"></i> <strong>Feedback:</strong>
+                                                    <div class="mt-1">
+                                                        {% for item in processed_feedback.processed_feedback_text %}
+                                                            <p>{{ item|safe }}</p>
+                                                        {% endfor %}
+                                                    </div>
+                                                </div>
                                                 {% if processed_feedback.feedback.recommendation %}
                                                     <hr>
-                                                    <i class="bi bi-thumbs-up me-1"></i> <strong>Recommendation:</strong> {{ processed_feedback.feedback.recommendation }}
+                                                    <p>
+                                                        <i class="bi bi-hand-thumbs-up me-2"></i><strong>Recommendation:</strong> {{ processed_feedback.feedback.recommendation }}
+                                                    </p>
                                                 {% endif %}
                                             </div>
                                         </div>
@@ -55,7 +64,7 @@
                         {% endif %}
                     </div>
                     <div class="card-footer text-muted">
-                        <a href="{% url 'employer_jobs' %}" class="btn btn-secondary btn-sm">Back to My Jobs</a>
+                        <a href="{% url 'employer_jobs' %}" class="btn btn-outline-secondary btn-sm">Back to My Jobs</a>
                     </div>
                 </div>
              </div>

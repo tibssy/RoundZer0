@@ -10,7 +10,26 @@
             <div class="col-md-10">
                 <div class="card bordered-card">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h1 class="fs-4 fw-bold mb-0">Candidates Applications for: {{ job.title }}</h1>
+                        <h1 class="fs-4 fw-bold mb-0">Candidates Application for: {{ job.title }}</h1>
+                        <div class="dropdown">
+                            <button class="btn dropdown-toggle btn-sm" type="button" id="topCandidatesDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                {% if request.GET.top_candidates == '5' %}
+                                    Top 5 Candidates
+                                {% elif request.GET.top_candidates == '10' %}
+                                    Top 10 Candidates
+                                {% elif request.GET.top_candidates == '25' %}
+                                    Top 25 Candidates
+                                {% else %}
+                                    All Candidates
+                                {% endif %}
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="topCandidatesDropdown">
+                                <li><a class="dropdown-item" href="?{% for key, value in request.GET.items %}{% if key != 'top_candidates' %}{{ key }}={{ value }}&{% endif %}{% endfor %}">All Candidates</a></li>
+                                <li><a class="dropdown-item" href="?top_candidates=5{% for key, value in request.GET.items %}{% if key != 'top_candidates' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">Top 5 Candidates</a></li>
+                                <li><a class="dropdown-item" href="?top_candidates=10{% for key, value in request.GET.items %}{% if key != 'top_candidates' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">Top 10 Candidates</a></li>
+                                <li><a class="dropdown-item" href="?top_candidates=25{% for key, value in request.GET.items %}{% if key != 'top_candidates' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">Top 25 Candidates</a></li>
+                            </ul>
+                        </div>
                     </div>
                     <div class="card-body">
                         {% if processed_feedbacks %}

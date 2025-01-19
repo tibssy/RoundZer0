@@ -437,12 +437,23 @@ footer {
     border-radius: 10px;
     background-color: var(--primary-background);
     color: var(--accent);
-    border: 1px solit var(--primary-background);
-    
+    border: 1px solid var(--primary-background);
+
     &:focus {
         box-shadow: none;
     }
-  }
+}
+
+#topCandidatesDropdown {
+    border-color: var(--accent);
+    color: var(--accent);
+    font-weight: bold;
+    /* border-width: 2px; */
+
+    & + ul {
+        inset: 12px 0px auto auto !important;
+    }
+}
 
 
 .camera-container {

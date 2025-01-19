@@ -89,7 +89,15 @@ def delete_my_job(request, job_id):
 @login_required
 def job_applications(request, job_id):
     job = get_object_or_404(JobPost, id=job_id, author=request.user)
-    interview_feedbacks = InterviewFeedback.objects.filter(job_post=job).select_related('candidate__user')
+    interview_feedbacks = InterviewFeedback.objects.filter(job_post=job).select_related('candidate__user').order_by('-overall_score')
+
+    top_candidates = request.GET.get('top_candidates')
+    if top_candidates:
+        try:
+            limit = int(top_candidates)
+            interview_feedbacks = interview_feedbacks[:limit]
+        except ValueError:
+            pass
 
     processed_feedbacks = []
     for feedback in interview_feedbacks:

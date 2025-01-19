@@ -37,7 +37,7 @@
                                                 <br>
                                                 <i class="bi bi-calendar-event me-1"></i> <strong>Feedback Given on:</strong> {{ processed_feedback.feedback.created_on|date:"F d, Y H:i" }}
                                                 <hr>
-                                                <i class="bi bi-chat-dots me-1"></i> <strong>Feedback:</strong> <br><br>
+                                                <i class="bi bi-chat-dots me-1"></i> <strong>Feedback:</strong><br>
                                                 {% for item in processed_feedback.processed_feedback_text %}
                                                     {{ item|safe }}<br><br>
                                                 {% endfor %}

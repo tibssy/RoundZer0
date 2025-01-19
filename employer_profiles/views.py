@@ -95,12 +95,14 @@ def job_applications(request, job_id):
     for feedback in interview_feedbacks:
         processed_feedback_text = []
         for key, value in feedback.feedback_text.items():
-            key = ' '.join(key.split('_')).title()
+            if key in ('overall_score', 'recommendation'):
+                continue
 
             if isinstance(value, dict):
+                key = ' '.join(key.split('_')).title()
                 processed_feedback_text.append(f'<strong>{key} {value.get("score")}%: </strong>{value.get("comment")}')
             else:
-                processed_feedback_text.append(f"<strong>{key}:</strong> {value}")
+                processed_feedback_text.append(value)
 
         processed_feedbacks.append({
             'feedback': feedback,

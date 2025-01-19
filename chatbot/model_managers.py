@@ -74,10 +74,19 @@ class DatabaseManager:
         try:
             candidate = Candidate.objects.get(user_id=self.user_id)
             job_post = JobPost.objects.get(pk=self.job_post_id)
+            overall_score = feedback_data.get('overall_score')
+
+            if isinstance(overall_score, (int, float)):
+                overall_score = int(round(overall_score))
+            else:
+                overall_score = None
+
             InterviewFeedback.objects.create(
                 job_post=job_post,
                 candidate=candidate,
-                feedback_text=feedback_data
+                feedback_text=feedback_data,
+                overall_score=overall_score,
+                recommendation=feedback_data.get('recommendation')
             )
             print(f"Feedback saved for employer regarding candidate {candidate} on job post '{job_post.title}'.")
         except Candidate.DoesNotExist:

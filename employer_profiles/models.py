@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.contrib.auth.models import User
 from candidate_profiles.models import Candidate
 from jobposts.models import JobPost
@@ -26,6 +27,13 @@ class InterviewFeedback(models.Model):
         Candidate, on_delete=models.CASCADE, related_name='employer_feedbacks'
     )
     feedback_text = models.JSONField()
+    overall_score = models.IntegerField(
+        blank=True,
+        null=True,
+        validators=[MinValueValidator(0), MaxValueValidator(100)],
+        help_text="Overall score between 0 and 100."
+    )
+    recommendation = models.TextField(blank=True, null=True)
     created_on = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

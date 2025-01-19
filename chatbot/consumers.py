@@ -12,6 +12,7 @@ class VoiceConsumer(AsyncWebsocketConsumer):
         self.job_post = None
         self.criteria = None
         self.preparation = None
+        self.is_candidate = False
         self.user_profile = None
         self.assistant = None
         self.db_manager = None
@@ -26,6 +27,9 @@ class VoiceConsumer(AsyncWebsocketConsumer):
 
     async def disconnect(self, close_code):
         """Handle disconnection."""
+        if not self.is_candidate:
+            return
+
         asyncio.create_task(self.generate_feedback_on_disconnect())
 
     async def receive(self, text_data=None, bytes_data=None):
@@ -41,9 +45,12 @@ class VoiceConsumer(AsyncWebsocketConsumer):
         self.job_post = await self.db_manager.get_job_post()
         self.criteria = await self.db_manager.get_evaluation_criteria()
         self.preparation = await self.db_manager.get_interview_preparation()
-        self.user_profile = await self.db_manager.get_user_profile()
-        self._create_assistant()
+        self.is_candidate = await self.db_manager.is_candidate()
 
+        if self.is_candidate:
+            self.user_profile = await self.db_manager.get_user_profile()
+
+        self._create_assistant()
 
 
     def _create_assistant(self):
@@ -80,9 +87,7 @@ class VoiceConsumer(AsyncWebsocketConsumer):
                 evaluation_criteria=self.criteria
             )
             feedback = feedback_assistant.generate_feedback(conversation_text)
-            print(feedback)
 
-            # Send feedback to employer and a brief result to candidate...
             if feedback:
                 await self.db_manager.send_feedback_to_user(
                     job_title=self.job_post.title,

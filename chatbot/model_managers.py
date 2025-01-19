@@ -4,6 +4,7 @@ from jobposts.models import JobPost
 from .models import EvaluationRubric, InterviewPreparation
 from candidate_profiles.models import Candidate, InterviewHistory
 from employer_profiles.models import InterviewFeedback
+from django.contrib.auth.models import Group
 from datetime import datetime
 
 
@@ -93,3 +94,15 @@ class DatabaseManager:
             print(f"Candidate with user ID {self.user_id} not found while saving employer feedback.")
         except JobPost.DoesNotExist:
             print(f"JobPost with ID {self.job_post_id} not found while saving employer feedback.")
+
+    @database_sync_to_async
+    def is_candidate(self):
+        """Check if the current user belongs to the 'candidates' group."""
+        if not self.user_id:
+            return False
+        try:
+            user = self.scope['user']
+            candidates_group = Group.objects.get(name='Candidate')
+            return candidates_group in user.groups.all()
+        except Group.DoesNotExist:
+            return False

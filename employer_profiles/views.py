@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from django.contrib import messages
-from .models import Employer
+from .models import Employer, InterviewFeedback
 from .forms import EditProfileForm
 from jobposts.models import JobPost
 from jobposts.forms import JobPostForm
@@ -85,3 +85,27 @@ def delete_my_job(request, job_id):
         job.delete()
         messages.success(request, "Job posting deleted successfully.")
         return redirect('employer_jobs')
+
+@login_required
+def job_applications(request, job_id):
+    job = get_object_or_404(JobPost, id=job_id, author=request.user)
+    interview_feedbacks = InterviewFeedback.objects.filter(job_post=job).select_related('candidate__user')
+
+    processed_feedbacks = []
+    for feedback in interview_feedbacks:
+        processed_feedback_text = []
+        for key, value in feedback.feedback_text.items():
+            key = ' '.join(key.split('_')).title()
+
+            if isinstance(value, dict):
+                processed_feedback_text.append(f'<strong>{key} {value.get("score")}%: </strong>{value.get("comment")}')
+            else:
+                processed_feedback_text.append(f"<strong>{key}:</strong> {value}")
+
+        processed_feedbacks.append({
+            'feedback': feedback,
+            'processed_feedback_text': processed_feedback_text
+        })
+
+    context = {'job': job, 'processed_feedbacks': processed_feedbacks}
+    return render(request, 'employer_profiles/job_applications.html', context)

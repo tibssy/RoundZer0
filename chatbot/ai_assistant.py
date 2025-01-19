@@ -216,8 +216,6 @@ class FeedbackAssistant:
         system_message += (
             "\n\nYour JSON output must strictly follow this structure:"
             "\n{"
-            "\n  'candidate_name': '<name>',"
-            "\n  'position': '<position>',"
             "\n  '<criterion_1_name>': {"
             "\n    'score': <numerical_score>,  // **Score must be between 0 and 100**"
             "\n    'comment': '<feedback>',"

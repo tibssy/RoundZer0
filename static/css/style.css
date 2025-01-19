@@ -113,7 +113,6 @@ footer {
 
 .elevate {
     padding: 2px 8px;
-    /* border: 1px solid var(--accent); */
     transition: 0.2s ease-in;
 
     &:hover {

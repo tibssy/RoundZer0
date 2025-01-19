@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Candidates for {{ job.title }}{% endblock %}
+
+{% block content %}
+<div class="main-content home-bg">
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card bordered-card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h1>Candidates with Feedback for: {{ job.title }}</h1>
+                    </div>
+                    <div class="card-body">
+                        {% if processed_feedbacks %}
+                            <div class="accordion" id="feedbackAccordion">
+                                {% for processed_feedback in processed_feedbacks %}
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="heading{{ processed_feedback.feedback.id }}">
+                                            <button class="accordion-button collapsed"
+                                                    type="button"
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#collapse{{ processed_feedback.feedback.id }}"
+                                                    aria-expanded="false"
+                                                    aria-controls="collapse{{ processed_feedback.feedback.id }}">
+                                                <i class="bi bi-person-fill me-2"></i>
+                                                {{ processed_feedback.feedback.candidate.user.first_name }} {{ processed_feedback.feedback.candidate.user.last_name }}
+                                                {% if processed_feedback.feedback.overall_score is not None %}
+                                                    <span class="ms-2 badge bg-primary rounded-pill">{{ processed_feedback.feedback.overall_score }}%</span>
+                                                {% endif %}
+                                            </button>
+                                        </h2>
+                                        <div id="collapse{{ processed_feedback.feedback.id }}" class="accordion-collapse collapse" aria-labelledby="heading{{ processed_feedback.feedback.id }}" data-bs-parent="#feedbackAccordion">
+                                            <div class="accordion-body">
+                                                <i class="bi bi-envelope me-1"></i> <strong>Email:</strong> {{ processed_feedback.feedback.candidate.user.email }}
+                                                <br>
+                                                <i class="bi bi-calendar-event me-1"></i> <strong>Feedback Given on:</strong> {{ processed_feedback.feedback.created_on|date:"F d, Y H:i" }}
+                                                <hr>
+                                                <i class="bi bi-chat-dots me-1"></i> <strong>Feedback:</strong> <br><br>
+                                                {% for item in processed_feedback.processed_feedback_text %}
+                                                    {{ item|safe }}<br><br>
+                                                {% endfor %}
+                                                {% if processed_feedback.feedback.recommendation %}
+                                                    <hr>
+                                                    <i class="bi bi-thumbs-up me-1"></i> <strong>Recommendation:</strong> {{ processed_feedback.feedback.recommendation }}
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <p class="text-center">No interview feedback has been given for candidates for this job yet.</p>
+                        {% endif %}
+                    </div>
+                    <div class="card-footer text-muted">
+                        <a href="{% url 'employer_jobs' %}" class="btn btn-secondary btn-sm">Back to My Jobs</a>
+                    </div>
+                </div>
+             </div>
+         </div>
+     </div>
+ </div>
+{% endblock %}

@@ -61,17 +61,14 @@ class JobDetailView(generic.DetailView):
         context['benefits_list'] = self.split_text(job_post.benefits)
 
         if self.request.user.is_authenticated:
-            try:
+            context['group'] = self.request.user.groups.all()[0].name
+
+            if context['group'] == 'Candidate':
                 candidate = self.request.user.candidate_profile
-                has_interviewed = InterviewFeedback.objects.filter(
-                    job_post=job_post,
-                    candidate=candidate
-                ).exists()
+                has_interviewed = InterviewFeedback.objects.filter(job_post=job_post, candidate=candidate).exists()
                 context['has_interviewed'] = has_interviewed
-            except AttributeError:
-                context['has_interviewed'] = False
-        else:
-            context['has_interviewed'] = False
+            elif context['group'] == 'Employer':
+                context['is_owner'] = job_post.author == self.request.user
 
         return context
 

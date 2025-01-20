@@ -1,6 +1,6 @@
 from django.db import models
 
-# Create your models here.
+
 class EvaluationRubric(models.Model):
     job_post = models.ForeignKey(
         'jobposts.JobPost',

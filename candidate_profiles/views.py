@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 from django.contrib.auth import logout
 from django.contrib import messages
 from .models import Candidate, InterviewHistory
@@ -18,6 +20,9 @@ def candidate_profile(request):
 
 @login_required
 def candidate_history(request):
+    if not request.user.groups.filter(name='Candidate').exists():
+        return HttpResponseRedirect(reverse('home'))
+
     try:
         candidate = request.user.candidate_profile
     except Candidate.DoesNotExist:

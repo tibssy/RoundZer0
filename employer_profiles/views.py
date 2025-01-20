@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 from django.contrib.auth import logout
 from django.contrib import messages
 from .models import Employer, InterviewFeedback
@@ -45,6 +47,9 @@ def delete_employer_profile(request):
 
 @login_required
 def my_jobs(request):
+    if not request.user.groups.filter(name='Employer').exists():
+        return HttpResponseRedirect(reverse('home'))
+
     jobs = JobPost.objects.filter(author=request.user).order_by('-created_on')
     context = {'jobs': jobs}
     return render(request, 'employer_profiles/my_jobs.html', context)

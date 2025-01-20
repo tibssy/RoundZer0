@@ -9,21 +9,59 @@
     <div class="container mt-4">
         <div class="row justify-content-center">
             <div class="col-md-10">
-                <div class="card bordered-card">
-                    <div class="card-header">
-                        <h1>Create New Job Posting</h1>
-                    </div>
-                    <div class="card-body">
-                        <form method="post">
-                            {% csrf_token %}
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="card bordered-card">
+                        <div class="card-header">
+                            <h1>Create New Job Posting</h1>
+                        </div>
+                        <div class="card-body">
                             {{ form|crispy }}
-                            <button type="submit" class="btn btn-primary btn-sm">Post Job</button>
-                            <a href="{% url 'employer_jobs' %}" class="btn btn-secondary btn-sm">Cancel</a>
-                        </form>
+
+                            <section aria-labelledby="interview-preparation">
+                                <h2 id="interview-preparation" class="mt-4">Interview Preparation (Optional)</h2>
+                                <div class="mb-3">
+                                    <label for="interview_duration" class="form-label">
+                                        Interview Duration (minutes):
+                                    </label>
+                                    <div class="d-flex compact-silder">
+                                        <input type="range" class="form-range" id="interview_duration" name="interview_duration" value="15" min="5" max="60" step="5" oninput="updateDurationValue(this.value)">
+                                        <div class="d-flex align-items.center text-center">
+                                            <p id="duration-value" class="m-auto">15</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="question-input" class="form-label">Interview Questions:</label>
+                                    <div class="d-flex compact-input">
+                                        <input type="text" class="form-control" id="question-input" placeholder="Enter a question">
+                                        <button type="button" id="add-question" class="btn ">
+                                            <i class="bi bi-plus-lg"></i>
+                                        </button>
+                                    </div>
+                                    <div id="question-chips" class="mt-2">
+                                        <!-- placeholder for question chips -->
+                                    </div>
+                                    <div class="form-text">
+                                        Add questions to help prepare the chatbot for interviews.
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                        <div class="card-footer d-flex justify-content-between">
+                            <button type="submit" class="btn btn-primary px-5">Post Job</button>
+                            <a href="{% url 'employer_jobs' %}" class="btn btn-secondary px-5">Cancel</a>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+{{block.super}}
+<script src="{% static 'js/interview_prep.js' %}"></script>
 {% endblock %}

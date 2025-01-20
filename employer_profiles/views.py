@@ -8,6 +8,7 @@ from .models import Employer, InterviewFeedback
 from .forms import EditProfileForm
 from jobposts.models import JobPost
 from jobposts.forms import JobPostForm
+from chatbot.models import InterviewPreparation
 
 
 @login_required
@@ -62,6 +63,24 @@ def create_job(request):
             job_post = form.save(commit=False)
             job_post.author = request.user
             job_post.save()
+
+            questions = request.POST.getlist('questions')
+
+            interview_duration = request.POST.get('interview_duration')
+            if interview_duration:
+                try:
+                    interview_duration = int(interview_duration)
+                except ValueError:
+                    interview_duration = None
+
+            if questions or interview_duration:
+                interview_preparation = InterviewPreparation(
+                    job_post=job_post,
+                    questions=questions,
+                    interview_duration=interview_duration
+                )
+                interview_preparation.save()
+
             return redirect('employer_jobs')
     else:
         form = JobPostForm()

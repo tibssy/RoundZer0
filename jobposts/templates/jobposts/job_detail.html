@@ -58,7 +58,11 @@
                             <div class="d-flex justify-content-between mt-2 mt-lg-0 gap-2">
                                 <a href="{% url 'jobs' %}" class="btn btn-outline-secondary">Back to Jobs</a>
                                 {% if user.is_authenticated %}
-                                    <a href="{% url 'start_interview' object.pk %}" class="btn btn-primary">Start Interview</a>
+                                    {% if has_interviewed %}
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#previousInterviewModal">Start Interview</button>
+                                    {% else %}
+                                        <a href="{% url 'start_interview' object.pk %}" class="btn btn-primary">Start Interview</a>
+                                    {% endif %}
                                 {% else %}
                                     <a href="{% url 'account_login' %}" class="btn btn-outline-primary">Login to Apply</a>
                                 {% endif %}
@@ -66,6 +70,26 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Previous Interview Modal -->
+<div class="modal fade" id="previousInterviewModal" tabindex="-1" aria-labelledby="previousInterviewModalLabel" aria-hidden="true">
+    <div class="modal-dialog mt-7 modal-md shadow">
+        <div class="modal-content">
+            <div class="modal-header px-3 py-2">
+                <h5 class="modal-title" id="previousInterviewModalLabel">Previous Interview</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>It looks like you've already interviewed for this position.</p>
+                <p>Would you like to view your interview history?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
+                <a href="{% url 'candidate_history' %}" class="btn btn-primary btn-sm">View History</a>
             </div>
         </div>
     </div>

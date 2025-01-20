@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views import generic
 from django.urls import reverse
 from .models import JobPost
+from employer_profiles.models import InterviewFeedback
 from django.db.models import Q
 
 
@@ -58,6 +59,20 @@ class JobDetailView(generic.DetailView):
         context['responsibilities_list'] = self.split_text(job_post.responsibilities)
         context['requirements_list'] = self.split_text(job_post.requirements)
         context['benefits_list'] = self.split_text(job_post.benefits)
+
+        if self.request.user.is_authenticated:
+            try:
+                candidate = self.request.user.candidate_profile
+                has_interviewed = InterviewFeedback.objects.filter(
+                    job_post=job_post,
+                    candidate=candidate
+                ).exists()
+                context['has_interviewed'] = has_interviewed
+            except AttributeError:
+                context['has_interviewed'] = False
+        else:
+            context['has_interviewed'] = False
+
         return context
 
 

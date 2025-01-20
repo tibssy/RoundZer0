@@ -18,7 +18,7 @@
                             {% csrf_token %}
                             {{ form|crispy }}
                             <button type="submit" class="btn btn-primary btn-sm">Post Job</button>
-                            <a href="{% url 'employer_jobs' %}" class="btn btn-outline-secondary btn-sm">Cancel</a>
+                            <a href="{% url 'employer_jobs' %}" class="btn btn-secondary btn-sm">Cancel</a>
                         </form>
                     </div>
                 </div>

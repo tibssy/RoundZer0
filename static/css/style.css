@@ -141,8 +141,7 @@ footer {
     }
 }
 
-
-.btn.btn-outline-secondary {
+.btn.btn-secondary {
     background-color: var(--secondary-text);
     border: 1px solid var(--secondary-text);
     color: var(--primary-background);

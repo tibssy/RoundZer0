@@ -29,12 +29,12 @@
                                         </h2>
                                         <div id="collapse{{ interview.id }}" class="accordion-collapse collapse" aria-labelledby="heading{{ interview.id }}" data-bs-parent="#interviewAccordion">
                                             <div class="accordion-body">
-                                                <i class="bi bi-building me-1"></i> <strong>Company:</strong>{{ interview.company_name }}
+                                                <i class="bi bi-building me-2"></i><strong class="me-1">Company:</strong>{{ interview.company_name }}
                                                 <br>
-                                                <i class="bi bi-calendar me-1"></i> <strong>Date:</strong>{{ interview.interview_date }}
+                                                <i class="bi bi-calendar me-2"></i><strong class="me-1">Date:</strong>{{ interview.interview_date }}
                                                 {% if interview.feedback %}
                                                     <hr>
-                                                    <i class="bi bi-chat-dots me-1"></i> <strong>Feedback:</strong>{{ interview.feedback }}
+                                                    <i class="bi bi-chat-dots me-2"></i><strong class="me-1">Feedback:</strong>{{ interview.feedback }}
                                                 {% endif %}
                                                 <div class="mt-2 d-flex justify-content-end">
                                                     <button type="button" class="btn btn-danger px-4" data-bs-toggle="modal" data-bs-target="#deleteInterviewModal{{ interview.id }}">

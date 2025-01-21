@@ -56,7 +56,7 @@
                                 Posted on: {{ object.created_on|date:"F d, Y" }}
                             </div>
                             <div class="d-flex justify-content-between mt-2 mt-lg-0 gap-2">
-                                <a href="{% url 'jobs' %}" class="btn btn-secondary px-4">Back to Jobs</a>
+                                <a href="{% url 'jobs' %}" class="btn btn-secondary px-4">Go to Job Posts</a>
                                 {% if user.is_authenticated %}
                                     {% if group == 'Candidate' and has_interviewed %}
                                         <button type="button" class="btn btn-primary px-4" data-bs-toggle="modal" data-bs-target="#previousInterviewModal">Start Interview</button>

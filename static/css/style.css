@@ -10,7 +10,7 @@
     --box-shadow-small: 0 2px 2px var(--shadow);
     --box-shadow-normal: 0 2px 4px var(--shadow);
     --box-shadow-large: 0 4px 8px var(--shadow-light);
-    --footer-height: 50px;
+    --footer-height: 60px;
 }
 
 
@@ -78,14 +78,24 @@ footer {
     height: var(--footer-height);
 
     & .container {
-        background-color: #e9ebed;
+        background-color: var(--primary-text);
         box-shadow: var(--box-shadow-normal);
         color: var(--primary-background);
         height: 100%;
     }
 
     & p {
-        margin: 0;
+        margin: auto 0;
+        font-size: 1.1rem;
+    }
+
+    & a {
+        text-decoration: none;
+        margin: auto 0;
+    }
+
+    & a i {
+        color: var(--primary-background) !important;
     }
 }
 

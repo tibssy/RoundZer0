@@ -50,7 +50,7 @@ class JobDetailView(generic.DetailView):
     template_name = 'jobposts/job_detail.html'
 
     def split_text(self, text: str) -> list:
-        prepared_text = text.replace('. ', '.|').split('|')
+        prepared_text = text.replace('. ', '.|').replace('.\r\n', '.|').split('|')
         return [clean for item in prepared_text if (clean := item.strip())]
 
     def get_context_data(self, **kwargs):

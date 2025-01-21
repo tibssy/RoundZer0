@@ -16,6 +16,7 @@ class VoiceConsumer(AsyncWebsocketConsumer):
         self.user_profile = None
         self.assistant = None
         self.db_manager = None
+        self.is_staff = False
 
     async def connect(self):
         """Initialize an Assistant instance for this WebSocket connection."""
@@ -46,17 +47,17 @@ class VoiceConsumer(AsyncWebsocketConsumer):
         self.criteria = await self.db_manager.get_evaluation_criteria()
         self.preparation = await self.db_manager.get_interview_preparation()
         self.is_candidate = await self.db_manager.is_candidate()
+        self.is_staff = await self.db_manager.is_staff()
 
         if self.is_candidate:
             self.user_profile = await self.db_manager.get_user_profile()
 
         self._create_assistant()
 
-
     def _create_assistant(self):
         """Create an Assistant instance based on preparation details."""
         assistant_params = {
-            'ai_provider': 'groq',
+            'ai_provider': 'openai' if self.is_staff else 'groq',
             'job_post': self.job_post,
         }
 
@@ -83,6 +84,7 @@ class VoiceConsumer(AsyncWebsocketConsumer):
                 for message in conversation_history[1:]
             )
             feedback_assistant = FeedbackAssistant(
+                ai_provider='openai' if self.is_staff else 'groq',
                 job_post=self.job_post,
                 evaluation_criteria=self.criteria
             )

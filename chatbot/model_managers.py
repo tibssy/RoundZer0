@@ -106,3 +106,11 @@ class DatabaseManager:
             return candidates_group in user.groups.all()
         except Group.DoesNotExist:
             return False
+
+    @database_sync_to_async
+    def is_staff(self):
+        if not self.user_id:
+            return False
+
+        user = self.scope.get('user')
+        return user.is_staff if user else False

@@ -51,8 +51,8 @@
                                             </button>
                                         </h2>
                                         <div id="collapse{{ processed_feedback.feedback.id }}" class="accordion-collapse collapse" aria-labelledby="heading{{ processed_feedback.feedback.id }}" data-bs-parent="#feedbackAccordion">
-                                            <div class="accordion-body align-items-center">
-                                                <div class="d-flex justify-content-between align-items-center">
+                                            <div class="accordion-body">
+                                                <div class="d-flex justify-content-between">
                                                     <div>
                                                         <p>
                                                             <i class="bi bi-envelope me-1"></i> <strong>Email:</strong> {{ processed_feedback.feedback.candidate.user.email }}
@@ -61,8 +61,8 @@
                                                             <i class="bi bi-calendar-event me-1"></i> <strong>Feedback Given on:</strong> {{ processed_feedback.feedback.created_on|date:"F d, Y H:i" }}
                                                         </p>
                                                     </div>
-                                                    <div class="d-flex ">
-                                                        <a href="#" class="btn rounded elevate" title="View Profile">
+                                                    <div class="d-flex flex-column align-items-start">
+                                                        <a href="{% url 'candidate_profile_view' processed_feedback.feedback.candidate.id %}" class="btn rounded elevate" title="View Profile">
                                                             <i class="bi bi-person-square fs-3"></i>
                                                         </a>
                                                     </div>

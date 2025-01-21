@@ -19,6 +19,12 @@ def candidate_profile(request):
     return render(request, 'candidate_profiles/candidate_profile.html', context)
 
 @login_required
+def candidate_profile_view(request, candidate_id):
+    candidate = get_object_or_404(Candidate, pk=candidate_id)
+    context = {'candidate': candidate}
+    return render(request, 'candidate_profiles/candidate_profile.html', context)
+
+@login_required
 def candidate_history(request):
     if not request.user.groups.filter(name='Candidate').exists():
         return HttpResponseRedirect(reverse('home'))

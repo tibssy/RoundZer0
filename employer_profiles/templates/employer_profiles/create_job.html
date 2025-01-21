@@ -13,7 +13,7 @@
                     {% csrf_token %}
                     <div class="card bordered-card">
                         <div class="card-header">
-                            <h1>Create New Job Posting</h1>
+                            <h1 class="fs-4 fw-bold mb-0">Create New Job Posting</h1>
                         </div>
                         <div class="card-body">
                             {{ form|crispy }}
@@ -50,8 +50,8 @@
                             </section>
                         </div>
                         <div class="card-footer d-flex justify-content-between">
-                            <button type="submit" class="btn btn-primary px-5">Post Job</button>
-                            <a href="{% url 'employer_jobs' %}" class="btn btn-secondary px-5">Cancel</a>
+                            <button type="submit" class="btn btn-primary px-4">Post Job</button>
+                            <a href="{% url 'employer_jobs' %}" class="btn btn-secondary px-4">Cancel</a>
                         </div>
                     </div>
                 </form>

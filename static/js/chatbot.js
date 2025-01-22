@@ -13,6 +13,7 @@ let isRecording = false;
 let silentSince = null;
 let recordingStartTime = null;
 let audioStream = null;
+let isHandlingAudio = false;
 
 const THRESHOLD = 0.01;
 const SILENCE_DELAY = 2000;
@@ -48,6 +49,7 @@ async function playNextAudioInQueue() {
     if (audioQueue.length === 0) {
         isPlaying = false;
         videoPlaceholder.pause();
+        isHandlingAudio = false;
         return;
     }
 
@@ -87,6 +89,7 @@ function startMediaRecorder(stream) {
     mediaRecorder.ondataavailable = (event) => {
         const recordingDuration = performance.now() - recordingStartTime;
         if (recordingDuration >= MIN_RECORDING_DURATION && ws.readyState === WebSocket.OPEN) {
+            isHandlingAudio = true;
             ws.send(event.data);
         }
     };
@@ -109,7 +112,7 @@ function setupAudioProcessing(stream) {
 }
 
 function calculateRMS(analyser, dataArray) {
-    if (audioQueue.length > 0) {
+    if (audioQueue.length > 0 || isPlaying || isHandlingAudio) {
         silentSince = null;
         if (isRecording) toggleRecording();
         requestAnimationFrame(() => calculateRMS(analyser, dataArray));

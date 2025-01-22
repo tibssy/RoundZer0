@@ -110,13 +110,6 @@ WSGI_APPLICATION = "roundzero.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": BASE_DIR / "db.sqlite3",
-#     }
-# }
-
 DATABASES = {
     'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
 }
@@ -146,17 +139,23 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+# Account Registration
 ACCOUNT_FORMS = {'signup': 'roundzero.forms.CustomSignupForm'}
-ACCOUNT_EMAIL_VERIFICATION = 'none'
-# ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_EMAIL_REQUIRED = True
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_PORT = 587  # or your SMTP port
-# EMAIL_USE_TLS = True  # or EMAIL_USE_SSL
-# EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
-# EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
+
+if DEBUG:
+    ACCOUNT_EMAIL_VERIFICATION = 'none'
+else:
+    ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_PORT = 587
+    EMAIL_USE_TLS = True
+    EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
+    EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
+    ACCOUNT_EMAIL_SUBJECT_PREFIX = '[RoundZer0] '
+    ACCOUNT_EMAIL_HTML_FORMAT = True
+
 
 
 # Internationalization

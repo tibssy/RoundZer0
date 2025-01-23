@@ -28,24 +28,10 @@
             <!-- Hero Image -->
             <div class="col-md-6">
                 <picture>
-                    <source
-                        media="(max-width: 480px)"
-                        srcset="{% static 'images/hero-small.webp' %}"
-                    />
-                    <source
-                        media="(max-width: 768px)"
-                        srcset="{% static 'images/hero-medium.webp' %}"
-                    />
-                    <source
-                        media="(max-width: 992px)"
-                        srcset="{% static 'images/hero-large.webp' %}"
-                    />
-                    <img
-                        src="{% static 'images/hero.webp' %}"
-                        alt="Hero Image"
-                        id="hero-image"
-                        class="img-fluid rounded rounded-4"
-                    />
+                    <source media="(max-width: 480px)" srcset="{% static 'images/hero-small.webp' %}">
+                    <source media="(max-width: 768px)" srcset="{% static 'images/hero-medium.webp' %}">
+                    <source media="(max-width: 992px)" srcset="{% static 'images/hero-large.webp' %}">
+                    <img src="{% static 'images/hero.webp' %}" alt="Hero Image" id="hero-image" class="img-fluid rounded rounded-4">
                 </picture>
             </div>
         </section>

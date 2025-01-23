@@ -8,7 +8,9 @@ class VoiceConsumerTest(TestCase):
     async def test_websocket_connect_disconnect(self):
         """Test WebSocket connection and disconnection."""
         consumer = VoiceConsumer(scope={"type": "websocket"})
-        communicator = ApplicationCommunicator(consumer, {"type": "websocket.connect"})
+        communicator = ApplicationCommunicator(consumer, {
+            "type": "websocket.connect"
+        })
 
         # Simulate connection
         await communicator.send_input({"type": "websocket.connect"})
@@ -22,7 +24,9 @@ class VoiceConsumerTest(TestCase):
     async def test_receive_audio_data(self):
         """Test if audio data is processed and converted to text correctly."""
         consumer = VoiceConsumer(scope={"type": "websocket"})
-        communicator = ApplicationCommunicator(consumer, {"type": "websocket.connect"})
+        communicator = ApplicationCommunicator(consumer, {
+            "type": "websocket.connect"
+        })
 
         # Simulate connection
         await communicator.send_input({"type": "websocket.connect"})
@@ -33,7 +37,10 @@ class VoiceConsumerTest(TestCase):
         with open(audio_file_path, "rb") as audio_file:
             test_data = audio_file.read()
 
-            await communicator.send_input({"type": "websocket.receive", "bytes": test_data})
+            await communicator.send_input({
+                "type": "websocket.receive",
+                "bytes": test_data
+            })
             response = await communicator.receive_output()
 
             self.assertEqual(response["type"], "websocket.send")

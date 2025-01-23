@@ -5,13 +5,15 @@
 
 {% block content %}
 <div class="main-content home-bg">
-    <div class="container mt-4">
+    <div class="container my-5">
         <h1 class="text-center mb-4 text-pbg">Job Openings</h1>
 
         <!-- Search/Filter field -->
         <div class="row justify-content-center mb-3">
             <div class="col-md-10">
                 <div class="d-flex justify-content-between align-items-center gap-2">
+
+                    <!-- Search Field -->
                     <div class="flex-grow-1">
                         <form method="get" class="d-flex compact-input">
                             <input class="form-control" type="search" placeholder="Search by title, company, or location" name="q" value="{{ request.GET.q }}">
@@ -20,6 +22,8 @@
                             </button>
                         </form>
                     </div>
+
+                    <!-- Sort Field -->
                     <div class="dropdown">
                         <button class="btn form-control dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-sort-down"></i>
@@ -40,12 +44,36 @@
                             </span>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item" href="{% url 'jobs' %}?sort=created_on_desc"><i class="bi bi-calendar-plus me-1"></i> Posted (Newest)</a></li>
-                            <li><a class="dropdown-item" href="{% url 'jobs' %}?sort=created_on_asc"><i class="bi bi-calendar-minus me-1"></i> Posted (Oldest)</a></li>
-                            <li><a class="dropdown-item" href="{% url 'jobs' %}?sort=company_name_asc"><i class="bi bi-sort-alpha-down me-1"></i> Company (A-Z)</a></li>
-                            <li><a class="dropdown-item" href="{% url 'jobs' %}?sort=company_name_desc"><i class="bi bi-sort-alpha-up me-1"></i> Company (Z-A)</a></li>
-                            <li><a class="dropdown-item" href="{% url 'jobs' %}?sort=location_asc"><i class="bi bi-geo-alt-fill me-1"></i> Location (A-Z)</a></li>
-                            <li><a class="dropdown-item" href="{% url 'jobs' %}?sort=location_desc"><i class="bi bi-geo-alt me-1"></i> Location (Z-A)</a></li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'jobs' %}?sort=created_on_desc">
+                                    <i class="bi bi-calendar-plus me-1"></i>Posted (Newest)
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'jobs' %}?sort=created_on_asc">
+                                    <i class="bi bi-calendar-minus me-1"></i>Posted (Oldest)
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'jobs' %}?sort=company_name_asc">
+                                    <i class="bi bi-sort-alpha-down me-1"></i>Company (A-Z)
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'jobs' %}?sort=company_name_desc">
+                                    <i class="bi bi-sort-alpha-up me-1"></i>Company (Z-A)
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'jobs' %}?sort=location_asc">
+                                    <i class="bi bi-geo-alt-fill me-1"></i>Location (A-Z)
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'jobs' %}?sort=location_desc">
+                                    <i class="bi bi-geo-alt me-1"></i>Location (Z-A)
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -61,20 +89,28 @@
                             <a href="{% url 'job_detail' job.id %}" class="text-decoration-none">
                                 <div class="card bordered-card">
                                     <div class="card-header d-flex justify-content-between align-items-center border-bottom-0">
-                                        <h5 class="card-title mb-0">{{ job.title }}</h5>
+                                        <h5 class="card-title mb-0">
+                                            {{ job.title }}
+                                        </h5>
                                         <i class="bi bi-bookmark"></i>
                                     </div>
                                     <div class="card-body">
-                                        <h6 class="card-subtitle mb-2 text-muted">{{ job.company_name }}</h6>
+                                        <h6 class="card-subtitle mb-2 text-muted">
+                                            {{ job.company_name }}
+                                        </h6>
                                         <p class="card-text">
-                                            <i class="bi bi-geo-alt me-1"></i> Location: {{ job.location }}
+                                            <i class="bi bi-geo-alt me-1"></i>
+                                            Location: {{ job.location }}
                                         </p>
                                         <p class="card-text">
-                                            <i class="bi bi-briefcase me-1"></i> Type: {{ job.get_employment_type_display }}
+                                            <i class="bi bi-briefcase me-1"></i>
+                                            Type: {{ job.get_employment_type_display }}
                                         </p>
                                     </div>
                                     <div class="card-footer d-flex justify-content-end border-top-0">
-                                        <small class="text-muted">Posted: {{ job.created_on|date:"M d, Y" }}</small>
+                                        <small class="text-muted">
+                                            Posted: {{ job.created_on|date:"M d, Y" }}
+                                        </small>
                                     </div>
                                 </div>
                             </a>
@@ -85,6 +121,8 @@
                         </div>
                     {% endfor %}
                 </div>
+
+                <!-- Pagination -->
                 <div class="pagination">
                     <span class="step-links">
                         {% if page_obj.has_previous %}
@@ -95,20 +133,28 @@
                             {% if page_number == page_obj.number %}
                                 <span class="current-page-button">{{ page_number }}</span>
                             {% elif page_number <= 5 %}
-                                <a href="?page={{ page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}" class="page-button">{{ page_number }}</a>
+                                <a href="?page={{ page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}" class="page-button">
+                                    {{ page_number }}
+                                </a>
                             {% elif page_number > 5 and page_number <= page_obj.number|add:2 %}
-                                <a href="?page={{ page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}" class="page-button">{{ page_number }}</a>
+                                <a href="?page={{ page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}" class="page-button">
+                                    {{ page_number }}
+                                </a>
                             {% elif page_number > page_obj.number|add:2 and page_number <= page_obj.paginator.num_pages|add:-2 %}
                                 {% if not page_obj.paginator.num_pages <= 5 and page_number == page_obj.number|add:3 %}
                                     <span>...</span>
                                 {% endif %}
                             {% elif page_number > page_obj.paginator.num_pages|add:-2 %}
-                                <a href="?page={{ page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}" class="page-button">{{ page_number }}</a>
+                                <a href="?page={{ page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}" class="page-button">
+                                    {{ page_number }}
+                                </a>
                             {% endif %}
                         {% endfor %}
 
                         {% if page_obj.has_next %}
-                            <a href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}" class="arrow-button">»</a>
+                            <a href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}" class="arrow-button">
+                                »
+                            </a>
                         {% endif %}
                     </span>
                 </div>

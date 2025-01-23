@@ -1,29 +1,34 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}{{ object.title }} - Interview{% endblock %}
+{% block title %}{{ object.title }} - Job Description{% endblock %}
 
 {% block content %}
 <div class="main-content home-bg">
-    <div class="container mt-4">
+    <div class="container my-5">
         <div class="row justify-content-center">
             <div class="col-md-10">
+                <h1 class="text-center mb-4 text-pbg">Job Description</h1>
                 <div class="card bordered-card">
                     <div class="card-header">
-                        <h1 class="fs-4 fw-bold mb-0">{{ object.title }}</h1>
+                        <h2 class="fs-4 fw-bold mb-0">{{ object.title }}</h2>
                     </div>
                     <div class="card-body m-3">
                         <h5 class="card-subtitle mb-3 text-muted">
-                            <i class="bi bi-building me-2"></i>{{ object.company_name }}
+                            <i class="bi bi-building me-2"></i>
+                            {{ object.company_name }}
                         </h5>
                         <p class="card-text">
-                            <i class="bi bi-geo-alt me-2"></i> Location:{{ object.location }}
+                            <i class="bi bi-geo-alt me-2"></i>
+                            Location:{{ object.location }}
                         </p>
                         <p class="card-text">
-                            <i class="bi bi-briefcase me-2"></i> Type:{{ object.get_employment_type_display }}
+                            <i class="bi bi-briefcase me-2"></i>
+                            Type:{{ object.get_employment_type_display }}
                         </p>
                         <p class="card-text">
-                            <i class="bi bi-calendar-event me-2"></i> Deadline:{{ object.application_deadline|date:"F d, Y" }}
+                            <i class="bi bi-calendar-event me-2"></i>
+                            Deadline:{{ object.application_deadline|date:"F d, Y" }}
                         </p>
                         <hr>
                         <h4>Job Description</h4>
@@ -56,17 +61,27 @@
                                 Posted on: {{ object.created_on|date:"F d, Y" }}
                             </div>
                             <div class="d-flex justify-content-between mt-2 mt-lg-0 gap-2">
-                                <a href="{% url 'jobs' %}" class="btn btn-secondary px-4">Go to Job Posts</a>
+                                <a href="{% url 'jobs' %}" class="btn btn-secondary px-4">
+                                    Go to Job Posts
+                                </a>
                                 {% if user.is_authenticated %}
                                     {% if group == 'Candidate' and has_interviewed %}
-                                        <button type="button" class="btn btn-primary px-4" data-bs-toggle="modal" data-bs-target="#previousInterviewModal">Start Interview</button>
+                                        <button type="button" class="btn btn-primary px-4" data-bs-toggle="modal" data-bs-target="#previousInterviewModal">
+                                            Start Interview
+                                        </button>
                                     {% elif group == 'Employer' and not is_owner %}
-                                        <button type="button" class="btn btn-primary px-4" data-bs-toggle="modal" data-bs-target="#jobOwnerModal">Start Interview</button>
+                                        <button type="button" class="btn btn-primary px-4" data-bs-toggle="modal" data-bs-target="#jobOwnerModal">
+                                            Start Interview
+                                        </button>
                                     {% else %}
-                                        <a href="{% url 'start_interview' object.pk %}" class="btn btn-primary px-4">Start Interview</a>
+                                        <a href="{% url 'start_interview' object.pk %}" class="btn btn-primary px-4">
+                                            Start Interview
+                                        </a>
                                     {% endif %}
                                 {% else %}
-                                    <a href="{% url 'account_login' %}" class="btn btn-outline-primary px-4">Login to Apply</a>
+                                    <a href="{% url 'account_login' %}" class="btn btn-outline-primary px-4">
+                                        Login to Apply
+                                    </a>
                                 {% endif %}
                             </div>
                         </div>
@@ -82,7 +97,9 @@
     <div class="modal-dialog mt-7 modal-md shadow">
         <div class="modal-content">
             <div class="modal-header px-3 py-2">
-                <h5 class="modal-title" id="previousInterviewModalLabel">Previous Interview</h5>
+                <h5 class="modal-title" id="previousInterviewModalLabel">
+                    Previous Interview
+                </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -90,8 +107,12 @@
                 <p>Would you like to view your interview history?</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">Cancel</button>
-                <a href="{% url 'candidate_history' %}" class="btn btn-primary px-4">View History</a>
+                <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">
+                    Cancel
+                </button>
+                <a href="{% url 'candidate_history' %}" class="btn btn-primary px-4">
+                    View History
+                </a>
             </div>
         </div>
     </div>
@@ -102,7 +123,9 @@
     <div class="modal-dialog mt-7 modal-md shadow">
         <div class="modal-content">
             <div class="modal-header px-3 py-2">
-                <h5 class="modal-title" id="jobOwnerModalLabel">Unauthorized Action</h5>
+                <h5 class="modal-title" id="jobOwnerModalLabel">
+                    Unauthorized Action
+                </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -110,8 +133,12 @@
                 <p>To proceed, you must either be logged in with a candidate profile or be the employer who created this job posting.</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">Cancel</button>
-                <a href="{% url 'employer_jobs' %}" class="btn btn-primary px-4">Your Jobs</a>
+                <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">
+                    Cancel
+                </button>
+                <a href="{% url 'employer_jobs' %}" class="btn btn-primary px-4">
+                    Your Jobs
+                </a>
             </div>
         </div>
     </div>

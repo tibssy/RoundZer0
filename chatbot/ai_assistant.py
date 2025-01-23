@@ -3,7 +3,7 @@ import re
 import time
 import json
 from datetime import datetime, timedelta
-from openai import OpenAI
+from openai import OpenAI, RateLimitError
 import edge_tts
 
 
@@ -62,7 +62,7 @@ class Assistant:
             self.client.base_url = 'https://api.groq.com/openai/v1'
             self.client.api_key = os.environ.get('GROQ_API_KEY')
             self.stt_model = 'whisper-large-v3'
-            self.chat_model = 'llama-3.3-70b-versatile'
+            self.chat_model = os.environ.get('GROQ_MODEL')
         elif provider == 'openai':
             self.client.api_key = os.environ.get('OPENAI_API_KEY')
             self.stt_model = 'whisper-1'
@@ -137,8 +137,18 @@ class Assistant:
                 if (text_chunk := chunk.choices[0].delta.content) is not None:
                     self.chat_history[-1]['content'] += text_chunk
                     yield text_chunk
+        except RateLimitError as e:
+            return (
+                "I'm sorry, but you have reached the Assistant usage limit.",
+                "Please try again later.",
+                "Thank you for your patience!"
+            )
         except Exception as e:
-            print(f'Error in openai_chat: {e}')
+            return (
+                "An error occurred.",
+                "Please try again later.",
+                "Thank you for your patience!"
+            )
 
     async def text_to_speech(self, text: str):
         """Convert text to speech using Edge TTS."""

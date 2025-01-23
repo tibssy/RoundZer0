@@ -1,3 +1,27 @@
+"""
+This module contains the VoiceConsumer WebSocket consumer for handling
+voice-based interactions in an interview setting. It connects to a WebSocket,
+processes incoming voice data, and interacts with an AI assistant to assist in
+interviews. The consumer also generates feedback at the end of the session and
+handles audio conversion between speech-to-text and text-to-speech.
+
+It integrates with the Assistant and FeedbackAssistant classes to handle
+AI-powered conversations, and interacts with the DatabaseManager to manage
+job-related data, evaluation criteria, and user profiles.
+
+Modules:
+    io: For handling audio data in memory.
+    json: For processing and sending JSON messages via WebSocket.
+    channels.generic.websocket: For WebSocket consumer base class.
+    .ai_assistant: For managing AI-based assistant interactions.
+    .model_managers: For managing database interactions.
+    asyncio: For asynchronous task management.
+
+Classes:
+    VoiceConsumer: A WebSocket consumer for managing voice interactions
+    in an interview.
+"""
+
 import io
 import json
 from channels.generic.websocket import AsyncWebsocketConsumer
@@ -7,7 +31,21 @@ import asyncio
 
 
 class VoiceConsumer(AsyncWebsocketConsumer):
+    """
+    A WebSocket consumer for handling voice-based interactions in an interview.
+
+    This class manages the WebSocket connection, processes voice data,
+    and generates feedback after the interview session.
+    """
+
     def __init__(self, *args, **kwargs):
+        """
+        Initialize the VoiceConsumer instance.
+
+        Sets up the initial state, including job post, criteria, user profile,
+        assistant, and database manager.
+        """
+
         super().__init__(*args, **kwargs)
         self.job_post = None
         self.criteria = None
@@ -19,29 +57,55 @@ class VoiceConsumer(AsyncWebsocketConsumer):
         self.is_staff = False
 
     async def connect(self):
-        """Initialize an Assistant instance for this WebSocket connection."""
+        """
+        Handle the WebSocket connection.
+
+        Initializes the interview parameters and accepts the connection.
+        """
+
         try:
             await self.initialize_interview()
             await self.accept()
-        except Exception as e:
+        except Exception as _:
             await self.close()
 
     async def disconnect(self, close_code):
-        """Handle disconnection."""
+        """
+        Handle WebSocket disconnection.
+
+        Generates feedback for the user when disconnecting after the interview.
+        """
+
         if not self.is_candidate:
             return
 
         asyncio.create_task(self.generate_feedback_on_disconnect())
 
     async def receive(self, text_data=None, bytes_data=None):
-        """Process received data from WebSocket."""
+        """
+        Handle received data from the WebSocket.
+
+        Processes either text or voice data and sends a response back
+        to the client.
+
+        :param text_data: The text data received from the WebSocket.
+        :param bytes_data: The bytes data (audio) received from the WebSocket.
+        """
+
         if bytes_data:
             await self.process_voice_data(bytes_data)
 
         await self.send(text_data=json.dumps({'message': 'Data received'}))
 
     async def initialize_interview(self):
-        """Initialize interview parameters and assistant."""
+        """
+        Initialize the interview parameters and assistant.
+
+        Retrieves data from the database, including job post,
+        evaluation criteria, interview preparation details, and user profile.
+        It also sets up the assistant.
+        """
+
         self.db_manager = DatabaseManager(self.scope)
         self.job_post = await self.db_manager.get_job_post()
         self.criteria = await self.db_manager.get_evaluation_criteria()
@@ -55,7 +119,15 @@ class VoiceConsumer(AsyncWebsocketConsumer):
         self._create_assistant()
 
     def _create_assistant(self):
-        """Create an Assistant instance based on preparation details."""
+        """
+        Create and initialize the Assistant instance based on the preparation
+        details.
+
+        The assistant is created using parameters based on whether the user is
+        a candidate or staff member, and additional details from the interview
+        preparation or user profile.
+        """
+
         assistant_params = {
             'ai_provider': 'openai' if self.is_staff else 'groq',
             'job_post': self.job_post,
@@ -63,7 +135,8 @@ class VoiceConsumer(AsyncWebsocketConsumer):
 
         if self.preparation:
             assistant_params.update({
-                'interview_duration': self.preparation.get('interview_duration'),
+                'interview_duration': self.preparation.get(
+                    'interview_duration'),
                 'questions_list': self.preparation.get('questions')
             })
 
@@ -76,7 +149,13 @@ class VoiceConsumer(AsyncWebsocketConsumer):
         self.assistant = Assistant(**assistant_params)
 
     async def generate_feedback_on_disconnect(self):
-        """Generate and handle feedback upon disconnection."""
+        """
+        Generate and handle feedback upon disconnection.
+
+        If there is sufficient conversation history, generate feedback and
+        send it to both the user (candidate) and the employer.
+        """
+
         conversation_history = self.assistant.chat_history
         if len(conversation_history) >= 4:
             conversation_text = '\n'.join(
@@ -100,7 +179,15 @@ class VoiceConsumer(AsyncWebsocketConsumer):
 
 
     async def process_voice_data(self, bytes_data):
-        """Process the voice data received from WebRTC."""
+        """
+        Process the voice data received from WebRTC.
+
+        Converts speech data to text, sends it to the assistant for processing,
+        and returns audio responses.
+
+        :param bytes_data: The raw audio data received from the WebSocket.
+        """
+
         audio_buffer = io.BytesIO(bytes_data)
         audio_buffer.name = 'speech.ogg'
         audio_buffer.seek(0)

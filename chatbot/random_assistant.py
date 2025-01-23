@@ -1,6 +1,18 @@
+"""
+Voice assistant configuration and helper function.
+
+This module contains a dictionary of available voices for the chatbot
+along with their corresponding language codes. It also provides a helper
+function `get_assistant()` that randomly selects and returns a voice
+from the dictionary, which can be used for voice-related interactions
+in the chatbot.
+"""
+
+from typing import Tuple
 import random
 
 
+# Dictionary mapping assistant names to their corresponding voice codes
 VOICES = {
     'Connor': 'en-IE-ConnorNeural',
     'Emily': 'en-IE-EmilyNeural',
@@ -24,5 +36,15 @@ VOICES = {
     'William': 'en-AU-WilliamNeural'
 }
 
-def get_assistant():
+def get_assistant() -> Tuple[str, str]:
+    """
+    Randomly selects and returns a voice assistant.
+
+    The function chooses a random voice from the VOICES dictionary and returns
+    a tuple containing the assistant's name and the corresponding voice code.
+
+    :return: A tuple containing the assistant's name and voice code.
+    :rtype: tuple
+    """
+
     return random.choice(tuple(VOICES.items()))

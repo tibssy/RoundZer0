@@ -19,6 +19,10 @@ const THRESHOLD = 0.01;
 const SILENCE_DELAY = 2000;
 const MIN_RECORDING_DURATION = 2000 + SILENCE_DELAY;
 
+
+/**
+ * Initializes the WebSocket connection and sets up audio processing.
+ */
 function initializeWebSocket() {
     ws = new WebSocket(WS_URL);
 
@@ -36,6 +40,10 @@ function initializeWebSocket() {
     ws.addEventListener('error', console.error.bind(console, "WebSocket error:"));
 }
 
+/**
+ * Handles incoming WebSocket messages.
+ * @param {MessageEvent} event - The WebSocket message event.
+ */
 function handleWebSocketMessage(event) {
     if (event.data instanceof Blob) {
         audioQueue.push(event.data);
@@ -45,6 +53,9 @@ function handleWebSocketMessage(event) {
     }
 }
 
+/**
+ * Plays the next audio file in the queue.
+ */
 async function playNextAudioInQueue() {
     if (audioQueue.length === 0) {
         isPlaying = false;
@@ -69,6 +80,9 @@ async function playNextAudioInQueue() {
     audioSource.start();
 }
 
+/**
+ * Toggles the recording state between start and stop.
+ */
 async function toggleRecording() {
     if (!isRecording) {
         if (audioStream) {
@@ -79,6 +93,10 @@ async function toggleRecording() {
     }
 }
 
+/**
+ * Starts the media recorder for audio recording.
+ * @param {MediaStream} stream - The audio stream to record.
+ */
 function startMediaRecorder(stream) {
     mediaRecorder = new MediaRecorder(stream);
     mediaRecorder.start();
@@ -95,6 +113,9 @@ function startMediaRecorder(stream) {
     };
 }
 
+/**
+ * Stops the media recorder and resets recording-related variables.
+ */
 function stopMediaRecorder() {
     mediaRecorder.stop();
     cameraOffLottieContainer.pause();
@@ -102,6 +123,10 @@ function stopMediaRecorder() {
     recordingStartTime = null;
 }
 
+/**
+ * Sets up audio processing using an audio context and analyser node.
+ * @param {MediaStream} stream - The audio stream for processing.
+ */
 function setupAudioProcessing(stream) {
     const analyser = audioContext.createAnalyser();
     const microphone = audioContext.createMediaStreamSource(stream);
@@ -111,6 +136,11 @@ function setupAudioProcessing(stream) {
     calculateRMS(analyser, dataArray);
 }
 
+/**
+ * Calculates the root mean square (RMS) of the audio data for silence detection.
+ * @param {AnalyserNode} analyser - The audio analyser node.
+ * @param {Uint8Array} dataArray - The array to store analyser data.
+ */
 function calculateRMS(analyser, dataArray) {
     if (audioQueue.length > 0 || isPlaying || isHandlingAudio) {
         silentSince = null;
@@ -121,7 +151,6 @@ function calculateRMS(analyser, dataArray) {
 
     analyser.getByteTimeDomainData(dataArray);
     const rms = computeRMS(dataArray);
-    console.log('rms');
     if (rms >= THRESHOLD) {
         if (!isRecording) toggleRecording();
         silentSince = null;
@@ -132,6 +161,11 @@ function calculateRMS(analyser, dataArray) {
     requestAnimationFrame(() => calculateRMS(analyser, dataArray));
 }
 
+/**
+ * Computes the root mean square (RMS) of the given audio data array.
+ * @param {Uint8Array} dataArray - The array of audio data.
+ * @returns {number} - The computed RMS value.
+ */
 function computeRMS(dataArray) {
     const sum = dataArray.reduce((acc, val) => {
         const normalized = (val - 128) / 128;
@@ -140,6 +174,9 @@ function computeRMS(dataArray) {
     return Math.sqrt(sum / dataArray.length);
 }
 
+/**
+ * Handles silence detection and stops recording if silent for too long.
+ */
 function handleSilence() {
     if (!silentSince) {
         silentSince = performance.now();

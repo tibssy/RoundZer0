@@ -12,6 +12,15 @@ document.addEventListener('DOMContentLoaded', () => {
     let isMicOn = true;
     let isCameraOn = true;
 
+    /**
+     * Toggles a CSS class and updates the element's inner HTML.
+     * @param {HTMLElement} element - The element to update.
+     * @param {boolean} condition - Whether to apply the "on" state.
+     * @param {string} classOn - Class to apply when "on".
+     * @param {string} classOff - Class to apply when "off".
+     * @param {string} iconOn - HTML content for the "on" state.
+     * @param {string} iconOff - HTML content for the "off" state.
+     */
     const toggleClass = (element, condition, classOn, classOff, iconOn, iconOff) => {
         if (!element) return;
         element.classList.toggle(classOn, condition);
@@ -19,6 +28,12 @@ document.addEventListener('DOMContentLoaded', () => {
         element.innerHTML = condition ? iconOn : iconOff;
     };
 
+    /**
+     * Sets up a media stream for a preview element and toggles visibility.
+     * @param {MediaStream} mediaStream - The media stream to display.
+     * @param {HTMLVideoElement} previewElement - The video element for the preview.
+     * @param {HTMLElement} offTextElement - Element to display when the camera is off.
+     */
     const handleMediaStream = (mediaStream, previewElement, offTextElement) => {
         if (!previewElement || !offTextElement) return;
         previewElement.srcObject = mediaStream;
@@ -26,6 +41,12 @@ document.addEventListener('DOMContentLoaded', () => {
         offTextElement.style.display = isCameraOn ? 'none' : 'flex';
     };
 
+    /**
+     * Requests media permissions and sets up the appropriate stream.
+     * @param {HTMLVideoElement} previewElement - The video element for preview.
+     * @param {HTMLElement} offTextElement - Element to display when the camera is off.
+     * @param {boolean} isLocal - Whether this is for the local camera.
+     */
     const requestMediaPermissions = async (previewElement, offTextElement, isLocal) => {
         try {
             const mediaStream = await navigator.mediaDevices.getUserMedia({
@@ -56,6 +77,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    /**
+     * Handles camera toggling and updates UI.
+     * @param {HTMLElement} toggleButton - The camera toggle button element.
+     * @param {boolean} isOn - Whether the camera is turned on.
+     */
     const handleCameraToggle = (toggleButton, isOn) => {
         toggleClass(toggleButton, isOn, 'camera-on', 'camera-off', '<i class="bi bi-camera-video-fill"></i>', '<i class="bi bi-camera-video-off-fill"></i>');
         if (localCameraPreview && localCameraOff) {
@@ -66,6 +92,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    /**
+     * Ends the interview by stopping streams and redirecting the user.
+     */
     const endInterview = () => {
         [localStream, stream].forEach((s, index) => {
             if (s) {

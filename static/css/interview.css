@@ -1,9 +1,11 @@
+/* Resetting default styles for all elements */
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
 
+/* Base styles for the body element  */
 body {
     font-family: "Roboto Condensed", serif;
     font-optical-sizing: auto;
@@ -12,11 +14,16 @@ body {
     background-color: #212a37;
 }
 
+h1 {
+    font-size: 120%;
+}
+
 .container {
     height: 100vh;
     gap: 5px
 }
 
+/* Video: */
 .video-container {
     position: relative;
     background-color: #000;
@@ -66,16 +73,16 @@ body {
     transform: rotate(135deg);
 }
 
-h1 {
-    font-size: 120%;
-}
 
+/* Media query for tablets and up  */
 @media screen and (min-width: 768px) {
     h1 {
         font-size: 110%;
     }
 }
 
+
+/* Media query for small desktops and up */
 @media screen and (min-width: 992px) {
     .small-video {
         width: 260px;
@@ -87,6 +94,8 @@ h1 {
     }
 }
 
+
+/* Media query for larger desktops and up */
 @media screen and (min-width: 1200px) {
     .small-video {
         width: 300px;

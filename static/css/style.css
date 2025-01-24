@@ -1,4 +1,5 @@
-:root {
+/* Root Variables: Defines reusable color and shadow values */
+ :root {
     --primary-background: #15354b;
     --secondary-background: #305578;
     --tertiary-background: #2b3645;
@@ -13,7 +14,7 @@
     --footer-height: 60px;
 }
 
-
+/* Base Styles: Setting up the base layout and font */
 body {
     display: flex;
     flex-direction: column;
@@ -25,7 +26,7 @@ body {
     margin: 0;
 }
 
-
+/* Header Styles: Styling the header for the page */
 header {
     position: fixed;
     width: 100%;
@@ -39,6 +40,7 @@ header {
     font-weight: 900;
 }
 
+/* Main Content Styles: Layout and basic styling for the main content area */
 main {
     flex: 1;
 }
@@ -49,6 +51,12 @@ main {
     margin-bottom: calc(var(--footer-height) * -1);
 }
 
+/* Hide help text on signup */
+#id_password1_helptext {
+    display: none;
+}
+
+/* Background Styles: Setting different backgrounds for different contexts */
 .sign-up-in-bg {
     background: url(../images/sign_in_up.webp) no-repeat center center / cover;
 }
@@ -69,6 +77,7 @@ main {
     background-color: var(--primary-background);
 }
 
+/* Footer Styles: Styling the fixed footer */
 footer {
     position: relative;
     margin-top: auto;
@@ -98,7 +107,7 @@ footer {
     }
 }
 
-
+/* Margin Helpers: Utility classes for adding top margin */
 .mt-6 {
     margin-top: 4rem;
 }
@@ -111,6 +120,7 @@ footer {
     margin-top: 6rem;
 }
 
+/* Text Helpers: Text color and style modifiers */
 .text-logout {
     color: var(--accent) !important;
 }
@@ -120,11 +130,12 @@ footer {
     font-weight: 800;
 }
 
+/* Icon Styles: Icon color helper */
 .bi {
     color: var(--accent);
 }
 
-
+/* Elevate Style: Hover effect */
 .elevate {
     padding: 2px 8px;
     transition: 0.2s ease-in;
@@ -135,7 +146,7 @@ footer {
     }
 }
 
-
+/* Button Styles: Custom Button styling */
 .btn.btn-primary {
     background-color: var(--primary-background);
     border: 1px solid var(--primary-background);
@@ -180,7 +191,7 @@ footer {
     }
 }
 
-
+/* Blur Container Style: Applies blur background */
 .blur-container {
     backdrop-filter: blur(12px);
     background-color: #e9ebedb2;
@@ -192,6 +203,7 @@ footer {
     }
 }
 
+/* Scale on Hover Effect */
 .scale-on-hover {
     transition: 0.3s ease-in-out;
 
@@ -201,8 +213,7 @@ footer {
     }
 }
 
-
-/* Navigation */
+/* Navigation Styles: Styling for the navbar */
 .navbar {
     width: 100%;
     max-width: 100%;
@@ -210,7 +221,6 @@ footer {
     background-color: var(--primary-background);
     transition: border-radius 0.3s ease-in-out;
 }
-
 
 .navbar-toggler {
     box-shadow: none;
@@ -223,8 +233,6 @@ footer {
     }
 }
 
-
-
 .navbar-toggler-icon-rotate {
     display: inline-block;
     transition: transform 0.3s ease-in-out;
@@ -233,8 +241,6 @@ footer {
 .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon-rotate {
     transform: rotate(180deg);
 }
-
-
 
 .navbar-nav {
     padding-top: 8px;
@@ -272,8 +278,7 @@ footer {
     box-shadow: var(--box-shadow-small) inset;
 }
 
-
-/* DropDown */
+/* DropDown Styles: Styling for the dropdown menus */
 .dropdown .dropdown-menu {
     transition: all 0.32s;
 
@@ -313,13 +318,12 @@ footer {
     margin: 4px 2px
 }
 
-
+/* Alert Styles: Generic Alert styling */
 .alert {
     box-shadow: var(--box-shadow-small);
 }
 
-
-
+/* Card Styles: Styling for Cards */
 .card {
     box-shadow: var(--box-shadow-large);
 }
@@ -334,8 +338,7 @@ footer {
     border: 4px solid var(--primary-background);
 }
 
-
-
+/* Accordion Styles: Styling for Accordion components */
 .accordion-button {
     transition: 0.3s ease-in;
 }
@@ -352,6 +355,7 @@ footer {
     box-shadow: none;
 }
 
+/* Hero Section Styles: Styling for the Hero section */
 #hero-text {
     text-align: center;
 }
@@ -369,7 +373,7 @@ footer {
     object-position: top;
 }
 
-/* Forms */
+/* Form Styles: Styling form elements */
 .form-control,
 .form-select {
     line-height: 1.8;
@@ -388,22 +392,23 @@ footer {
     box-shadow: 0 0 4px var(--accent) inset;
 }
 
+/* Modal Header Style */
 .modal-header {
     background-color: var(--accent);
 }
 
+/* Modal Label Style */
 #deleteProfileModalLabel {
     font-weight: 900;
     font-size: 1.5rem;
     color: #333;
   }
 
-
+  /* Check Box Styles: Styling for checkboxes */
 .form-check-input {
     border: 3px solid var(--primary-background);
 
 }
-
 
 .form-check-input:checked {
     background-color: var(--accent);
@@ -411,6 +416,7 @@ footer {
     box-shadow: 0 0 4px var(--accent);
 }
 
+/* Compact Input Style: Styled container for input and buttons */
 .compact-input {
     background-color: var(--primary-background);
     border: 1px solid var(--primary-background);
@@ -434,11 +440,10 @@ footer {
             color: var(--accent);
             -webkit-text-stroke: 2px;
         }
-
-
     }
 }
 
+/* Dropdown Button Style: Style for custom dropdown buttons */
 #dropdownMenuButton1 {
     border-radius: 10px;
     background-color: var(--primary-background);
@@ -450,6 +455,7 @@ footer {
     }
 }
 
+/* Top Candidates Dropdown */
 #topCandidatesDropdown {
     border-color: var(--accent);
     color: var(--accent);
@@ -460,6 +466,7 @@ footer {
     }
 }
 
+/* Camera Styles: Styling for the camera preview */
 .camera-container {
     display: flex;
     flex-direction: column;
@@ -493,6 +500,8 @@ footer {
     z-index: 1;
     color: #ddd;
 }
+
+/* Camera Control Styles: Control buttons for camera */
 .controls {
     display: flex;
     justify-content: center;
@@ -520,18 +529,21 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
-
 }
+
 .control-btn:hover{
     background-color: #5a6268;
 }
+
 .control-btn.mic-off i{
     color: red;
 }
+
 .control-btn.camera-off i{
     color: red;
 }
 
+/* Pagination Styles: Styling for pagination elements */
 .pagination {
     display: flex;
     justify-content: center;
@@ -589,11 +601,13 @@ footer {
     cursor: default;
 }
 
+/* Highlight Style: Applies a highlight style to an element */
 .highlight {
     font-weight: bold;
     color: #007bff;
 }
 
+/* Message Container Style */
 .message-container {
     position: absolute;
     top: 66px;
@@ -601,6 +615,7 @@ footer {
     z-index: 999;
 }
 
+/* Alert Wrapper */
 .alert-wrapper {
     position: relative;
     margin: 0 auto;
@@ -608,7 +623,7 @@ footer {
     max-width: 800px;
 }
 
-/* Chips */
+/* Chip Styles: Styling for the tag chips */
 .question-chip {
     display: inline-flex;
     align-items: center;
@@ -634,14 +649,12 @@ footer {
     color: var(--accent);
 }
 
-
-/* Slider */
+/* Slider Styles: Styling for range slider */
 .compact-slider {
     background-color: var(--primary-background);
     border: 2px solid var(--primary-background);
     border-radius: 10px;
 }
-
 
 #duration-value {
     color: var(--accent);
@@ -695,6 +708,7 @@ input[type="range"]::-moz-range-track {
 }
 
 
+/* Media Query: Styles for devices with minimum width of 768px */
 @media screen and (min-width: 768px) {
     .navbar-nav {
         padding-top: 0;
@@ -711,6 +725,3 @@ input[type="range"]::-moz-range-track {
     }
 
 }
-
-
-

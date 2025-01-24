@@ -61,25 +61,25 @@
                                 Posted on: {{ object.created_on|date:"F d, Y" }}
                             </div>
                             <div class="d-flex justify-content-between mt-2 mt-lg-0 gap-2">
-                                <a href="{% url 'jobs' %}" class="btn btn-secondary px-4">
+                                <a href="{% url 'jobs' %}" class="btn btn-secondary px-3">
                                     Go to Job Posts
                                 </a>
                                 {% if user.is_authenticated %}
                                     {% if group == 'Candidate' and has_interviewed %}
-                                        <button type="button" class="btn btn-primary px-4" data-bs-toggle="modal" data-bs-target="#previousInterviewModal">
+                                        <button type="button" class="btn btn-primary px-3" data-bs-toggle="modal" data-bs-target="#previousInterviewModal">
                                             Start Interview
                                         </button>
                                     {% elif group == 'Employer' and not is_owner %}
-                                        <button type="button" class="btn btn-primary px-4" data-bs-toggle="modal" data-bs-target="#jobOwnerModal">
+                                        <button type="button" class="btn btn-primary px-3" data-bs-toggle="modal" data-bs-target="#jobOwnerModal">
                                             Start Interview
                                         </button>
                                     {% else %}
-                                        <a href="{% url 'start_interview' object.pk %}" class="btn btn-primary px-4">
+                                        <a href="{% url 'start_interview' object.pk %}" class="btn btn-primary px-3">
                                             Start Interview
                                         </a>
                                     {% endif %}
                                 {% else %}
-                                    <a href="{% url 'account_login' %}" class="btn btn-outline-primary px-4">
+                                    <a href="{% url 'account_login' %}" class="btn btn-outline-primary px-3">
                                         Login to Apply
                                     </a>
                                 {% endif %}
@@ -107,10 +107,10 @@
                 <p>Would you like to view your interview history?</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">
+                <button type="button" class="btn btn-secondary px-3" data-bs-dismiss="modal">
                     Cancel
                 </button>
-                <a href="{% url 'candidate_history' %}" class="btn btn-primary px-4">
+                <a href="{% url 'candidate_history' %}" class="btn btn-primary px-3">
                     View History
                 </a>
             </div>
@@ -133,10 +133,10 @@
                 <p>To proceed, you must either be logged in with a candidate profile or be the employer who created this job posting.</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">
+                <button type="button" class="btn btn-secondary px-3" data-bs-dismiss="modal">
                     Cancel
                 </button>
-                <a href="{% url 'employer_jobs' %}" class="btn btn-primary px-4">
+                <a href="{% url 'employer_jobs' %}" class="btn btn-primary px-3">
                     Your Jobs
                 </a>
             </div>

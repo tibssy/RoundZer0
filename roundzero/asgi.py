@@ -1,15 +1,16 @@
 """
-ASGI config for roundzero project.
+ASGI configuration for the RoundZero project.
 
-It exposes the ASGI callable as a module-level variable named ``application``.
-
-For more information on this file, see
-https://docs.djangoproject.com/en/5.1/howto/deployment/asgi/
+This file sets up the ASGI application for the project, configuring both
+HTTP and WebSocket protocols. It includes the middleware and routing for
+handling WebSocket connections, and uses Channels for handling asynchronous
+communication.
 """
 
 import os
 import django
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "roundzero.settings")
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'roundzero.settings')
 django.setup()
 
 from channels.auth import AuthMiddlewareStack
@@ -20,11 +21,10 @@ from chatbot.routing import websocket_urlpatterns
 
 
 django_asgi_app = get_asgi_application()
-
 application = ProtocolTypeRouter(
     {
-        "http": get_asgi_application(),
-        "websocket": AllowedHostsOriginValidator(
+        'http': get_asgi_application(),
+        'websocket': AllowedHostsOriginValidator(
             AuthMiddlewareStack(URLRouter(websocket_urlpatterns))
         ),
     }

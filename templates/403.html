@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% load i18n %}
-{% block head_title %}{% trans "500 - Internal Server Error" %}{% endblock %}
+{% block head_title %}{% trans "403 - Forbidden" %}{% endblock %}
 
 {% block content %}
 <div class="main-content error-bg d-flex justify-content-center align-items-center">
@@ -9,16 +9,13 @@
         <div class="row justify-content-center">
             <div class="col-md-6 p-5 text-center">
                 <h1 class="display-1 text-danger">
-                    500
+                    403
                 </h1>
                 <p class="lead">
-                    {% trans "Something went wrong on our end." %}
-                </p>
-                <p class="text-muted">
-                    {% trans "We're working to fix it. Please try again later." %}
+                    {% trans "Oops! You don't have permission to access this resource." %}
                 </p>
                 <a href="/" class="btn btn-primary mt-3">
-                    {% trans "Return to Homepage" %}
+                    {% trans "Go to Homepage" %}
                 </a>
             </div>
         </div>

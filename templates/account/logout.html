@@ -18,8 +18,8 @@
                             {% csrf_token %}
                             {{ redirect_field }}
                             <div class="d-flex justify-content-between">
-                                <button class="btn btn-danger px-4" type="submit">{% trans 'Sign Out' %}</button>
-                                <a href="{% url 'home' %}" class="btn btn-secondary px-4">Cancel</a>
+                                <button class="btn btn-danger px-3" type="submit">{% trans 'Sign Out' %}</button>
+                                <a href="{% url 'home' %}" class="btn btn-secondary px-3">Cancel</a>
                             </div>
                         </form>
                     </div>

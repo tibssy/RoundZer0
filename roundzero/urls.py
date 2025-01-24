@@ -1,18 +1,9 @@
 """
-URL configuration for roundzero project.
+URL configuration for the project.
 
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.1/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+This file includes the URL patterns for various apps such as the admin panel,
+summernote editor, job posts, chatbot, authentication, home page, about page,
+candidate profiles, and employer profiles.
 """
 
 from django.contrib import admin
@@ -20,13 +11,55 @@ from django.urls import path, include
 
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
-    path('summernote/', include('django_summernote.urls')),
-    path('jobs/', include('jobposts.urls'), name='jobposts-urls'),
-    path('chatbot/', include('chatbot.urls'), name='chatbot-urls'),
-    path("accounts/", include("allauth.urls")),
-    path('', include('home.urls'), name='home-urls'),
-    path('about/', include('about.urls'), name='about-urls'),
-    path('candidate/', include('candidate_profiles.urls'), name='candidate-urls'),
-    path('employer/', include('employer_profiles.urls'), name='employer-urls'),
+    # Admin panel URL
+    path(
+        'admin/',
+        admin.site.urls
+    ),
+    # Summernote editor URL
+    path(
+        'summernote/',
+        include('django_summernote.urls')
+    ),
+    # Job posts URLs
+    path(
+        'jobs/',
+        include('jobposts.urls'),
+        name='jobposts-urls'
+    ),
+    # Chatbot URLs
+    path(
+        'chatbot/',
+        include('chatbot.urls'),
+        name='chatbot-urls'
+    ),
+    # User authentication URLs
+    path(
+        'accounts/',
+        include('allauth.urls')
+    ),
+    # Home page URL
+    path(
+        '',
+        include('home.urls'),
+        name='home-urls'
+    ),
+    # About page URL
+    path(
+        'about/',
+        include('about.urls'),
+        name='about-urls'
+    ),
+    # Candidate profile URLs
+    path(
+        'candidate/',
+        include('candidate_profiles.urls'),
+        name='candidate-urls'
+    ),
+    # Employer profile URLs
+    path(
+        'employer/',
+        include('employer_profiles.urls'),
+        name='employer-urls'
+    ),
 ]

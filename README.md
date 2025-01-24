@@ -23,10 +23,53 @@ The vision behind RoundZer0 is to build a hiring process that prioritizes talent
 ## Table of Contents
 
 - [User Experience](#user-experience)
+- [Features](#features)
 - [Credits](#credits)
 
 
 ## User Experience
+
+### Ideal User Demographic
+
+**RoundZer0 is ideal for:**
+
+- **Employers:**
+  - Recruiters and hiring managers seeking an efficient, unbiased way to screen candidates.
+  - Companies looking to save time and resources during the initial stages of recruitment.
+  - Organizations striving to foster inclusivity and diversity in their hiring process.
+
+
+- **Candidates:**
+  - Job seekers eager to prove their skills, regardless of commercial experience.
+  - Individuals looking for a fair and objective assessment of their abilities.
+  - Professionals transitioning into new industries or roles.
+
+
+- **Goals for Employers:**
+  - **As an employer using RoundZer0, I want to:**
+    - Quickly set up and customize AI-driven interviews for specific roles.
+    - Save time by automating the initial candidate screening process.
+    - Access detailed, unbiased reports on candidate performance.
+    - Focus on interviewing top candidates identified through the AI assessments.
+
+
+- **Goals for Candidates:**
+  - **As a candidate participating in RoundZer0, I want to:**
+    - Easily understand how to complete the AI interview process.
+    - Showcase my skills and potential without being judged by my resume alone.
+    - Receive clear instructions and feedback throughout the interview experience.
+    - Feel confident that the assessment process is fair and unbiased.
+
+
+### User Stories
+To understand the needs and goals of both Employers and Candidates, I have outlined detailed User Stories that guided the development of RoundZer0.
+
+[View User Stories Here](https://github.com/users/tibssy/projects/3/views/1?groupedBy%5BcolumnId%5D=Milestone)
+
+
+## Features
+
+
 
 
 ## Credits

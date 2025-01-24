@@ -6,13 +6,14 @@
 {% block content %}
 <div class="main-content home-bg">
     <div class="container my-5">
+        <h1 class="text-center mb-4 text-pbg">Applications</h1>
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="card bordered-card">
                     <div class="card-header d-flex flex-column flex-md-row justify-content-md-between align-items-end gap-2 px-2 px-md-3">
-                        <h1 class="fs-4 fw-bold mb-0">
+                        <h2 class="fs-4 fw-bold mb-0">
                             Candidates Application for: {{ job.title }}
-                        </h1>
+                        </h2>
                         <div class="dropdown">
                             <button class="btn dropdown-toggle btn-sm" type="button" id="topCandidatesDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                 {% if request.GET.top_candidates == '5' %}
@@ -99,7 +100,9 @@
                                                 {% if processed_feedback.feedback.recommendation %}
                                                     <hr>
                                                     <p>
-                                                        <i class="bi bi-hand-thumbs-up me-2"></i><strong>Recommendation:</strong> {{ processed_feedback.feedback.recommendation }}
+                                                        <i class="bi bi-hand-thumbs-up me-2"></i>
+                                                        <strong>Recommendation:</strong>
+                                                        {{ processed_feedback.feedback.recommendation }}
                                                     </p>
                                                 {% endif %}
                                             </div>

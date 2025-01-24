@@ -13,6 +13,9 @@ from chatbot.models import InterviewPreparation
 
 @login_required
 def employer_profile(request):
+    if not request.user.groups.filter(name='Employer').exists():
+        return HttpResponseRedirect(reverse('home'))
+
     try:
         employer = request.user.employer_profile
     except Employer.DoesNotExist:
@@ -23,6 +26,9 @@ def employer_profile(request):
 
 @login_required
 def edit_employer_profile(request):
+    if not request.user.groups.filter(name='Employer').exists():
+        return HttpResponseRedirect(reverse('home'))
+
     employer = get_object_or_404(Employer, user=request.user)
     if request.method == 'POST':
         form = EditProfileForm(request.POST, instance=employer)
@@ -39,6 +45,9 @@ def edit_employer_profile(request):
 
 @login_required
 def delete_employer_profile(request):
+    if not request.user.groups.filter(name='Employer').exists():
+        return HttpResponseRedirect(reverse('home'))
+
     if request.method == 'POST':
         user = request.user
         logout(request)
@@ -57,6 +66,9 @@ def my_jobs(request):
 
 @login_required
 def create_job(request):
+    if not request.user.groups.filter(name='Employer').exists():
+        return HttpResponseRedirect(reverse('home'))
+
     if request.method == 'POST':
         form = JobPostForm(request.POST)
         if form.is_valid():
@@ -88,6 +100,9 @@ def create_job(request):
 
 @login_required
 def edit_my_jobs(request, job_id):
+    if not request.user.groups.filter(name='Employer').exists():
+        return HttpResponseRedirect(reverse('home'))
+
     job = get_object_or_404(JobPost, id=job_id, author=request.user)
     interview_prep = InterviewPreparation.objects.filter(job_post=job).first()
 
@@ -127,6 +142,9 @@ def edit_my_jobs(request, job_id):
 
 @login_required
 def delete_my_job(request, job_id):
+    if not request.user.groups.filter(name='Employer').exists():
+        return HttpResponseRedirect(reverse('home'))
+
     job = get_object_or_404(JobPost, id=job_id, author=request.user)
     if request.method == 'POST':
         job.delete()
@@ -135,6 +153,9 @@ def delete_my_job(request, job_id):
 
 @login_required
 def job_applications(request, job_id):
+    if not request.user.groups.filter(name='Employer').exists():
+        return HttpResponseRedirect(reverse('home'))
+
     job = get_object_or_404(JobPost, id=job_id, author=request.user)
     interview_feedbacks = InterviewFeedback.objects.filter(job_post=job).select_related('candidate__user').order_by('-overall_score')
 

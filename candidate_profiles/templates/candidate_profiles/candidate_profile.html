@@ -5,46 +5,66 @@
 
 {% block content %}
 <div class="main-content home-bg">
-    <div class="container mt-4">
+    <div class="container my-5">
+        <h1 class="text-center mb-4 text-pbg">
+            Candidate Profile
+        </h1>
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-10">
                 <div class="card bordered-card">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h1 class="fs-4 fw-bold mb-0">Candidate Profile</h1>
                         {% if request.user == candidate.user %}
+                            <h2 class="fs-4 fw-bold mb-0">
+                                {{ candidate.user.username }}'s Profile
+                            </h2>
                             <a href="{% url 'edit_candidate_profile' %}" class="me-2" title="Edit Profile">
                                 <i class="bi bi-pencil-square fs-4"></i>
+                                <span class="visually-hidden">Edit Profile</span>
                             </a>
+                        {% else %}
+                            <h2 class="fs-4 fw-bold mb-0">
+                                Profile
+                            </h2>
                         {% endif %}
                     </div>
-                    <div class="card-body m-3">
-                        <h5 class="card-subtitle mb-2 text-muted">{{ candidate.user.username }}</h5>
+                    <div class="card-body mx-3 mb-3">
                         <p class="card-text">
-                            <i class="bi bi-person me-1"></i> <strong>Name:</strong> {{ candidate.user.first_name }} {{ candidate.user.last_name }}
+                            <i class="bi bi-person me-1"></i>
+                            <strong>Name:</strong>
+                            {{ candidate.user.first_name }} {{ candidate.user.last_name }}
                         </p>
                         <p class="card-text">
-                            <i class="bi bi-envelope me-1"></i> <strong>Email:</strong>
+                            <i class="bi bi-envelope me-1"></i>
+                            <strong>Email:</strong>
                             {% if request.user != candidate.user %}
-                                <a href="mailto:{{ candidate.user.email }}">{{ candidate.user.email }}</a>
+                                <a href="mailto:{{ candidate.user.email }}">
+                                    {{ candidate.user.email }}
+                                </a>
                             {% else %}
                                 {{ candidate.user.email }}
                             {% endif %}
                         </p>
                         {% if candidate.phone %}
                             <p class="card-text">
-                                <i class="bi bi-telephone me-1"></i> <strong>Phone:</strong> {{ candidate.phone }}
+                                <i class="bi bi-telephone me-1"></i>
+                                <strong>Phone:</strong>
+                                {{ candidate.phone }}
                             </p>
                         {% endif %}
                         {% if candidate.executive_summary %}
                             <hr>
                             <p class="card-text">
-                                <i class="bi bi-briefcase me-1"></i> <strong>Executive Summary:</strong> {{ candidate.executive_summary|linebreaksbr }}
+                                <i class="bi bi-briefcase me-1"></i>
+                                <strong>Executive Summary:</strong>
+                                {{ candidate.executive_summary|linebreaksbr }}
                             </p>
                         {% endif %}
                         {% if candidate.key_skills %}
                             <hr>
                             <p class="card-text">
-                                <i class="bi bi-gear me-1"></i> <strong>Key Skills:</strong> {{ candidate.key_skills }}
+                                <i class="bi bi-gear me-1"></i>
+                                <strong>Key Skills:</strong>
+                                {{ candidate.key_skills }}
                             </p>
                         {% endif %}
                     </div>

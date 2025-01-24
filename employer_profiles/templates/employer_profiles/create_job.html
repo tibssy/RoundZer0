@@ -6,20 +6,23 @@
 
 {% block content %}
 <div class="main-content home-bg">
-    <div class="container mt-4">
+    <div class="container my-5">
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <form method="post">
                     {% csrf_token %}
                     <div class="card bordered-card">
                         <div class="card-header">
-                            <h1 class="fs-4 fw-bold mb-0">Create New Job Posting</h1>
+                            <h1 class="fs-4 fw-bold mb-0">
+                                Create New Job Posting
+                            </h1>
                         </div>
                         <div class="card-body">
                             {{ form|crispy }}
-
                             <section aria-labelledby="interview-preparation">
-                                <h2 id="interview-preparation" class="mt-4">Interview Preparation (Optional)</h2>
+                                <h2 id="interview-preparation" class="mt-4">
+                                    Interview Preparation (Optional)
+                                </h2>
                                 <div class="mb-3">
                                     <label for="interview_duration" class="form-label">
                                         Interview Duration (minutes):
@@ -33,11 +36,14 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="question-input" class="form-label">Interview Questions:</label>
+                                    <label for="question-input" class="form-label">
+                                        Interview Questions:
+                                    </label>
                                     <div class="d-flex compact-input">
                                         <input type="text" class="form-control" id="question-input" placeholder="Enter a question">
                                         <button type="button" id="add-question" class="btn ">
                                             <i class="bi bi-plus-lg"></i>
+                                            <span class="visually-hidden">Add Question</span>
                                         </button>
                                     </div>
                                     <div id="question-chips" class="mt-3">
@@ -50,8 +56,12 @@
                             </section>
                         </div>
                         <div class="card-footer d-flex justify-content-between">
-                            <button type="submit" class="btn btn-primary px-4">Post Job</button>
-                            <a href="{% url 'employer_jobs' %}" class="btn btn-secondary px-4">Cancel</a>
+                            <button type="submit" class="btn btn-primary px-3">
+                                Post Job
+                            </button>
+                            <a href="{% url 'employer_jobs' %}" class="btn btn-secondary px-3">
+                                Cancel
+                            </a>
                         </div>
                     </div>
                 </form>

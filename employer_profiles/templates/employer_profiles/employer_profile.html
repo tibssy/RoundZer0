@@ -5,18 +5,21 @@
 
 {% block content %}
 <div class="main-content home-bg">
-    <div class="container mt-4">
+    <div class="container my-5">
+        <h1 class="text-center mb-4 text-pbg">Employer Profile</h1>
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="card bordered-card">
+                    {% if request.user == employer.user %}
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h1 class="fs-4 fw-bold mb-0">Employer Profile</h1>
+                        <h2 class="fs-4 fw-bold mb-0">{{ employer.user.username }}'s Profile</h2>
                         <a href="{% url 'edit_employer_profile' %}" class="me-2" title="Edit Profile">
                             <i class="bi bi-pencil-square fs-4"></i>
+                            <span class="visually-hidden">Edit Profile</span>
                         </a>
                     </div>
-                    <div class="card-body">
-                        <h5 class="card-subtitle mb-2 text-muted">{{ employer.user.username }}</h5>
+                    {% endif %}
+                    <div class="card-body mx-3 mb-3">
                         <p class="card-text">
                             <i class="bi bi-person me-2"></i><strong>Company:</strong> {{ employer.company_name }}
                         </p>

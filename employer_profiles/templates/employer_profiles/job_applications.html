@@ -5,12 +5,14 @@
 
 {% block content %}
 <div class="main-content home-bg">
-    <div class="container mt-4">
+    <div class="container my-5">
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="card bordered-card">
                     <div class="card-header d-flex flex-column flex-md-row justify-content-md-between align-items-end gap-2 px-2 px-md-3">
-                        <h1 class="fs-4 fw-bold mb-0">Candidates Application for: {{ job.title }}</h1>
+                        <h1 class="fs-4 fw-bold mb-0">
+                            Candidates Application for: {{ job.title }}
+                        </h1>
                         <div class="dropdown">
                             <button class="btn dropdown-toggle btn-sm" type="button" id="topCandidatesDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                 {% if request.GET.top_candidates == '5' %}
@@ -24,10 +26,26 @@
                                 {% endif %}
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="topCandidatesDropdown">
-                                <li><a class="dropdown-item" href="?{% for key, value in request.GET.items %}{% if key != 'top_candidates' %}{{ key }}={{ value }}&{% endif %}{% endfor %}">All Candidates</a></li>
-                                <li><a class="dropdown-item" href="?top_candidates=5{% for key, value in request.GET.items %}{% if key != 'top_candidates' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">Top 5 Candidates</a></li>
-                                <li><a class="dropdown-item" href="?top_candidates=10{% for key, value in request.GET.items %}{% if key != 'top_candidates' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">Top 10 Candidates</a></li>
-                                <li><a class="dropdown-item" href="?top_candidates=25{% for key, value in request.GET.items %}{% if key != 'top_candidates' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">Top 25 Candidates</a></li>
+                                <li>
+                                    <a class="dropdown-item" href="?{% for key, value in request.GET.items %}{% if key != 'top_candidates' %}{{ key }}={{ value }}&{% endif %}{% endfor %}">
+                                        All Candidates
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="?top_candidates=5{% for key, value in request.GET.items %}{% if key != 'top_candidates' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
+                                        Top 5 Candidates
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="?top_candidates=10{% for key, value in request.GET.items %}{% if key != 'top_candidates' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
+                                        Top 10 Candidates
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="?top_candidates=25{% for key, value in request.GET.items %}{% if key != 'top_candidates' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
+                                        Top 25 Candidates
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -64,12 +82,14 @@
                                                     <div class="d-flex flex-column align-items-start">
                                                         <a href="{% url 'candidate_profile_view' processed_feedback.feedback.candidate.id %}" class="btn rounded elevate" title="View Profile">
                                                             <i class="bi bi-person-square fs-3"></i>
+                                                            <span class="visually-hidden">View Candidate Profile</span>
                                                         </a>
                                                     </div>
                                                 </div>
                                                 <hr>
                                                 <div>
-                                                    <i class="bi bi-chat-dots me-1"></i> <strong>Feedback:</strong>
+                                                    <i class="bi bi-chat-dots me-1"></i>
+                                                    <strong>Feedback:</strong>
                                                     <div class="mt-1">
                                                         {% for item in processed_feedback.processed_feedback_text %}
                                                             <p>{{ item|safe }}</p>
@@ -88,11 +108,15 @@
                                 {% endfor %}
                             </div>
                         {% else %}
-                            <p class="text-center">No interview feedback has been given for candidates for this job yet.</p>
+                            <p class="text-center">
+                                No interview feedback has been given for candidates for this job yet.
+                            </p>
                         {% endif %}
                     </div>
                     <div class="card-footer text-muted">
-                        <a href="{% url 'employer_jobs' %}" class="btn btn-secondary px-4">Back to My Jobs</a>
+                        <a href="{% url 'employer_jobs' %}" class="btn btn-secondary px-3">
+                            Back to My Jobs
+                        </a>
                     </div>
                 </div>
              </div>

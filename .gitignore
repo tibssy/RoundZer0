@@ -5,3 +5,4 @@ env.py
 jobposts/fixtures/
 chatbot/fixtures/
 resumes/
+staticfiles/

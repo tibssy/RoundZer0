@@ -44,21 +44,21 @@ class EvaluationRubric(models.Model):
         related_name='evaluation_rubrics',
         null=True,
         blank=True,
-        help_text="Optional: Tie this rubric to a specific job post."
+        help_text='Optional: Tie this rubric to a specific job post.'
     )
-    criterion = models.TextField(help_text="The evaluation criterion.")
+    criterion = models.TextField(help_text='The evaluation criterion.')
     weight = models.DecimalField(
         max_digits=5,
         decimal_places=2,
         help_text=(
-            "Weight of this criterion in the overall evaluation "
-            "(e.g., 20.00 for 20%)."
+            'Weight of this criterion in the overall evaluation '
+            '(e.g., 20.00 for 20%).'
         )
     )
     scoring_guide = models.TextField(
         help_text=(
-            "Guide for scoring based on this criterion "
-            "(e.g., 'Excellent: Clear and concise answer')."
+            'Guide for scoring based on this criterion '
+            '(e.g., "Excellent: Clear and concise answer").'
         )
     )
     created_on = models.DateTimeField(auto_now_add=True)
@@ -75,9 +75,9 @@ class EvaluationRubric(models.Model):
         """
 
         return (
-            f"Rubric for "
-            f"{self.job_post.title if self.job_post else 'General'}: "
-            f"{self.criterion[:50]}..."
+            f'Rubric for '
+            f'{self.job_post.title if self.job_post else "General"}: '
+            f'{self.criterion[:50]}...'
         )
 
 
@@ -113,14 +113,14 @@ class InterviewPreparation(models.Model):
         related_name='interview_preparations',
         null=True,
         blank=True,
-        help_text="Optional: Tie this preparation to a specific job post."
+        help_text='Optional: Tie this preparation to a specific job post.'
     )
     questions = models.JSONField(
-        help_text="A list of technical questions.",
+        help_text='A list of technical questions.',
         default=list
     )
     interview_duration = models.PositiveIntegerField(
-        help_text="Duration of the interview in minutes."
+        help_text='Duration of the interview in minutes.'
     )
     created_on = models.DateTimeField(auto_now_add=True)
 
@@ -136,6 +136,6 @@ class InterviewPreparation(models.Model):
         """
 
         return (
-            f"{self.job_post.title if self.job_post else 'General'} - "
-            f"{len(self.questions)} questions"
+            f'{self.job_post.title if self.job_post else "General"} - '
+            f'{len(self.questions)} questions'
         )

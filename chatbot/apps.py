@@ -20,5 +20,5 @@ class ChatbotConfig(AppConfig):
     ensuring the chatbot app is properly configured in the Django project.
     """
 
-    default_auto_field = "django.db.models.BigAutoField"
-    name = "chatbot"
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'chatbot'

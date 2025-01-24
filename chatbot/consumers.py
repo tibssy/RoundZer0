@@ -140,7 +140,7 @@ class VoiceConsumer(AsyncWebsocketConsumer):
                 'questions_list': self.preparation.get('questions')
             })
 
-        if speaker := self.scope["session"].get("speaker"):
+        if speaker := self.scope['session'].get('speaker'):
             assistant_params.update(speaker)
 
         if self.user_profile:

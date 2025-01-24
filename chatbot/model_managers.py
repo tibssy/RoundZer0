@@ -50,7 +50,7 @@ class DatabaseManager:
         """
 
         self.scope = scope
-        self.job_post_id = self.scope["session"].get("job_post_id")
+        self.job_post_id = self.scope['session'].get('job_post_id')
         self.user_id = self._get_user_id()
 
     def _get_user_id(self):

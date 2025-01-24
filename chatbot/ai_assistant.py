@@ -143,7 +143,7 @@ class Assistant:
         time_left = timedelta(minutes=self.interview_duration) - elapsed_time
         time_left_minutes = max(time_left.total_seconds() // 60, 0)
         return {
-            'current_timestamp': current_timestamp.strftime("%Y-%m-%d %H:%M"),
+            'current_timestamp': current_timestamp.strftime('%Y-%m-%d %H:%M'),
             'time_left': int(time_left_minutes)
         }
 
@@ -429,7 +429,7 @@ class FeedbackAssistant:
             try:
                 completion = self.client.chat.completions.create(
                     model=self.chat_model,
-                    response_format={"type": "json_object"},
+                    response_format={'type': 'json_object'},
                     messages=message,
                 )
                 content = completion.choices[0].message.content

@@ -24,7 +24,6 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = "django-insecure-6pg)+j1%r5mqhsjfc)ekhats-a9z)l@=h!z4!2!o=-$muhhlpu"
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -32,9 +31,7 @@ DEBUG = os.environ.get("DEBUG", False)
 
 ALLOWED_HOSTS = ["127.0.0.1", ".herokuapp.com"]
 
-
 # Application definition
-
 INSTALLED_APPS = [
     "daphne",
     "channels",
@@ -59,8 +56,8 @@ INSTALLED_APPS = [
     "candidate_profiles",
 ]
 
+# Crispy Form
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
-
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 

@@ -24,6 +24,8 @@ The vision behind RoundZer0 is to build a hiring process that prioritizes talent
 
 - [User Experience](#user-experience)
 - [Features](#features)
+- [Design](#design)
+- [Technical Details / Solutions](#technical-details--solutions)
 - [Credits](#credits)
 
 
@@ -84,7 +86,7 @@ The site features a fixed-position navigation bar at the top of the page, ensuri
     - **Register:** Register as a candidate or employer to access the platform.
     - **Login:** Existing users can log in to their accounts.
 
-![Image](https://github.com/user-attachments/assets/64aab1da-57a0-495d-bd54-5e6dfaf58ea7)
+![Image](https://github.com/user-attachments/assets/e3a0f31b-4514-4e39-be18-b0f28ae25c6c)
 ![Image](https://github.com/user-attachments/assets/1aeebf3b-0cd4-48ad-b9b7-35923cf19fce)
 The navigation bar ensures a user-friendly experience, allowing users to focus on their specific needs without clutter or confusion. It provides quick access to the platform's core functionalities, enhancing usability and efficiency.
 
@@ -211,6 +213,104 @@ This feature adds a layer of human-like interaction and thoughtfulness while mai
 ![Image](https://github.com/user-attachments/assets/b146314a-6f4a-465e-8f57-ddbc79f1701c)
 
 This notification system enhances usability by keeping users informed and guiding them through critical interactions.
+
+
+## Design
+
+### Imagery
+The visual design of the web application leverages a modern and professional aesthetic to enhance usability and appeal. Key elements of the imagery include:
+
+### Color Palette
+- **Color Palette**
+  - Dark Blue (#15354b): Used for navigation bars, headers, and key UI elements to create a professional tone and provide contrast.
+  - Orange (#ff8800): Applied to active icons and call-to-action elements, drawing attention to interactive features.
+- **Background**
+  - Light gray blue gradient image create a neutral and clean backdrop that emphasizes content and reduces visual clutter.
+### Icons and Visual Cues
+- **Bootstrap Icons:**
+  - Icons from the Bootstrap library are seamlessly integrated throughout the application for clarity and consistency.
+  - Home, Jobs, About, Profile, and Logout are represented with intuitive icons for quick identification.
+  - Icons are consistently colored in orange to create a cohesive design and highlight functionality.
+### Typography
+- **Font:**
+  - The application uses Roboto Condensed, a modern sans-serif typeface.
+  - The font’s narrow letterforms and clean design ensure readability and enhance the app's professional appearance.
+  - Job titles, candidate names, and section headers are bolded and slightly larger to ensure focus.
+  - Subheadings and body text remain lightweight and consistent for clarity.
+### Card-Based Layout
+- **Design Features:**
+  - Rounded edges create a visually appealing and approachable look.
+  - Subtle shadows are applied to separate cards from the background and add depth.
+  - Consistent margins and padding provide a balanced and structured layout.
+
+The combination of Roboto Condensed, Bootstrap Icons, and a cohesive card-based layout ensures a minimalist and user-focused design. This approach avoids unnecessary clutter, keeping attention on job postings and candidate evaluations.
+
+
+## Technical Details / Solutions
+
+### AI Voice-Based Interviewer
+To ensure an enjoyable and low-latency experience for the AI interviewer, I focused on developing this feature first, as it was both the most challenging and critical component of the project.
+
+---
+**Frontend Implementation**
+  - **WebSocket for Low Latency:**
+    - WebSocket was chosen to connect the frontend and backend, significantly reducing latency by eliminating the need for repeated handshakes.
+    - The WebSocket connection is established at the start of the interview, ensuring efficient data transfer throughout the session.
+
+
+  - **Microphone Activation via WebRTC:**
+    - The microphone is activated and managed by WebRTC to capture the audio seamlessly.
+    - RMS (Root Mean Square) levels are calculated on the frontend to determine when the user is speaking.
+      - Threshold Logic: When the RMS level reaches 0.01, recording begins.
+      - If the RMS level drops below the threshold, the system waits for a 2-second silence delay before stopping the recording.
+    - Audio is sent to the backend immediately after this 2-second delay.
+
+
+  - **Audio Size Testing:**
+    - Through testing, I found that 1 minute of audio equals approximately 1 MB in size on my setup, ensuring efficient transmission over WebSocket.
+
+---
+**Backend Implementation**
+  - **Speech-to-Text Processing:**
+    - Upon receiving the audio, the backend sends it to the OpenAI Whisper API (via OpenAI Python library) for transcription.
+    - Users are differentiated by type:
+      - **Regular users:** Access transcription through Groq.
+      - **Staff members:** Access transcription through OpenAI.
+
+
+  - **AI Response Generation:**
+    - Transcribed text is processed using either Groq (LLaMA 3.3 model) or OpenAI (GPT-4o-mini model) via the OpenAI library.
+    - Job description and user profile data are embedded into the system message to ensure responses are tailored to the interview context.
+    - **Streaming Responses:**
+      - The stream=True parameter in the chat completion request enables the backend to send responses as a stream of text chunks.
+      - A Python generator is used to process the stream and construct sentences as soon as the first sentence is received.
+
+
+  - **Text-to-Speech Conversion:**
+    - Sentences are sent one by one to the Edge-TTS API for text-to-speech conversion.
+    - The generated audio is transmitted back to the frontend sentence by sentence.
+
+---
+**Frontend Playback**
+  - **Audio Queue Management:**
+    - Received audio chunks are stored in an ***audioQueue*** array.
+    - Playback starts as soon as the first audio chunk is received, continuing sequentially until the queue is empty.
+    - Once playback finishes and no audio remains in the queue, the system resumes listening for microphone RMS levels, restarting the cycle.
+
+---
+**Full Cycle Workflow**
+1. **Audio Capture:** Microphone listens for RMS level changes and records user input.
+2. **Audio Transmission:** After a 2-second silence delay, audio is sent to the backend via WebSocket.
+3. **Transcription:** The backend transcribes the audio to text using Whisper.
+4. **Response Generation:** AI processes the transcription and generates a response.
+5. **Audio Playback:** The response is converted to speech and sent to the frontend for playback.
+6. **Repeat:** The cycle continues until the interview is manually closed by the user.
+
+
+
+
+
+
 
 
 

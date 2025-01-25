@@ -61,7 +61,7 @@ The vision behind RoundZer0 is to build a hiring process that prioritizes talent
     - Feel confident that the assessment process is fair and unbiased.
 
 
-### User Stories
+### User Stories:
 To understand the needs and goals of both Employers and Candidates, I have outlined detailed User Stories that guided the development of RoundZer0.
 
 [View User Stories Here](https://github.com/users/tibssy/projects/3/views/1?groupedBy%5BcolumnId%5D=Milestone)
@@ -69,7 +69,24 @@ To understand the needs and goals of both Employers and Candidates, I have outli
 
 ## Features
 
+### Site Navigation
 
+The site features a fixed-position navigation bar at the top of the page, ensuring users can easily access key areas of the platform without needing to scroll back to the top. The navigation bar adapts based on the type of user logged in, ensuring a tailored experience.
+
+- **For Employers:**
+  - **Dropdown Menu:**
+    - **Profile:** Access and manage your personal and company information.
+    - **My Jobs:** View and manage job postings, track candidates, and monitor ongoing interviews.
+  - **For Candidates:**
+    - **Profile:** Edit personal details and preferences.
+    - **History:** Review your interview history, including completed AI interviews and their outcomes.
+  - **Unregistered user / Signed-Out user:**
+    - **Register:** Register as a candidate or employer to access the platform.
+    - **Login:** Existing users can log in to their accounts.
+
+![Image](https://github.com/user-attachments/assets/64aab1da-57a0-495d-bd54-5e6dfaf58ea7)
+![Image](https://github.com/user-attachments/assets/1aeebf3b-0cd4-48ad-b9b7-35923cf19fce)
+The navigation bar ensures a user-friendly experience, allowing users to focus on their specific needs without clutter or confusion. It provides quick access to the platform's core functionalities, enhancing usability and efficiency.
 
 
 ## Credits

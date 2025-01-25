@@ -306,6 +306,7 @@ To ensure an enjoyable and low-latency experience for the AI interviewer, I focu
 5. **Audio Playback:** The response is converted to speech and sent to the frontend for playback.
 6. **Repeat:** The cycle continues until the interview is manually closed by the user.
 
+![Image](https://github.com/user-attachments/assets/b5bb0453-dbb4-4396-a778-d9a0a6681599)
 
 
 

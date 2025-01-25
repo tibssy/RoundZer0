@@ -142,8 +142,28 @@ The Profile feature allows candidates to create and manage their professional pr
 This feature empowers candidates to present their best selves while ensuring employers have access to key details to make informed hiring decisions.
 
 
+### Employer's My Jobs Section
+The My Jobs section is a dedicated feature for employers, offering robust tools to manage job postings and oversee applications efficiently.
+- **Job Management:**
+  - Create: Employers can easily post new job openings by providing necessary details such as job title, description, location, and required skills.
+  - Read: View a comprehensive list of all active job postings, complete with their details.
+  - Update: Modify existing job postings to reflect changes in requirements or additional information.
+  - Delete: Remove job postings that are no longer relevant or filled.
 
+![Image](https://github.com/user-attachments/assets/2efc3f1c-9364-4551-ab3f-1268b2941f73)
 
+- **Interview Customization:**
+  - Set Interview Duration: Employers can define the length of interviews for each job posting.
+  - Add Custom Questions: Tailor the interview process by adding specific questions relevant to the job role. These questions will be used by the AI during the candidate interview.
+
+![Image](https://github.com/user-attachments/assets/cc326e34-e85d-4049-a643-168a2dbbb4a4)
+
+- **Application Overview:**
+  - View all candidate applications submitted for each job posting.
+  - Access detailed candidate profiles, including interview results, performance feedback, and contact information.
+  - Manage applications efficiently to identify and shortlist top talent.
+
+![Image](https://github.com/user-attachments/assets/833e0733-32aa-4cc6-a440-97205a1c64be)
 
 
 ## Credits

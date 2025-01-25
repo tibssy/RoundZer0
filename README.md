@@ -197,6 +197,24 @@ The Interview Page is designed to provide candidates with a familiar and comfort
 This feature adds a layer of human-like interaction and thoughtfulness while maintaining structure and efficiency. It reflects the importance of personalization and professionalism in the candidate experience.
 
 
+### Notifications
+
+- **Modal Notifications:**
+  - When an action requires user confirmation (e.g., deleting a profile, interview history, or job post), a modal popup notification appears.
+  - These modals ensure the user is fully aware of the consequences before proceeding with the action.
+  - Modal notifications are designed with clear prompts, such as "Are you sure you want to delete this item?" followed by confirmation and cancel options.
+- **Alert Notifications:**
+  - Alerts are displayed for each step when a modification is successfully saved to the database.
+  - Alerts are visually distinct, with styles that indicate success, error, or warning, ensuring clarity for users.
+  - Auto-Close Feature: Alert notifications automatically close after 3 seconds, providing seamless feedback without disrupting the user experience.
+
+![Image](https://github.com/user-attachments/assets/b146314a-6f4a-465e-8f57-ddbc79f1701c)
+
+This notification system enhances usability by keeping users informed and guiding them through critical interactions.
+
+
+
+
 
 ## Credits
 

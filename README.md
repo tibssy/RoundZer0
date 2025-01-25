@@ -165,6 +165,38 @@ The My Jobs section is a dedicated feature for employers, offering robust tools 
 
 ![Image](https://github.com/user-attachments/assets/833e0733-32aa-4cc6-a440-97205a1c64be)
 
+This feature empowers employers with flexibility and control, ensuring a smooth and customized hiring process tailored to their organization’s needs.
+
+
+### Interview
+The Interview Page is designed to provide candidates with a familiar and comfortable environment during the AI-driven interview process. The layout is simple yet efficient, ensuring a seamless experience for both candidates and employers.
+
+- **User-Friendly Layout:**
+  - Familiar and intuitive design to keep candidates focused on the interview.
+  - Includes a Camera On/Off Toggle for user privacy and comfort.
+  - A prominent End Interview Button for candidates to finish the interview if necessary.
+- **AI Interviewers:**
+  - A diverse pool of 20 AI interviewers: 10 male and 10 female.
+  - Each interviewer is equipped with a unique voice, adding a personal touch to the interview experience.
+  - The interviewer is chosen randomly or based on predefined criteria to simulate real-world interviews.
+- **Conversation Logging and Timestamping:**
+  - The entire interview conversation is saved in text format for processing and review.
+  - Each candidate’s response is timestamped to monitor the interview duration and ensure it stays within the employer-defined time limit.
+  - The AI interviewer can greet the candidate based on the time of day.
+- **Feedback Generation:**
+  - A brief feedback summary is immediately sent to the candidate at the end of the interview.
+  - A detailed feedback report is sent to the employer for review.
+  - Employers testing their own job posts can simulate an interview without receiving feedback from the AI.
+- **Strict Topic Adherence:**
+  - The interviewer strictly adheres to the job interview topics and does not allow the candidate to stray into unrelated subjects, ensuring the conversation remains professional and focused.
+- **Interview Restrictions:**
+  - Candidates can have only one interview per job post, ensuring no additional opportunities to repeat the process.
+
+![Image](https://github.com/user-attachments/assets/5fda61d0-a9f8-41c9-b2e7-63c59d86cc3f)
+
+This feature adds a layer of human-like interaction and thoughtfulness while maintaining structure and efficiency. It reflects the importance of personalization and professionalism in the candidate experience.
+
+
 
 ## Credits
 

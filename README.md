@@ -89,6 +89,63 @@ The site features a fixed-position navigation bar at the top of the page, ensuri
 The navigation bar ensures a user-friendly experience, allowing users to focus on their specific needs without clutter or confusion. It provides quick access to the platform's core functionalities, enhancing usability and efficiency.
 
 
+### Search and Sort Feature
+
+**Search Bar:**
+The platform includes a prominently placed search bar that allows users to filter job posts quickly and efficiently. This feature is designed for both registered and unregistered users, ensuring easy access to job opportunities.
+  - Users can input keywords such as job title, required skills, or industry to narrow down the list of available positions.
+  - The search is case-insensitive and provides real-time suggestions as users type.
+
+**Dropdown for Sorting:**
+To further enhance usability, a dropdown menu is included next to the search bar, enabling users to sort job postings based on specific criteria.
+  - **Posted Date:** Displays the most recently/oldest posted jobs first.
+  - **Company Name:** Alphabetically sorts job postings by company name for easier navigation.
+  - **Location:** Groups job postings by location for users targeting specific regions.
+
+![Image](https://github.com/user-attachments/assets/977ed31a-7ee4-4991-be92-2b33d71e299b)
+This combined Search and Sort Feature makes it simple for users to find the most relevant job opportunities quickly. By providing customizable filters and sorting options, the platform ensures an efficient and intuitive job-seeking experience.
+
+
+### Interview History Feature
+The Interview History feature provides candidates with a comprehensive and organized view of their past interviews. This functionality ensures transparency and allows candidates to track their performance over time.
+
+- **List of Interviewed Positions:**
+  - Displays a list of all job positions the candidate has interviewed for.
+  - Each entry includes the job title and collapsible details for a more streamlined view.
+- **Brief Feedback:**
+  - For each interview, brief feedback is provided, offering constructive insights on the candidate's performance.
+  - Feedback is sent immediately after the AI-driven interview, ensuring prompt guidance.
+- **Timestamp and Company Details:**
+  - Includes the date and time of the interview, as well as the company's name, helping candidates keep track of their application timeline.
+- **Delete Option:**
+  - Candidates have the option to delete any interview history entry. This gives users control over managing their records and maintaining a clean history view if desired.
+
+![Image](https://github.com/user-attachments/assets/feb109d6-5486-45cc-b5fa-fa2fcf8beac8)
+This feature promotes self-improvement by offering valuable feedback and ensures candidates stay informed about their past interactions.
+
+
+### Profile Feature
+The Profile feature allows candidates to create and manage their professional profiles, ensuring they present their skills and qualifications effectively during the hiring process.
+- **Candidates can set up their profile with the following details:**
+  - **Name:** Displayed during interviews and visible to employers after the interview.
+  - **Executive Summary:** A brief personal overview or statement summarizing the candidate's professional background.
+  - **Key Skills:** A list of the candidate's core competencies and strengths to highlight their expertise.
+- **Interviewer Access:**
+  - During AI-driven interviews, the profile is visible to the AI interviewer, allowing tailored questions based on the candidate’s information.
+- **Employer Access Post-Interview:**
+  - After the interview, the employer who posted the job can view the candidate’s profile, including contact details (email address and phone number), to facilitate further communication.
+- **Profile Management:**
+  - **Edit Profile:** Candidates can update their profile details at any time to reflect changes in their skills or professional summary.
+  - **Account Deletion:** Candidates can permanently delete their accounts, ensuring full control over their data.
+
+![Image](https://github.com/user-attachments/assets/9058714c-8928-4461-bc0a-c7a73226be3d)
+This feature empowers candidates to present their best selves while ensuring employers have access to key details to make informed hiring decisions.
+
+
+
+
+
+
 ## Credits
 
 - **Django Channels Documentation**

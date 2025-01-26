@@ -26,6 +26,7 @@ The vision behind RoundZer0 is to build a hiring process that prioritizes talent
 - [Features](#features)
 - [Design](#design)
 - [Technical Details / Solutions](#technical-details--solutions)
+- [Testing](#testing)
 - [Credits](#credits)
 ---
 
@@ -350,6 +351,8 @@ To ensure an enjoyable and low-latency experience for the AI interviewer, I focu
 
 
 
+
+## Testing
 
 
 

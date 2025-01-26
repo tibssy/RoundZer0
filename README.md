@@ -373,11 +373,39 @@ For the testing phase, each app will be thoroughly evaluated to ensure quality a
 ![Image](https://github.com/user-attachments/assets/72abfdc6-fc6a-4730-8dab-4ea854e9344b)
 ![Image](https://github.com/user-attachments/assets/39c3a9b0-15c6-46ac-b666-9aa1ea27aac0)
 
+### Profile Page:
 
+![Image](https://github.com/user-attachments/assets/928b8d86-4425-408c-88a9-556feeb48b0a)
 
+### Edit Profile Page:
 
+![Image](https://github.com/user-attachments/assets/e8d4b09d-35c0-4400-a6be-ca06314fd754)
 
+### Interview History Page:
 
+![Image](https://github.com/user-attachments/assets/70a2caed-4cc6-4467-8835-cbfe63393813)
+
+### SignUp Page:
+
+![Image](https://github.com/user-attachments/assets/1402e43b-2dfe-434a-a6b4-ac848e44f560)
+
+### SignIn Page:
+
+![Image](https://github.com/user-attachments/assets/a50c3181-7953-4a8f-af6b-296fcb59c264)
+
+### SignOut Page:
+
+![Image](https://github.com/user-attachments/assets/81ac2455-ff92-4851-aaf3-41be6e6527ed)
+
+### My Jobs Page:
+
+![Image](https://github.com/user-attachments/assets/587dc308-6e5f-48be-a3e7-0df71581703d)
+
+### Job Applications Page:
+
+![Image](https://github.com/user-attachments/assets/1e3f8dfd-d768-43b0-bc29-852ddc669fe9)
+
+During the testing phase, I used the W3C HTML Validator (https://validator.w3.org) to check the HTML of my applications for compliance with web standards. However, testing certain pages was not possible as they require user login to access. For CSS validation, I used the W3C CSS Validator (https://jigsaw.w3.org). While testing, I encountered some errors due to the use of CSS nesting, which is not yet fully supported in the validator. Additionally, I received an error for the font-optical-sizing: auto; property, even though it was implemented following examples provided in the official Google Fonts documentation. Despite these validation issues, the property functions correctly across modern browsers, as intended.
 
 
 

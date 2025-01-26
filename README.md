@@ -363,6 +363,23 @@ For the testing phase, each app will be thoroughly evaluated to ensure quality a
 
 ### JobPosts App:
 
+![Image](https://github.com/user-attachments/assets/4671e353-290b-4d10-a7dc-6e9268bb44e8)
+![Image](https://github.com/user-attachments/assets/5e72e88c-5c0d-4ddf-a622-146cb923158e)
+![Image](https://github.com/user-attachments/assets/6637f725-603e-4d91-985c-a033c0a6a7f8)
+
+### About App:
+
+![Image](https://github.com/user-attachments/assets/5a636046-84e8-4e57-b846-62241fa7a93d)
+![Image](https://github.com/user-attachments/assets/72abfdc6-fc6a-4730-8dab-4ea854e9344b)
+![Image](https://github.com/user-attachments/assets/39c3a9b0-15c6-46ac-b666-9aa1ea27aac0)
+
+
+
+
+
+
+
+
 
 
 

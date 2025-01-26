@@ -7,12 +7,12 @@ for specific job posts. The views implement search, sorting, and context
 customization for enhanced user experience.
 """
 
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect
 from django.views import generic
 from django.urls import reverse
-from .models import JobPost
-from employer_profiles.models import InterviewFeedback
 from django.db.models import Q
+from employer_profiles.models import InterviewFeedback
+from .models import JobPost
 
 
 class JobList(generic.ListView):

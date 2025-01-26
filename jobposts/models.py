@@ -69,6 +69,14 @@ class JobPost(models.Model):
     )
 
     class Meta:
+        """
+        Defines the default ordering of job posts.
+
+        The ordering is first by the creation date (newest first) and
+        then by the author. This allows for easy retrieval of the latest
+        job posts from each user.
+        """
+
         ordering = ['-created_on', 'author']
 
     def __str__(self):

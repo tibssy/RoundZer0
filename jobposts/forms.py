@@ -23,6 +23,19 @@ class JobPostForm(forms.ModelForm):
     """
 
     class Meta:
+        """
+        Metadata for the JobPostForm.
+
+        Links the form to the JobPost model and specifies the fields to
+        include and the custom widgets to enhance the user interface.
+
+        Attributes:
+            model (Model): The model associated with this form (JobPost).
+            fields (list): A list of fields to include in the form.
+            widgets (dict): A dictionary of widgets to customize the
+            form fields.
+        """
+
         model = JobPost
         fields = [
             'title',

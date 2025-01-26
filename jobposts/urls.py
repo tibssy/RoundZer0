@@ -6,8 +6,8 @@ requests for job listings, individual job details, and initiating
 interviews.
 """
 
-from . import views
 from django.urls import path
+from . import views
 
 
 urlpatterns = [

@@ -1,7 +1,26 @@
+"""
+This module contains unit tests for the 'jobposts' application.
+
+Tests include:
+- JobList view: Verifying status codes, templates, search, and sorting
+  functionality.
+- JobDetail view: Testing status codes, templates, and context data.
+
+Dependencies:
+- Django's built-in TestCase and Client classes.
+- Models from the 'jobposts' application.
+- Django's User model for creating test users.
+
+The tests ensure the proper functionality of the job posting views and
+validate that the application behaves as expected for various scenarios.
+"""
+
+
 from django.test import TestCase, Client
 from django.urls import reverse
-from .models import JobPost
 from django.contrib.auth.models import User
+from .models import JobPost
+
 
 
 class JobPostViewTest(TestCase):

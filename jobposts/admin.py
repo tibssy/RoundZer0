@@ -6,8 +6,8 @@ its appearance and functionality using 'SummernoteModelAdmin'.
 """
 
 from django.contrib import admin
-from .models import JobPost
 from django_summernote.admin import SummernoteModelAdmin
+from .models import JobPost
 
 
 @admin.register(JobPost)

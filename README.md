@@ -349,12 +349,19 @@ To ensure an enjoyable and low-latency experience for the AI interviewer, I focu
     - ForeignKey: A rubric can be optionally tied to a job post.
     - Nullability: Rubrics can exist without being tied to a specific job post (null=True, blank=True).
 
+![Image](https://github.com/user-attachments/assets/e4e92879-039f-4730-9ebe-6f5ad479a379)
 
-
-
+---
 ## Testing
+For the testing phase, each app will be thoroughly evaluated to ensure quality and performance. I will use Lighthouse to assess mobile and desktop performance, accessibility, and SEO metrics. Each app will also be checked using pylint-django to identify and resolve any coding standard issues. Additionally, I will validate the HTML of the apps using the W3C HTML Validator (validator.w3.org) to ensure compliance with web standards. Finally, I will run the unit tests I have written for each app to validate their functionality and ensure that all components work as intended. This comprehensive testing process will ensure robust and reliable applications.
 
+### Home App:
 
+![Image](https://github.com/user-attachments/assets/232f4795-85e8-43fe-a8e6-4265cde910ca)
+![Image](https://github.com/user-attachments/assets/b6429771-7143-472a-af63-cb2643cf585b)
+![Image](https://github.com/user-attachments/assets/997ea51d-d847-4fdf-97d3-4bee651cf726)
+
+### JobPosts App:
 
 
 

@@ -27,7 +27,7 @@ The vision behind RoundZer0 is to build a hiring process that prioritizes talent
 - [Design](#design)
 - [Technical Details / Solutions](#technical-details--solutions)
 - [Credits](#credits)
-
+---
 
 ## User Experience
 
@@ -67,7 +67,7 @@ The vision behind RoundZer0 is to build a hiring process that prioritizes talent
 To understand the needs and goals of both Employers and Candidates, I have outlined detailed User Stories that guided the development of RoundZer0.
 
 [View User Stories Here](https://github.com/users/tibssy/projects/3/views/1?groupedBy%5BcolumnId%5D=Milestone)
-
+---
 
 ## Features
 
@@ -213,7 +213,7 @@ This feature adds a layer of human-like interaction and thoughtfulness while mai
 ![Image](https://github.com/user-attachments/assets/b146314a-6f4a-465e-8f57-ddbc79f1701c)
 
 This notification system enhances usability by keeping users informed and guiding them through critical interactions.
-
+---
 
 ## Design
 
@@ -244,20 +244,19 @@ The visual design of the web application leverages a modern and professional aes
   - Consistent margins and padding provide a balanced and structured layout.
 
 The combination of Roboto Condensed, Bootstrap Icons, and a cohesive card-based layout ensures a minimalist and user-focused design. This approach avoids unnecessary clutter, keeping attention on job postings and candidate evaluations.
-
+---
 
 ## Technical Details / Solutions
 
 ### AI Voice-Based Interviewer
 To ensure an enjoyable and low-latency experience for the AI interviewer, I focused on developing this feature first, as it was both the most challenging and critical component of the project.
 
----
 **Frontend Implementation**
   - **WebSocket for Low Latency:**
     - WebSocket was chosen to connect the frontend and backend, significantly reducing latency by eliminating the need for repeated handshakes.
     - The WebSocket connection is established at the start of the interview, ensuring efficient data transfer throughout the session.
 
-
+  
   - **Microphone Activation via WebRTC:**
     - The microphone is activated and managed by WebRTC to capture the audio seamlessly.
     - RMS (Root Mean Square) levels are calculated on the frontend to determine when the user is speaking.
@@ -269,7 +268,6 @@ To ensure an enjoyable and low-latency experience for the AI interviewer, I focu
   - **Audio Size Testing:**
     - Through testing, I found that 1 minute of audio equals approximately 1 MB in size on my setup, ensuring efficient transmission over WebSocket.
 
----
 **Backend Implementation**
   - **Speech-to-Text Processing:**
     - Upon receiving the audio, the backend sends it to the OpenAI Whisper API (via OpenAI Python library) for transcription.
@@ -290,14 +288,12 @@ To ensure an enjoyable and low-latency experience for the AI interviewer, I focu
     - Sentences are sent one by one to the Edge-TTS API for text-to-speech conversion.
     - The generated audio is transmitted back to the frontend sentence by sentence.
 
----
 **Frontend Playback**
   - **Audio Queue Management:**
     - Received audio chunks are stored in an ***audioQueue*** array.
     - Playback starts as soon as the first audio chunk is received, continuing sequentially until the queue is empty.
     - Once playback finishes and no audio remains in the queue, the system resumes listening for microphone RMS levels, restarting the cycle.
 
----
 **Full Cycle Workflow**
 1. **Audio Capture:** Microphone listens for RMS level changes and records user input.
 2. **Audio Transmission:** After a 2-second silence delay, audio is sent to the backend via WebSocket.
@@ -307,6 +303,51 @@ To ensure an enjoyable and low-latency experience for the AI interviewer, I focu
 6. **Repeat:** The cycle continues until the interview is manually closed by the user.
 
 ![Image](https://github.com/user-attachments/assets/b5bb0453-dbb4-4396-a778-d9a0a6681599)
+
+
+### Model Relationships
+
+**Candidate Profile Relationships**
+  - **Relationship with User:**
+    - OneToOneField: Each candidate is linked to exactly one User instance. This ensures that every candidate has a unique user account.
+    - Cascade Delete: When the linked User instance is deleted, the corresponding Candidate profile is also removed.
+  - **Relationship with InterviewHistory:**
+    - ForeignKey: Each candidate can have multiple interview records.
+    - Cascade Delete: Deleting a Candidate will delete all related interview histories.
+
+**Interview History Relationships**
+  - **Relationship with Candidate:**
+    - Each interview record belongs to one candidate (ForeignKey relationship).
+
+**Employer Profile Relationships**
+  - **Relationship with User:**
+    - OneToOneField: Each employer is linked to exactly one User instance.
+    - Cascade Delete: Deleting a User instance will delete the associated employer profile.
+  - **Relationship with InterviewFeedback:**
+    - Employers can provide feedback on candidates through the InterviewFeedback model.
+
+**JobPost Relationships**
+  - **Relationship with User (Author/Employer):**
+    - ForeignKey: Each job post is associated with one User (employer) instance.
+    - Cascade Delete: Deleting a User will remove all job posts created by that user.
+  - **Relationship with EvaluationRubric:**
+    - ForeignKey: A job post can have multiple associated rubrics for candidate evaluation.
+  - **Relationship with InterviewFeedback:**
+    - ForeignKey: Each feedback is tied to a specific job post.
+
+**Interview Feedback Relationships**
+  - **Relationship with JobPost:**
+    - ForeignKey: Feedback is linked to one job post.
+    - Cascade Delete: If a job post is deleted, all associated feedback is removed.
+  - **Relationship with Candidate:**
+    - ForeignKey: Feedback is linked to one candidate.
+    - Cascade Delete: Deleting a candidate removes all feedback related to them.
+
+**Evaluation Rubric Relationships**
+  - **Relationship with JobPost:**
+    - ForeignKey: A rubric can be optionally tied to a job post.
+    - Nullability: Rubrics can exist without being tied to a specific job post (null=True, blank=True).
+
 
 
 

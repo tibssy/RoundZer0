@@ -17,6 +17,7 @@ class EditProfileForm(forms.ModelForm):
     """
 
     class Meta:
+        """Configuration for the EditProfileForm."""
         model = Employer
         fields = ['company_name', 'phone', 'company_description']
         labels = {

@@ -115,13 +115,12 @@ def edit_candidate_profile(request):
                 'Your profile has been updated successfully.'
             )
             return redirect('candidate_profile')
-        else:
-            messages.error(
-                request,
-                'There were errors in your form.'
-            )
-    else:
-        form = EditProfileForm(instance=candidate)
+        messages.error(
+            request,
+            'There were errors in your form.'
+        )
+
+    form = EditProfileForm(instance=candidate)
     context = {'form': form}
     return render(
         request,
@@ -151,6 +150,8 @@ def delete_candidate_profile(request):
         )
         return redirect('home')
 
+    return HttpResponseRedirect(reverse('home'))
+
 @login_required
 def delete_interview(request, interview_id):
     """
@@ -173,11 +174,10 @@ def delete_interview(request, interview_id):
                 'Interview history deleted successfully.'
             )
             return redirect('candidate_history')
-        else:
-            return redirect('candidate_history')
-    else:
-        messages.error(
-            request,
-            'You are not authorized to delete this interview history.'
-        )
         return redirect('candidate_history')
+
+    messages.error(
+        request,
+        'You are not authorized to delete this interview history.'
+    )
+    return redirect('candidate_history')

@@ -7,9 +7,10 @@ applications.
 """
 
 from django.urls import path
-from . import views
 from candidate_profiles import views as candidate_views
 from jobposts import views as jobpost_views
+from . import views
+
 
 
 urlpatterns = [

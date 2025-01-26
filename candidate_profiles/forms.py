@@ -41,6 +41,7 @@ class EditProfileForm(forms.ModelForm):
     last_name = forms.CharField(max_length=30, label='Last Name')
 
     class Meta:
+        """Configuration for the EditProfileForm."""
         model = Candidate
         fields = ['phone', 'executive_summary', 'key_skills']
         labels = {

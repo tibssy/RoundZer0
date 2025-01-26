@@ -357,6 +357,11 @@ To ensure an enjoyable and low-latency experience for the AI interviewer, I focu
 
 ![Image](https://github.com/user-attachments/assets/e4e92879-039f-4730-9ebe-6f5ad479a379)
 
+### Registration
+- Users can register on the platform only with a valid email address.
+- The registration process includes an email verification step to ensure the authenticity of the user's email before granting access.
+- This is necessary because all users interact with AI features using my API key, ensuring secure and controlled access to the services.
+
 ---
 
 ## Testing
@@ -480,4 +485,4 @@ This deployment process ensures your application runs smoothly in a web-based en
 
 ## Acknowledgments
 
-Thank you to my mentor, Brian Macharia, for his continuous support and valuable feedback. His tips and resources have been instrumental in enhancing my coding and testing skills.
+Thank you to my mentor, **Brian Macharia**, for his continuous support and valuable feedback. His tips and resources have been instrumental in enhancing my coding and testing skills.

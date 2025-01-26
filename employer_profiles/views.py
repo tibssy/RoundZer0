@@ -11,11 +11,11 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth import logout
 from django.contrib import messages
-from .models import Employer, InterviewFeedback
-from .forms import EditProfileForm
 from jobposts.models import JobPost
 from jobposts.forms import JobPostForm
 from chatbot.models import InterviewPreparation
+from .models import Employer, InterviewFeedback
+from .forms import EditProfileForm
 
 
 @login_required
@@ -67,13 +67,13 @@ def edit_employer_profile(request):
                 'Your profile has been updated successfully.'
             )
             return redirect('employer_profile')
-        else:
-            messages.error(
-                request,
-                'There were errors in your form.'
-            )
-    else:
-        form = EditProfileForm(instance=employer)
+
+        messages.error(
+            request,
+            'There were errors in your form.'
+        )
+
+    form = EditProfileForm(instance=employer)
     context = {'form': form}
     return render(
         request,
@@ -103,6 +103,8 @@ def delete_employer_profile(request):
             'Your profile and account have been deleted successfully.'
         )
         return redirect('home')
+
+    return redirect('home')
 
 @login_required
 def my_jobs(request):
@@ -215,11 +217,11 @@ def edit_my_jobs(request, job_id):
                 'Your job posting has been updated successfully.'
             )
             return redirect('employer_jobs')
-        else:
-            messages.error(
-                request,
-                'There were errors in your form.'
-            )
+
+        messages.error(
+            request,
+            'There were errors in your form.'
+        )
     else:
         form = JobPostForm(instance=job)
 
@@ -255,6 +257,8 @@ def delete_my_job(request, job_id):
             'Job posting deleted successfully.'
         )
         return redirect('employer_jobs')
+
+    return HttpResponseRedirect(reverse('employer_jobs'))
 
 @login_required
 def job_applications(request, job_id):

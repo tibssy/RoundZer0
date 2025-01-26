@@ -27,7 +27,10 @@ The vision behind RoundZer0 is to build a hiring process that prioritizes talent
 - [Design](#design)
 - [Technical Details / Solutions](#technical-details--solutions)
 - [Testing](#testing)
+- [Deployment](#deployment)
 - [Credits](#credits)
+- [Acknowledgments](#acknowledgments)
+
 ---
 
 ## User Experience
@@ -68,6 +71,7 @@ The vision behind RoundZer0 is to build a hiring process that prioritizes talent
 To understand the needs and goals of both Employers and Candidates, I have outlined detailed User Stories that guided the development of RoundZer0.
 
 [View User Stories Here](https://github.com/users/tibssy/projects/3/views/1?groupedBy%5BcolumnId%5D=Milestone)
+
 ---
 
 ## Features
@@ -214,6 +218,7 @@ This feature adds a layer of human-like interaction and thoughtfulness while mai
 ![Image](https://github.com/user-attachments/assets/b146314a-6f4a-465e-8f57-ddbc79f1701c)
 
 This notification system enhances usability by keeping users informed and guiding them through critical interactions.
+
 ---
 
 ## Design
@@ -245,6 +250,7 @@ The visual design of the web application leverages a modern and professional aes
   - Consistent margins and padding provide a balanced and structured layout.
 
 The combination of Roboto Condensed, Bootstrap Icons, and a cohesive card-based layout ensures a minimalist and user-focused design. This approach avoids unnecessary clutter, keeping attention on job postings and candidate evaluations.
+
 ---
 
 ## Technical Details / Solutions
@@ -352,6 +358,7 @@ To ensure an enjoyable and low-latency experience for the AI interviewer, I focu
 ![Image](https://github.com/user-attachments/assets/e4e92879-039f-4730-9ebe-6f5ad479a379)
 
 ---
+
 ## Testing
 For the testing phase, each app will be thoroughly evaluated to ensure quality and performance. I will use Lighthouse to assess mobile and desktop performance, accessibility, and SEO metrics. Each app will also be checked using pylint-django to identify and resolve any coding standard issues. Additionally, I will validate the HTML of the apps using the W3C HTML Validator (validator.w3.org) to ensure compliance with web standards. Finally, I will run the unit tests I have written for each app to validate their functionality and ensure that all components work as intended. This comprehensive testing process will ensure robust and reliable applications.
 
@@ -407,15 +414,70 @@ For the testing phase, each app will be thoroughly evaluated to ensure quality a
 
 During the testing phase, I used the W3C HTML Validator (https://validator.w3.org) to check the HTML of my applications for compliance with web standards. However, testing certain pages was not possible as they require user login to access. For CSS validation, I used the W3C CSS Validator (https://jigsaw.w3.org). While testing, I encountered some errors due to the use of CSS nesting, which is not yet fully supported in the validator. Additionally, I received an error for the font-optical-sizing: auto; property, even though it was implemented following examples provided in the official Google Fonts documentation. Despite these validation issues, the property functions correctly across modern browsers, as intended.
 
+All JavaScript files were tested using JSHint (https://jshint.com/) with the configurations /* jshint esversion: 6 */ and /* jshint esversion: 8 */. This ensured compatibility and adherence to ES6 and ES8 standards, with no significant issues detected during testing.
 
+---
 
+## Deployment
 
+For deployment, this project leverages Heroku's platform, which makes it simple to host and run terminal-based Python applications in the cloud. Here’s a guide for manually deploying your project to Heroku using a GitHub repository:
 
+### Deployment Steps:
 
+- **1. Create a Heroku Account**
+    - Visit [Heroku](https://dashboard.heroku.com/) and sign up for an account.
+
+- **2. Create a New App**
+    - Go to the Heroku dashboard and click **new**.
+    - On the dropdown click **Create new app**.
+    - Provide a unique app name and select your region then click **Create app**.
+
+- **3. Connect to GitHub**
+    - In the **Deploy** tab, choose **GitHub** as the deployment method.
+    - Search for your repository and connect it to Heroku.
+
+- **4. Manual or Automatic Deploy**
+    - Enable **Automatic Deploys** for Heroku to update the app with every push to GitHub, or use the **Manual Deploy** option to deploy the main branch manually.
+
+This deployment process ensures your application runs smoothly in a web-based environment hosted on Heroku.
+
+---
 
 ## Credits
 
 - **Django Channels Documentation**
   - [Django Channels](https://channels.readthedocs.io) Used for WebSockets.
 - **Openai Documentation**
-  - [OpenAI](https://platform.openai.com/docs/overview) Used for Speech To Text
+  - [OpenAI](https://platform.openai.com/docs/overview) Used for Speech To Text and chat response generation.
+- **Groq Documentation**
+  - [Groq Cloud](https://console.groq.com/docs/overview) Used for Speech To Text and chat response generation.
+- **Image Generation**
+  - [Leonardo AI](https://app.leonardo.ai) Used for interviewer generation in Disney Pixar style.
+- **Video Generation**
+  - [Pixverse AI](https://app.pixverse.ai) Used for image-to-video generation to animate interviewers.
+- **Image Upscaling**
+  - [Upscayl Desktop](https://www.upscayl.org/) Utilized for upscaling images to higher resolutions.
+- **Image Editing and Conversion**
+  - [GIMP - GNU Image Manipulation Program](https://www.gimp.org/) Open-source tool for editing images and converting them to WebP and many other formats.
+- **Version Control**
+  - [GitHub](https://github.com) Used for version control and repository management.
+- **Integrated Development Environment (IDE)**
+  - [Pycharm Community Edition](https://www.jetbrains.com/pycharm/), IDE used for coding and development.
+- **Bootstrap**
+  - [Bootstrap](https://getbootstrap.com/), Used bootstrap classes to simplify development.
+- **Icons**
+  - [Bootstrap Icons](https://icons.getbootstrap.com/) Free, high quality, open source icon library with over 2,000 icons.
+- **Fonts**
+  - [Google Fonts](https://fonts.google.com) Used Roboto Condensed font family for this project.
+- **StackOverflow**
+  - [StackOverflow](https://stackoverflow.com) Used to find solutions for specific coding issues, like rotating a 2D array in JavaScript.
+- **W3Schools**
+  - [W3Schools](https://www.w3schools.com/css/) Used to find some design solutions, like a toggle switch.
+- **ChatGPT**
+  - [ChatGPT](https://chatgpt.com/) Used to generate the text content of my project, also used for generating fixtures to create mock data for job posts.
+
+---
+
+## Acknowledgments
+
+Thank you to my mentor, Brian Macharia, for his continuous support and valuable feedback. His tips and resources have been instrumental in enhancing my coding and testing skills.

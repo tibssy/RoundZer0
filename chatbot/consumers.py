@@ -24,10 +24,10 @@ Classes:
 
 import io
 import json
+import asyncio
 from channels.generic.websocket import AsyncWebsocketConsumer
 from .ai_assistant import Assistant, FeedbackAssistant
 from .model_managers import DatabaseManager
-import asyncio
 
 
 class VoiceConsumer(AsyncWebsocketConsumer):
@@ -159,7 +159,7 @@ class VoiceConsumer(AsyncWebsocketConsumer):
         conversation_history = self.assistant.chat_history
         if len(conversation_history) >= 4:
             conversation_text = '\n'.join(
-                f'{": ".join(message.values())}'.split('|')[0]
+                f"{': '.join(message.values())}".split('|', maxsplit=1)[0]
                 for message in conversation_history[1:]
             )
             feedback_assistant = FeedbackAssistant(

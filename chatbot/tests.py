@@ -1,3 +1,9 @@
+"""
+This module contains unit tests for the VoiceConsumer class,
+ensuring its WebSocket connection and audio data processing
+functionalities are working correctly.
+"""
+
 import os
 from django.test import TestCase
 from asgiref.testing import ApplicationCommunicator
@@ -5,6 +11,11 @@ from chatbot.consumers import VoiceConsumer
 
 
 class VoiceConsumerTest(TestCase):
+    """
+    Test suite for the VoiceConsumer, verifying correct WebSocket
+    connection, disconnection, and audio data processing logic.
+    """
+
     async def test_websocket_connect_disconnect(self):
         """Test WebSocket connection and disconnection."""
         consumer = VoiceConsumer(scope={'type': 'websocket'})

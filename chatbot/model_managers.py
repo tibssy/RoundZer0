@@ -20,13 +20,13 @@ Methods:
     staff member.
 """
 
+from datetime import datetime
 from channels.db import database_sync_to_async
+from django.contrib.auth.models import Group
 from jobposts.models import JobPost
-from .models import EvaluationRubric, InterviewPreparation
 from candidate_profiles.models import Candidate, InterviewHistory
 from employer_profiles.models import InterviewFeedback
-from django.contrib.auth.models import Group
-from datetime import datetime
+from .models import EvaluationRubric, InterviewPreparation
 
 
 class DatabaseManager:
@@ -94,15 +94,15 @@ class DatabaseManager:
             candidate = Candidate.objects.get(user_id=self.user_id)
         except Candidate.DoesNotExist:
             return None
-        else:
-            first_name = candidate.user.first_name
-            last_name = candidate.user.last_name
-            return {
-                'name': f'{first_name} {last_name}',
-                'email': candidate.user.email,
-                'executive_summary': candidate.executive_summary,
-                'key_skills': candidate.key_skills,
-            }
+
+        first_name = candidate.user.first_name
+        last_name = candidate.user.last_name
+        return {
+            'name': f'{first_name} {last_name}',
+            'email': candidate.user.email,
+            'executive_summary': candidate.executive_summary,
+            'key_skills': candidate.key_skills,
+        }
 
     @database_sync_to_async
     def get_job_post(self):

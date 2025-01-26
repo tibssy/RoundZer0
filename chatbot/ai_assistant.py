@@ -235,13 +235,13 @@ class Assistant:
                     self.chat_history[-1]['content'] += text_chunk
                     yield text_chunk
         except RateLimitError as _:
-            return [
+            yield from [
                 "I'm sorry, but you have reached the Assistant usage limit.",
                 "Please try again later.",
                 "Thank you for your patience!"
             ]
         except Exception as _:
-            return [
+            yield from [
                 "An error occurred.",
                 "Please try again later.",
                 "Thank you for your patience!"
@@ -442,3 +442,6 @@ class FeedbackAssistant:
                     return None
             except Exception as _:
                 return None
+
+        # Return a default empty dictionary if no successful feedback
+        return {}

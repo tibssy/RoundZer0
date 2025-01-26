@@ -1,3 +1,10 @@
+"""
+This module defines views for the chatbot application,
+including base views and specific views for interview welcome,
+interview, and end of interview interactions.
+It handles fetching data needed for the different pages.
+"""
+
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator

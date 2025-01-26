@@ -177,7 +177,6 @@ class VoiceConsumer(AsyncWebsocketConsumer):
                 )
                 await self.db_manager.send_feedback_to_employer(feedback)
 
-
     async def process_voice_data(self, bytes_data):
         """
         Process the voice data received from WebRTC.

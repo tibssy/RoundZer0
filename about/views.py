@@ -6,6 +6,7 @@ It includes the 'about' view, which renders the about page.
 
 from django.shortcuts import render
 
+
 def about(request):
     """
     Renders the 'About' page.

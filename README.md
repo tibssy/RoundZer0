@@ -421,6 +421,163 @@ During the testing phase, I used the W3C HTML Validator (https://validator.w3.or
 
 All JavaScript files were tested using JSHint (https://jshint.com/) with the configurations /* jshint esversion: 6 */ and /* jshint esversion: 8 */. This ensured compatibility and adherence to ES6 and ES8 standards, with no significant issues detected during testing.
 
+### PEP8 Code Validation
+
+The PEP8 style guide was used to check the code for any formatting errors or issues. The code was tested using the [PEP8CI tool](https://pep8ci.herokuapp.com/#) tool to ensure it follows Python's best practices.
+
+- **PEP8 Validation Result:**
+    - **about/tests.py:**
+    
+    ![Image](https://github.com/user-attachments/assets/d402d847-bb82-42ec-863c-5cc381b0ea39)
+
+    - **about/urls.py:**
+
+    ![Image](https://github.com/user-attachments/assets/326dfc79-3ffb-48e1-b487-07c636acca5d)
+
+    - **about/views.py:**
+
+    ![Image](https://github.com/user-attachments/assets/1d185283-bf6d-4469-96ce-59ae8ec5d2a4)
+
+    - **candidate_profiles/admin.py**
+
+    ![Image](https://github.com/user-attachments/assets/ed11130a-2b2f-44c3-a83d-8804e03b0c8a)
+
+    - **candidate_profiles/forms.py**
+
+    ![Image](https://github.com/user-attachments/assets/7d18d385-2a60-4cec-8850-6898efaab399)
+
+    - **candidate_profiles/models.py**
+
+    ![Image](https://github.com/user-attachments/assets/0c8ea925-b9df-4ee7-9d84-fd83a688c457)
+
+    - **candidate_profiles/urls.py**
+
+    ![Image](https://github.com/user-attachments/assets/8edf80a3-274f-4898-9d69-bd9f55a65447)
+
+    - **candidate_profiles/views.py**
+
+    ![Image](https://github.com/user-attachments/assets/6ba997fa-f3f2-4860-a54b-609ba5f41abb)
+
+    - **chatbot/admin.py**
+
+    ![Image](https://github.com/user-attachments/assets/242705ba-7517-4eac-8a31-dbc8086be044)
+
+    - **chatbot/ai_assistant.py**
+
+    ![Image](https://github.com/user-attachments/assets/fae65e5d-7e5d-4556-b7f5-bd192e7bd04c)
+
+    - **chatbot/consumers.py**
+
+    ![Image](https://github.com/user-attachments/assets/1dee797a-e1f7-45bb-8fac-81a3e4c42058)
+
+    - **chatbot/model_managers.py**
+
+    ![Image](https://github.com/user-attachments/assets/5f222bf9-84b8-44d3-97a2-6c77346f4454)
+
+    - **chatbot/models.py**
+
+    ![Image](https://github.com/user-attachments/assets/71252ac7-9796-4986-87e3-ea73b42f055c)
+
+    - **chatbot/random_assistant.py**
+
+    ![Image](https://github.com/user-attachments/assets/c464f7da-b518-439b-94f2-d08c8016cf4b)
+
+    - **chatbot/routing.py**
+
+    ![Image](https://github.com/user-attachments/assets/d4bcecbf-90f3-490f-b8c8-730bfc6a41f2)
+
+    - **chatbot/tests.py**
+
+    ![Image](https://github.com/user-attachments/assets/4f73c85b-7ca0-44cc-b01d-9ba725c4e8d7)
+
+    - **chatbot/urls.py**
+
+    ![Image](https://github.com/user-attachments/assets/32edca19-e92f-49eb-93cc-8badf2266b02)
+
+    - **chatbot/views.py**
+
+    ![Image](https://github.com/user-attachments/assets/87f5b972-0e80-4957-b9f1-28a2b67ea768)
+
+    - **employer_profiles/admin.py**
+
+    ![Image](https://github.com/user-attachments/assets/b4cbff39-0687-4cd7-9897-e4bffee1a747)
+
+    - **employer_profiles/forms.py**
+
+    ![Image](https://github.com/user-attachments/assets/2f24cb43-eecf-4d52-830d-c827fa7787d0)
+
+    - **employer_profiles/models.py**
+
+    ![Image](https://github.com/user-attachments/assets/630b4582-3d6a-4313-8c36-4b87bc65ae0e)
+
+    - **employer_profiles/urls.py**
+
+    ![Image](https://github.com/user-attachments/assets/d9661d90-4d4b-4014-8a4f-2c5775cd24d3)
+
+    - **employer_profiles/views.py**
+
+    ![Image](https://github.com/user-attachments/assets/ce5103cc-ed1f-4a22-8eaa-e802ef0cd9fe)
+
+    - **home/tests.py**
+
+    ![Image](https://github.com/user-attachments/assets/257b5f68-7be1-42cb-b0b6-1b0f1498ea9b)
+
+    - **home/urls.py**
+
+    ![Image](https://github.com/user-attachments/assets/42f279b8-b747-471c-b050-7706c7e8ce4b)
+
+    - **home/views.py**
+
+    ![Image](https://github.com/user-attachments/assets/fce033d4-709d-490b-82b7-458cf65b9b9b)
+
+    - **jobposts/admin.py**
+
+    ![Image](https://github.com/user-attachments/assets/7e4410bd-ca1f-4c18-98c3-b067cf077eeb)
+
+    - **jobposts/forms.py**
+
+    ![Image](https://github.com/user-attachments/assets/91318034-681f-4d5c-9d8e-7656bee45a7d)
+
+    - **jobposts/models.py**
+
+    ![Image](https://github.com/user-attachments/assets/f45b89b5-3abc-403c-bc93-f938b9c7ceff)
+
+    - **jobposts/tests.py**
+
+    ![Image](https://github.com/user-attachments/assets/987a86cf-5890-4d68-ba5f-d7fd1a203de2)
+
+    - **jobposts/urls.py**
+
+    ![Image](https://github.com/user-attachments/assets/f5ee7376-aeb5-4806-85c6-f7ced8cce4fa)
+
+    - **jobposts/views.py**
+
+    ![Image](https://github.com/user-attachments/assets/74bc2c70-9c56-4d75-b4fc-4db5e902fcd1)
+
+    - **roundzero/asgi.py**
+
+    ![Image](https://github.com/user-attachments/assets/b6d03aba-d1f9-4a95-99bd-2e4ed56b1ff2)
+
+    - **roundzero/forms.py**
+
+    ![Image](https://github.com/user-attachments/assets/f0561d17-10e3-4fdd-a767-05ab25d668ba)
+
+    - **roundzero/urls.py**
+
+    ![Image](https://github.com/user-attachments/assets/53f2c83e-a473-4da8-a6d5-216cd002737f)
+
+
+### Operating Systems, Browsers, and Terminals
+
+The application was tested thoroughly on the following operating system, terminals, and browsers. No issues were found:
+
+- **Operating Systems and Kernel**
+    - **ArchLinux:** Tested on kernel version 6.12.6-2
+
+- **Browsers**
+    - **Firefox:** Version 133.0.3
+    - **Brave:** Version 1:1.73.104-1
+
 ---
 
 ## Deployment

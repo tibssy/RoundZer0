@@ -12,7 +12,6 @@ from jobposts import views as jobpost_views
 from . import views
 
 
-
 urlpatterns = [
     # Employer profile page
     path(

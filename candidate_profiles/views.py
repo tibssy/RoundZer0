@@ -44,6 +44,7 @@ def candidate_profile(request):
         context
     )
 
+
 @login_required
 def candidate_profile_view(request, candidate_id):
     """
@@ -60,6 +61,7 @@ def candidate_profile_view(request, candidate_id):
         'candidate_profiles/candidate_profile.html',
         context
     )
+
 
 @login_required
 def candidate_history(request):
@@ -88,6 +90,7 @@ def candidate_history(request):
         'candidate_profiles/candidate_history.html',
         context
     )
+
 
 @login_required
 def edit_candidate_profile(request):
@@ -128,6 +131,7 @@ def edit_candidate_profile(request):
         context
     )
 
+
 @login_required
 def delete_candidate_profile(request):
     """
@@ -151,6 +155,7 @@ def delete_candidate_profile(request):
         return redirect('home')
 
     return HttpResponseRedirect(reverse('home'))
+
 
 @login_required
 def delete_interview(request, interview_id):

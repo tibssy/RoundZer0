@@ -129,7 +129,6 @@ class Assistant:
             self.stt_model = 'whisper-1'
             self.chat_model = 'gpt-4o-mini'
 
-
     def get_remaining_time(self):
         """Calculate the remaining interview time.
 

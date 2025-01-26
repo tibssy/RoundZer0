@@ -8,6 +8,7 @@ including fields like company name, phone number, and company description.
 from django import forms
 from .models import Employer
 
+
 class EditProfileForm(forms.ModelForm):
     """
     Form for editing the employer's profile.

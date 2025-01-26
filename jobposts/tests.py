@@ -22,7 +22,6 @@ from django.contrib.auth.models import User
 from .models import JobPost
 
 
-
 class JobPostViewTest(TestCase):
     """
     Test case for the 'jobposts' app's views.
@@ -115,7 +114,7 @@ class JobPostViewTest(TestCase):
             [self.job_post1, self.job_post2]
         )
 
-        #Newest
+        # Newest
         response = self.client.get(url, {'sort': 'created_on_desc'})
         job_list = response.context['object_list']
         self.assertEqual(

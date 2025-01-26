@@ -36,6 +36,7 @@ VOICES = {
     'William': 'en-AU-WilliamNeural'
 }
 
+
 def get_assistant() -> Tuple[str, str]:
     """
     Randomly selects and returns a voice assistant.

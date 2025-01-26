@@ -45,6 +45,7 @@ def employer_profile(request):
         context
     )
 
+
 @login_required
 def edit_employer_profile(request):
     """
@@ -81,6 +82,7 @@ def edit_employer_profile(request):
         context
     )
 
+
 @login_required
 def delete_employer_profile(request):
     """
@@ -106,6 +108,7 @@ def delete_employer_profile(request):
 
     return redirect('home')
 
+
 @login_required
 def my_jobs(request):
     """
@@ -125,6 +128,7 @@ def my_jobs(request):
         'employer_profiles/my_jobs.html',
         context
     )
+
 
 @login_required
 def create_job(request):
@@ -171,6 +175,7 @@ def create_job(request):
         'employer_profiles/create_job.html',
         {'form': form}
     )
+
 
 @login_required
 def edit_my_jobs(request, job_id):
@@ -236,6 +241,7 @@ def edit_my_jobs(request, job_id):
         context
     )
 
+
 @login_required
 def delete_my_job(request, job_id):
     """
@@ -259,6 +265,7 @@ def delete_my_job(request, job_id):
         return redirect('employer_jobs')
 
     return HttpResponseRedirect(reverse('employer_jobs'))
+
 
 @login_required
 def job_applications(request, job_id):

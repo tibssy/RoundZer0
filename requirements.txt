@@ -21,7 +21,7 @@ Django==5.1.4
 django-allauth==65.3.1
 django-crispy-forms==2.3
 django-summernote==0.8.20.0
-edge-tts==7.0.0
+edge-tts==7.2.8
 frozenlist==1.5.0
 gunicorn==23.0.0
 h11==0.14.0

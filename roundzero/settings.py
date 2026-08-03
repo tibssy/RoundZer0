@@ -26,7 +26,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', False)
 
-ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com', '.vercel.app']
 
 # Application definition
 INSTALLED_APPS = [
@@ -110,7 +110,8 @@ DATABASES = {
 
 CSRF_TRUSTED_ORIGINS = [
     'https://*.codeinstitute-ide.net/',
-    'https://*.herokuapp.com'
+    'https://*.herokuapp.com',
+    'https://*.vercel.app'
 ]
 
 

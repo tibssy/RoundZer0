@@ -35,7 +35,7 @@ multidict==6.1.0
 openai==1.58.1
 packaging==24.2
 propcache==0.2.1
-psycopg2==2.9.10
+psycopg2-binary==2.9.10
 pyasn1==0.6.1
 pyasn1_modules==0.4.1
 pycparser==2.22

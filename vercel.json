@@ -2,7 +2,7 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "functions": {
     "roundzero/asgi.py": {
-      "maxDuration": 800
+      "maxDuration": 300
     }
   }
 }
